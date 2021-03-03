@@ -1,0 +1,11 @@
+{
+  "profile_strings": ["Invoices", "Edit Profile"],
+  "services": [
+    "MOT",
+    "Interim Service",
+    "Major Service",
+    "Wheels Powder Coating",
+    "Tyres Supplied & Fitted",
+    "Fault Diagnostics"
+  ]
+}

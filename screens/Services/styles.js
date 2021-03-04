@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-
+import { Dimensions, StyleSheet } from "react-native";
+import theme from "../../appStyles";
 export default StyleSheet.create({
   container: {
     flex: 1
@@ -19,17 +19,19 @@ export default StyleSheet.create({
   scrollArea_contentContainerStyle: {
     alignSelf: "center"
   },
-  materialCardWithoutImage: {
-    height: 95,
+  infoCard: {
+    height: 60,
+    width: Dimensions.get("window").width / 1.5,
     alignSelf: "center",
-    paddingLeft: 30
+    paddingLeft: 30,
+    marginBottom: 10
   },
   text: {
     top: 0,
     left: 0,
     position: "absolute",
     // fontFamily(.*)",
-    color: "#121212",
+    color: theme?.TEXT_LIGHT,
     fontSize: 22,
     width: 86,
     height: 25
@@ -39,7 +41,7 @@ export default StyleSheet.create({
     left: 85,
     position: "absolute",
     // fontFamily(.*)",
-    color: "#121212"
+    color: theme?.TEXT_LIGHT
   },
   textStack: {
     width: 86,

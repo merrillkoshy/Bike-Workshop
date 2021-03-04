@@ -25,7 +25,22 @@ export default function AccountsScreen(props) {
           )
         }}
       />
-      <Stack.Screen name="Create Account" component={CreateAccount} />
+      <Stack.Screen
+        name="Create Account"
+        component={CreateAccount}
+        options={{
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0
+          },
+          headerRight: () => (
+            <MenuButton
+              style={styles.materialButtonTransparentHamburger}
+              {...props}
+            ></MenuButton>
+          )
+        }}
+      />
     </Stack.Navigator>
   );
 }

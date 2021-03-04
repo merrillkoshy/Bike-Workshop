@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
-
+import theme from "../appStyles";
 function MaterialUnderlineTextbox(props) {
   return (
     <View style={[styles.container, props.style]}>
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   inputStyle: {
-    color: "#000",
+    color: theme?.TEXT_INPUT,
     paddingRight: 5,
     fontSize: 16,
     alignSelf: "stretch",

@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
-
+import theme from "../../appStyles";
 export default StyleSheet.create({
   container: {
     flex: 1
@@ -14,14 +14,14 @@ export default StyleSheet.create({
   },
   text: {
     // fontFamily(.*)",
-    color: "#121212",
+    color: theme?.TEXT_LIGHT,
     fontSize: 20,
     marginTop: -370,
     marginLeft: 32
   },
   location: {
     // fontFamily(.*)",
-    color: "#121212",
+    color: theme?.TEXT_LIGHT,
     fontSize: 16,
     marginTop: 10
   },
@@ -42,7 +42,7 @@ export default StyleSheet.create({
   },
   loremIpsum: {
     // fontFamily(.*)",
-    color: "#121212",
+    color: theme?.TEXT_LIGHT,
     marginTop: 20
   },
   materialUnderlineTextbox1: {

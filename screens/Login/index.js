@@ -32,29 +32,14 @@ function Login(props) {
 
   useEffect(() => {
     console.log(email, pw);
-    submit === true
-      ? firebase
-          .auth()
-          .signInWithEmailAndPassword(email, pw)
-          .then(userCredential => {
-            storeData(userCredential.user);
-          })
-          .then(() => {
-            props.navigation.navigate("Home");
-          })
-          .catch(error => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorCode, errorMessage);
-          })
-      : console.log("Unable to find user");
+
     return () => {
       setSecText(true);
       setEmail(null);
       setPw(null);
       setEyecon("eye-outline");
     };
-  }, [submit]);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -96,7 +81,20 @@ function Login(props) {
 
       <SiteButton
         onPress={() => {
-          setSubmit(true);
+          firebase
+            .auth()
+            .signInWithEmailAndPassword(email, pw)
+            .then(userCredential => {
+              storeData(userCredential.user);
+            })
+            .then(() => {
+              props.navigation.navigate("Home");
+            })
+            .catch(error => {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.log(errorCode, errorMessage);
+            });
         }}
         buttonText={"LOGIN"}
         style={styles.materialButtonPink}

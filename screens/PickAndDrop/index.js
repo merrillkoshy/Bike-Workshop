@@ -8,7 +8,7 @@ import * as Location from "expo-location";
 import getDistance from "geolib/es/getDistance";
 
 import MaterialUnderlineTextbox from "../../components/MaterialUnderlineTextbox";
-import MaterialButtonPink1 from "../../components/MaterialButtonPink1";
+import theme from "../../appStyles";
 import styles from "./styles";
 import headerOptions from "../../components/Header";
 import SiteButton from "../../components/SiteButton";
@@ -86,7 +86,7 @@ function PickAndDrop(props) {
                 : 25.123906472392758,
               longitude: location ? location.coords.longitude : 55.2128985306865
             }}
-            pinColor="#FF2800"
+            pinColor={theme?.PRIMARY_COLOR}
           />
           {/* <MapViewDirections
             origin={{

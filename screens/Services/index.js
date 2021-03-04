@@ -21,7 +21,7 @@ function Services(props) {
             {data.services.map((str, i) => {
               return (
                 <ServiceList
-                  style={styles.materialCardWithoutImage}
+                  style={styles.infoCard}
                   key={str + i}
                   string={str}
                 />

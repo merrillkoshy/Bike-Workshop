@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, TouchableOpacity, View, TextInput } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-
+import theme from "../appStyles";
 function TextButton(props) {
   return (
     <TouchableOpacity style={[styles.container, props.style]}>

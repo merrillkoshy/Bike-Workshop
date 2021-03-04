@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import theme from "../../appStyles";
 
 export default StyleSheet.create({
   container: {
@@ -6,7 +7,7 @@ export default StyleSheet.create({
   },
   yusufsDashboard: {
     // fontFamily(.*)",
-    color: "#121212",
+    color: theme?.TEXT_LIGHT,
     fontSize: 22,
     marginTop: 5
   },
@@ -35,13 +36,13 @@ export default StyleSheet.create({
   },
   history: {
     // fontFamily(.*)",
-    color: "#121212",
+    color: theme?.TEXT_LIGHT,
     fontSize: 24,
     textDecorationLine: "underline",
     marginTop: 27,
     marginLeft: 16
   },
-  materialCardWithoutImage: {
+  infoCard: {
     height: 97,
     alignSelf: "stretch",
     marginTop: 25,

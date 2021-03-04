@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import theme from "../../appStyles";
 
 export default StyleSheet.create({
   container: {
@@ -36,13 +37,13 @@ export default StyleSheet.create({
   },
   createNow: {
     // fontFamily(.*)",
-    color: "rgba(255,40,0,1)",
+    color: theme?.PRIMARY_COLOR,
     marginTop: 3,
     alignSelf: "center"
   },
 
   inputStyle: {
-    color: "#000",
+    color: theme?.TEXT_INPUT,
     marginLeft: 16,
     paddingRight: 5,
     fontSize: 16,
@@ -55,7 +56,7 @@ export default StyleSheet.create({
     paddingBottom: 8
   },
   iconStyle: {
-    color: "rgba(255,40,0,1)",
+    color: theme?.PRIMARY_COLOR,
     fontSize: 24,
     paddingLeft: 8
   },

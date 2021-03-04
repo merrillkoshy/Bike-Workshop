@@ -11,6 +11,7 @@ import * as firebase from "firebase";
 const firebaseConfig = {
   apiKey: "AIzaSyBTo3-AIKbqDol174i8IAOEJInq6-M6iG8",
   authDomain: "bike-workshop-e2f5d.firebaseapp.com",
+  databaseURL: "https://bike-workshop-e2f5d-default-rtdb.firebaseio.com",
   projectId: "bike-workshop-e2f5d",
   storageBucket: "bike-workshop-e2f5d.appspot.com",
   messagingSenderId: "141196932528",

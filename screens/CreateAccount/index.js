@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { TextInput, View, Image, Text, TouchableOpacity } from "react-native";
+import {
+  TextInput,
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  Button,
+  Platform
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import SiteButton from "../../components/SiteButton";
 import styles from "./styles";
 import firebase from "../../components/firebase";
 import "firebase/auth";
+import * as ImagePicker from "expo-image-picker";
 
 function CreateAccount(props) {
-  const [submit, setSubmit] = useState(false);
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
   const [pw, setPw] = useState(null);
   const [retypePw, setRetypePw] = useState(null);
   const [eyeCon, setEyecon] = useState("eye-outline");
   const [secText, setSecText] = useState(true);
+  const [image, setImage] = useState(null);
 
   const storeData = async value => {
     try {
@@ -26,25 +35,41 @@ function CreateAccount(props) {
   };
 
   useEffect(() => {
-    submit
-      ? firebase
-          .auth()
-          .createUserWithEmailAndPassword(email, pw)
-          .then(userCredential => {
-            var user = userCredential.user;
-            storeData(user);
-          })
-          .catch(error => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorCode, errorMessage);
-          })
-      : console.log("Not yet submitted");
+    (async () => {
+      if (Platform.OS !== "web") {
+        const {
+          status
+        } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+          alert("Sorry, we need camera roll permissions to make this work!");
+        }
+      }
+    })();
     return () => {
-      setSubmit(false);
       setName(null);
+      setEmail(null);
+      setPw(null);
+      setRetypePw(null);
+      setEyecon("eye-outline");
+      setSecText(true);
+      setImage(null);
     };
-  }, [submit === true]);
+  }, []);
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [3, 3],
+      quality: 1
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Image
@@ -52,7 +77,21 @@ function CreateAccount(props) {
         resizeMode="contain"
         style={styles.image1}
       />
-
+      <View style={{ alignItems: "center", justifyContent: "center" }}>
+        {image ? (
+          <Image
+            source={{ uri: image }}
+            style={{ width: 100, height: 100, borderRadius: 50 }}
+          />
+        ) : (
+          <Icon name="account-circle" style={styles.icon}></Icon>
+        )}
+        <Icon
+          name="lead-pencil"
+          style={styles.pencilIcon}
+          onPress={pickImage}
+        ></Icon>
+      </View>
       <View style={styles.inputBlock}>
         <Icon name="account" style={styles.iconStyle}></Icon>
         <TextInput
@@ -106,7 +145,38 @@ function CreateAccount(props) {
           let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
           reg.test(email) === true
             ? retypePw === pw
-              ? setSubmit(true)
+              ? () => {
+                  firebase
+                    .auth()
+                    .createUserWithEmailAndPassword(email, pw)
+                    .then(userCredential => {
+                      var user = userCredential.user;
+
+                      storeData(user);
+                    })
+                    .then(() => {
+                      var user = firebase.auth().currentUser;
+                      user
+                        .updateProfile({
+                          displayName: name,
+                          photoURL: image
+                            ? image
+                            : "https://cdn.icon-icons.com/icons2/2119/PNG/512/google_icon_131222.png"
+                        })
+                        .then(function() {
+                          console.log("Update success");
+                          props.navigation.navigate("Home");
+                        })
+                        .catch(function(error) {
+                          console.log("An error " + error + " happened");
+                        });
+                    })
+                    .catch(error => {
+                      var errorCode = error.code;
+                      var errorMessage = error.message;
+                      console.log(errorCode, errorMessage);
+                    });
+                }
               : console.log("Passwords does not match")
             : console.log("Please check email format");
         }}

@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import theme from "../../appStyles";
 
 export default StyleSheet.create({
   container: {
@@ -23,13 +24,13 @@ export default StyleSheet.create({
   },
   termsConditions: {
     // fontFamily(.*)",
-    color: "rgba(255,40,0,1)",
+    color: theme?.PRIMARY_COLOR,
     marginTop: 54,
     alignSelf: "center"
   },
 
   inputStyle: {
-    color: "#000",
+    color: theme?.TEXT_INPUT,
     marginLeft: 16,
     paddingRight: 5,
     fontSize: 16,
@@ -42,7 +43,7 @@ export default StyleSheet.create({
     paddingBottom: 8
   },
   iconStyle: {
-    color: "rgba(255,40,0,1)",
+    color: theme?.PRIMARY_COLOR,
     fontSize: 24,
     paddingLeft: 8
   },
@@ -54,5 +55,21 @@ export default StyleSheet.create({
     backgroundColor: "transparent",
     flexDirection: "row",
     alignItems: "center"
+  },
+  icon: {
+    color: theme?.PRIMARY_COLOR,
+    fontSize: 126,
+    alignSelf: "center"
+  },
+  pencilIcon: {
+    color: theme?.PRIMARY_COLOR,
+    fontSize: 30,
+    marginLeft: "20%",
+    marginTop: "-10%",
+    alignSelf: "center",
+    backgroundColor: theme?.THEME_LIGHT,
+    borderColor: theme?.PRIMARY_COLOR,
+    borderWidth: 2,
+    borderRadius: 50
   }
 });

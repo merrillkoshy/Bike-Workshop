@@ -1,48 +1,52 @@
-import { StyleSheet } from "react-native";
-
+import { Dimensions, StyleSheet } from "react-native";
+import theme from "../../appStyles";
 export default StyleSheet.create({
   container: {
     flex: 1
   },
   icon: {
-    color: "rgba(255,40,0,1)",
+    color: theme?.PRIMARY_COLOR,
     fontSize: 126,
     marginTop: "10%",
     alignSelf: "center"
   },
-  yusufYakub: {
+  photo: {
+    marginTop: "10%",
+    marginBottom: "7%",
+    width: 100,
+    height: 100,
+    alignSelf: "center"
+  },
+  profileName: {
     // fontFamily(.*)",
-    color: "#121212",
+    color: theme?.TEXT_LIGHT,
     fontSize: 28,
     marginTop: 7,
     alignSelf: "center"
   },
-  footer1: {
-    width: 375,
-    height: 56,
-    marginTop: 392
-  },
+
   scrollArea: {
-    height: 362,
+    height: Dimensions.get("window").height,
     marginTop: 0,
     alignSelf: "center"
   },
   scrollArea_contentContainerStyle: {
-    height: 362,
-    width: 342
+    marginTop: 30,
+    width: Dimensions.get("window").width / 1.1
   },
-  materialCardWithoutImage: {
-    height: 65,
-    width: 342,
-    marginTop: 14,
-    alignSelf: "center"
+  infoCard: {
+    height: 60,
+    width: Dimensions.get("window").width / 1.5,
+    alignSelf: "center",
+    paddingLeft: 30,
+    marginBottom: 10
   },
-  materialCardWithoutImage1: {
+  infoCard1: {
     height: 65,
     width: 342
   },
   backIcon: {
-    color: "rgba(255,40,0,1)",
+    color: theme?.PRIMARY_COLOR,
     fontSize: 40,
     marginLeft: 10
   }

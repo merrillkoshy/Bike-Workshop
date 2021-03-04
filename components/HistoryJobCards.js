@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import TextButton from "./TextButton";
-
+import theme from "../appStyles";
 function HistoryJobCards(props) {
   return (
     <View style={[styles.container, props.style]}>
@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     borderColor: "#CCC",
     flexWrap: "nowrap",
-    backgroundColor: "#FFF",
-    shadowColor: "#000",
+    backgroundColor: theme?.THEME_LIGHT,
+    shadowColor: theme?.TEXT_INPUT,
     shadowOffset: {
       width: -2,
       height: 2
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   tireChange: {
     fontSize: 24,
-    color: "#000",
+    color: theme?.TEXT_INPUT,
     paddingBottom: 12
   },
   materialButtonWithVioletText: {

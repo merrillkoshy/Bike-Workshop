@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { DrawerActions } from "@react-navigation/core";
-
+import theme from "../appStyles";
 function MenuButton(props) {
   return (
     <TouchableOpacity
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     borderRadius: 2
   },
   caption: {
-    color: "rgba(255,40,0,1)",
+    color: theme?.PRIMARY_COLOR,
     fontSize: 24
   }
 });

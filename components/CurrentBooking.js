@@ -1,7 +1,21 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import theme from "../appStyles";
+import firebase from "./firebase";
+import "firebase/database";
 function CurrentBooking(props) {
+  const user = props.user;
+  useEffect(() => {
+    if (user != null) {
+      firebase.database().ref("users/" + user.uid);
+      // .set({
+      //   highscore: score
+      // });
+    }
+    return () => {
+      //
+    };
+  }, []);
   return (
     <View style={[styles.container, props.style]}>
       <Image
@@ -32,8 +46,8 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     borderColor: "#CCC",
     flexWrap: "nowrap",
-    backgroundColor: "#FFF",
-    shadowColor: "#000",
+    backgroundColor: theme?.THEME_LIGHT,
+    shadowColor: theme?.TEXT_INPUT,
     shadowOffset: {
       width: -2,
       height: 2
@@ -63,12 +77,12 @@ const styles = StyleSheet.create({
   },
   titleStyle: {
     fontSize: 22,
-    color: theme.TEXT_DARK,
+    color: theme?.TEXT_DARK,
     paddingBottom: 12
   },
   subtitleStyle: {
     fontSize: 14,
-    color: theme.TEXT_DARK,
+    color: theme?.TEXT_DARK,
     lineHeight: 16,
     opacity: 0.5
   },
@@ -82,7 +96,7 @@ const styles = StyleSheet.create({
   },
   actionText1: {
     fontSize: 14,
-    color: theme.TEXT_DARK,
+    color: theme?.TEXT_DARK,
     opacity: 0.9
   },
   actionButton2: {
@@ -91,7 +105,7 @@ const styles = StyleSheet.create({
   },
   actionText2: {
     fontSize: 14,
-    color: theme.TEXT_DARK,
+    color: theme?.TEXT_DARK,
     opacity: 0.9
   }
 });

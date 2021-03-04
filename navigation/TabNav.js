@@ -4,15 +4,15 @@ import HomeScreen from "../screens/Home";
 import Services from "../screens/Services";
 import PickAndDrop from "../screens/PickAndDrop";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
-
+import theme from "../appStyles";
 const Tab = createBottomTabNavigator();
 
 export default function Home(props) {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        activeTintColor: "#ff2800",
-        inactiveTintColor: "#616161"
+        activeTintColor: theme?.PRIMARY_COLOR,
+        inactiveTintColor: theme?.INACTIVE
       }}
     >
       <Tab.Screen

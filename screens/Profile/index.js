@@ -1,19 +1,28 @@
 import React from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import data from "../../components/FireJSON.json";
 import { createStackNavigator } from "@react-navigation/stack";
-import MaterialCardWithoutImage from "../../components/MaterialCardWithoutImage";
+import InfoCard from "../../components/InfoCard";
 import styles from "./styles";
+import firebase from "../../components/firebase";
+import "firebase/auth";
 
 const Stack = createStackNavigator();
 
 function ProfilePage(props) {
+  var user = firebase.auth().currentUser;
+
   function stackComponent() {
     return (
       <View style={styles.container}>
-        <Icon name="account-circle" style={styles.icon}></Icon>
-        <Text style={styles.yusufYakub}>Yusuf Yakub</Text>
+        {user.photoURL ? (
+          <Image style={styles.photo} source={{ uri: user.photoURL }} />
+        ) : (
+          <Icon name="account-circle" style={styles.icon}></Icon>
+        )}
+
+        <Text style={styles.profileName}>{user.displayName}</Text>
 
         <View style={styles.scrollArea}>
           <ScrollView
@@ -21,11 +30,7 @@ function ProfilePage(props) {
           >
             {data.profile_strings.map((str, i) => {
               return (
-                <MaterialCardWithoutImage
-                  key={str + i}
-                  style={styles.materialCardWithoutImage}
-                  string={str}
-                />
+                <InfoCard key={str + i} style={styles.infoCard} string={str} />
               );
             })}
           </ScrollView>

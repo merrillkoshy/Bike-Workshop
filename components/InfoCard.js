@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
-
-function MaterialCardWithoutImage(props) {
+import theme from "../appStyles";
+function InfoCard(props) {
   return (
     <View style={[styles.container, props.style]}>
       <MaterialCommunityIconsIcon
@@ -21,11 +21,11 @@ function MaterialCardWithoutImage(props) {
 const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
-    borderRadius: 2,
+    borderRadius: 5,
     borderColor: "#CCC",
     flexWrap: "nowrap",
-    backgroundColor: "#FFF",
-    shadowColor: "#000",
+    backgroundColor: theme?.THEME_LIGHT,
+    shadowColor: theme?.TEXT_INPUT,
     shadowOffset: {
       width: -2,
       height: 2
@@ -39,29 +39,27 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   icon: {
-    color: "rgba(255,40,0,1)",
+    color: theme?.PRIMARY_COLOR,
     fontSize: 40,
     alignSelf: "center",
-    left: 0,
-    width: 40,
-    top: 9,
-    height: 44,
-    marginLeft: 24
+    position: "absolute",
+    left: 10
   },
   someActivity: {
     position: "absolute",
+    alignSelf: "center",
     // fontFamily: "roboto-regular",
-    color: "#121212",
+    color: theme?.TEXT_LIGHT,
     fontSize: 21,
     left: 72
   },
   icon2: {
-    left: 283,
     position: "absolute",
-    color: "rgba(255,40,0,1)",
+    color: theme?.PRIMARY_COLOR,
+    alignSelf: "center",
     fontSize: 40,
-    right: 36
+    right: 10
   }
 });
 
-export default MaterialCardWithoutImage;
+export default InfoCard;

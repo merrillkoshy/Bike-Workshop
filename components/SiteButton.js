@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
-
+import theme from "../appStyles";
 function SiteButton(props) {
   return (
     <TouchableOpacity
@@ -14,12 +14,12 @@ function SiteButton(props) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "rgba(255,40,0,1)",
+    backgroundColor: theme?.PRIMARY_COLOR,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
     borderRadius: 2,
-    shadowColor: "#000",
+    shadowColor: theme?.TEXT_INPUT,
     shadowOffset: {
       width: 0,
       height: 1
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     paddingRight: 16
   },
   create: {
-    color: "#fff",
+    color: theme?.THEME_LIGHT,
     fontSize: 14
   }
 });

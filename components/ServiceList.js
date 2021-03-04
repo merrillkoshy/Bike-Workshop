@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-
+import theme from "../appStyles";
 function ServiceList(props) {
   return (
     <View style={[styles.container, props.style]}>
@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderColor: "#CCC",
     flexWrap: "nowrap",
-    backgroundColor: "#FFF",
-    shadowColor: "#000",
+    backgroundColor: theme?.THEME_LIGHT,
+    shadowColor: theme?.TEXT_INPUT,
     shadowOffset: {
       width: -2,
       height: 2
@@ -29,17 +29,19 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "space-evenly"
   },
   serviceName: {
-    fontSize: 24,
-    color: "#000",
-    height: 31
+    fontSize: 18,
+    color: theme?.TEXT_INPUT,
+    position: "absolute",
+    left: 12
   },
   icon: {
-    color: "rgba(255,40,0,1)",
+    color: theme?.PRIMARY_COLOR,
     fontSize: 40,
-    margin: 46
+    position: "absolute",
+    right: 0
   }
 });
 

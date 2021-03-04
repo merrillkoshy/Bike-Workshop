@@ -96,7 +96,7 @@ function PickAndDrop(props) {
               longitude: location ? location.coords.longitude : 55.2128985306865
             }}
             destination={region}
-            apikey={"AIzaSyBF6rBd66VLDo7VLl2tAHONP1gn5zs9QaE"}
+            apikey={process.env.DIRECTIONS_API}
           /> */}
         </MapView>
         <View style={styles.actionContainer}>

@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Image, View, ScrollView, Text, TextInput } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
-import ServiceList from "../../components/ServiceList";
-import Header from "../../components/Header";
-import MenuButton from "../../components/MenuButton";
+import Toast from "react-native-toast-message";
 import styles from "./styles";
 import firebase from "../../components/firebase";
 import "firebase/auth";
@@ -15,12 +12,15 @@ import moment from "moment";
 
 function Booking(props) {
   const [image, setImage] = useState(null);
+  //user
   const [name, setName] = useState(null);
-  const [serviceName, setServiceName] = useState(null);
-  const [serviceCharge, setServiceCharge] = useState(0);
   const [phoneNumber, setPhoneNumber] = useState(0);
   const [address, setAddress] = useState(null);
+  //workshop
+  const [serviceName, setServiceName] = useState(null);
+  const [serviceCharge, setServiceCharge] = useState(0);
   const [bookingRef, setBookingRef] = useState(null);
+  const [vehicleName, setVehicleName] = useState(null);
   //Get date with moment.js
   const [currentDate, setCurrentDate] = useState("");
 
@@ -101,6 +101,15 @@ function Booking(props) {
               />
             </View>
             <View style={styles.inputBlock}>
+              <Icon name="motorbike" style={styles.iconStyle}></Icon>
+
+              <Text> Vehicle Name : </Text>
+              <TextInput
+                onChangeText={(text) => setVehicleName(text)}
+                style={styles.inputStyle}
+              />
+            </View>
+            <View style={styles.inputBlock}>
               <Icon name="cog-outline" style={styles.iconStyle}></Icon>
 
               <Text> Service Name : </Text>
@@ -122,12 +131,16 @@ function Booking(props) {
                 bookingRef
                   .set({
                     refId: currentDate,
+                    vehicleName: vehicleName,
                     serviceName: serviceName,
                     serviceCharge: serviceCharge,
                     image: image,
                   })
                   .then(function() {
-                    console.log("Update success");
+                    Toast.show({
+                      text1: "Success",
+                      text2: "Booking made! 👋",
+                    });
                   })
                   .catch(function(error) {
                     console.log("An error " + error + " happened");

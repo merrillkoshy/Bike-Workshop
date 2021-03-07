@@ -4,10 +4,11 @@ import { StatusBar } from "expo-status-bar";
 import {
   NavigationContainer,
   DefaultTheme,
-  DarkTheme
+  DarkTheme,
 } from "@react-navigation/native";
 import theme from "./appStyles";
 import RootDrawer from "./navigation/DrawerNav";
+import Toast from "react-native-toast-message";
 
 // const appTheme = {
 //   colors: {
@@ -26,6 +27,7 @@ export default function App(props) {
     <NavigationContainer>
       <StatusBar animated={true} backgroundColor={theme?.PRIMARY_COLOR} />
       <RootDrawer {...props} />
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </NavigationContainer>
   );
 }

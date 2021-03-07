@@ -7,7 +7,8 @@ import InfoCard from "../../components/InfoCard";
 import styles from "./styles";
 import firebase from "../../components/firebase";
 import "firebase/auth";
-
+import SiteButton from "../../components/SiteButton";
+import Toast from "react-native-toast-message";
 const Stack = createStackNavigator();
 
 function ProfilePage(props) {
@@ -35,6 +36,31 @@ function ProfilePage(props) {
                 <InfoCard key={str + i} style={styles.infoCard} string={str} />
               );
             })}
+            <SiteButton
+              buttonText={"Logout"}
+              style={styles.logout}
+              onPress={() => {
+                firebase
+                  .auth()
+                  .signOut()
+                  .then(() => {
+                    props.navigation.navigate("Home", {
+                      loggedOut: true,
+                    });
+                    Toast.show({
+                      text1: "Succesfully signed out",
+                      text2: "Byee! 👋",
+                    });
+                  })
+                  .catch((error) => {
+                    Toast.show({
+                      text1:
+                        "An error " + error + " - occured while signing out",
+                      text2: "Oops...",
+                    });
+                  });
+              }}
+            />
           </ScrollView>
         </View>
       </View>

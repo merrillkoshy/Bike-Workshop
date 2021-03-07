@@ -6,6 +6,8 @@ import HistoryJobCards from "../../components/HistoryJobCards";
 import { createStackNavigator } from "@react-navigation/stack";
 import styles from "./styles";
 import headerOptions from "../../components/Header";
+import { useFocusEffect } from "@react-navigation/native";
+
 import firebase from "../../components/firebase";
 import "firebase/auth";
 
@@ -13,28 +15,23 @@ const Stack = createStackNavigator();
 
 function HomeScreen(props) {
   const [userData, setUserData] = useState("Guest");
+  const [user, setUser] = useState(null);
+  useFocusEffect(
+    React.useCallback(() => {
+      // console.log(props);
+      (() => {
+        var currentUser = firebase.auth().currentUser;
 
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        setUserData(user.displayName);
-      }
-    });
-    return () => {
-      setUserData("Guest");
-    };
-  }, []);
-
-  // firebase.auth().onAuthStateChanged((user) => {
-  //   if (user != null) {
-  //     console.log(user);
-
-  //     console.log("We are authenticated now!");
-  //   } else {
-  //     setUserData("Guest");
-  //     console.log("We are unauthenticated.");
-  //   }
-  // });
+        if (currentUser) {
+          setUserData(currentUser.displayName);
+          setUser(currentUser);
+        } else {
+          setUserData("Guest");
+          setUser(null);
+        }
+      })();
+    }, [])
+  );
 
   function stackComponent() {
     return (
@@ -47,6 +44,7 @@ function HomeScreen(props) {
             contentContainerStyle={styles.scrollArea_contentContainerStyle}
           >
             <CurrentBooking
+              user={user}
               style={styles.materialCardWithTextOverImage1}
             ></CurrentBooking>
             <Text style={styles.history}>History</Text>

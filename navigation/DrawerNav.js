@@ -11,7 +11,13 @@ import "firebase/auth";
 const Drawer = createDrawerNavigator();
 
 export default function RootDrawer(props) {
-  var user = firebase.auth().currentUser;
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    var currentUser = firebase.auth().currentUser;
+    if (currentUser != null) {
+      setUser(currentUser);
+    }
+  }, []);
   return (
     <Drawer.Navigator
       drawerContent={(props) => <MenuDrawer {...props} />}
@@ -26,12 +32,7 @@ export default function RootDrawer(props) {
       }}
     >
       <Drawer.Screen name="Home" component={Home} props={props} />
-      {user ? (
-        <Drawer.Screen name="Profile" component={ProfilePage} />
-      ) : (
-        <Drawer.Screen name="Profile" component={AccountsScreen} />
-      )}
-
+      <Drawer.Screen name="Profile" component={ProfilePage} />
       <Drawer.Screen name="Login" component={AccountsScreen} props={props} />
     </Drawer.Navigator>
   );

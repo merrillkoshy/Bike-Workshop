@@ -6,7 +6,7 @@ import "firebase/database";
 import "firebase/auth";
 
 function CurrentBooking(props) {
-  var user = firebase.auth().currentUser;
+  var user = props.user;
   const [image, setImage] = useState(null);
   const [serviceName, setServiceName] = useState(null);
   const [status, setStatus] = useState(null);

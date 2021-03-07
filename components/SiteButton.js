@@ -5,6 +5,7 @@ function SiteButton(props) {
   return (
     <TouchableOpacity
       onPress={props.onPress}
+      disabled={props.disabled}
       style={[styles.container, props.style]}
     >
       <Text style={styles.create}>{props.buttonText}</Text>
@@ -22,19 +23,19 @@ const styles = StyleSheet.create({
     shadowColor: theme?.TEXT_INPUT,
     shadowOffset: {
       width: 0,
-      height: 1
+      height: 1,
     },
     shadowOpacity: 0.35,
     shadowRadius: 5,
     elevation: 2,
     minWidth: 88,
     paddingLeft: 16,
-    paddingRight: 16
+    paddingRight: 16,
   },
   create: {
     color: theme?.THEME_LIGHT,
-    fontSize: 14
-  }
+    fontSize: 14,
+  },
 });
 
 export default SiteButton;

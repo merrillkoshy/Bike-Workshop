@@ -1,11 +1,41 @@
 {
-  "profile_strings": ["Invoices", "Edit Profile"],
+  "profile_strings": ["Edit Profile", "Invoices"],
   "services": [
-    "MOT",
-    "Interim Service",
-    "Major Service",
-    "Wheels Powder Coating",
-    "Tyres Supplied & Fitted",
-    "Fault Diagnostics"
+    {
+      "name": "MOT",
+      "description": "Any motorbike over three years old needs to have a valid MOT certificate. This means you’ll need to get it tested every year to ensure that the bike is roadworthy and fit to ride.",
+      "image": "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/MOT.jpg?alt=media&token=8ef2696d-09c7-4296-812b-2ecdda4d8d5f",
+      "serviceCharge": 300
+    },
+    {
+      "name": "Interim Service",
+      "description": "* oil & filter replacement    * check tyre pressures/tread    * check coolant levels    * clean/check/adjust chain    * check lights    * adjust & lubricate cables    * check brake components/fluid levels    * lubricate all moving parts    * nut & bolt/headstock/wheels/bearings, etc check.    * battery voltage check    ",
+      "image": "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/MOT.jpg?alt=media&token=8ef2696d-09c7-4296-812b-2ecdda4d8d5f",
+      "serviceCharge": 1000
+    },
+    {
+      "name": "Major Service",
+      "description": "* valve clearance check (If clearances need adjusting, additional costs may be incurred. We would only carry out the full clearance adjustment with your authorisation)    * throttle bodies/carb balance    * TPS set up    * oil & filter replacement    * air filter replacement    * fuel filter replacement    * check coolant levels    * replace all fluids    * clean/check/adjust/re-grease chain    * check lights    * check tyre pressures/tread    * adjust & lubricate cables    * check brake components/levels    * check condition of brake pads (If upon inspection the pads needs replacing, we will advise prior to purchase & replacement. This will incur an additional parts charge if these need to be purchased.)    * strip & clean brake calipers    * replace brake fluid    * replace brake fluid lubricate all moving parts    * nut & bolt/headstock/wheels/ bearings, etc check    * headstock bearing strip, clean & re-grease    * replace plugs    * battery voltage check    * shock linkage re-grease    ",
+      "image": "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/MOT.jpg?alt=media&token=8ef2696d-09c7-4296-812b-2ecdda4d8d5f",
+      "serviceCharge": 2500
+    },
+    {
+      "name": "Chain and Sprocket Replacement",
+      "description": "Your chain and sprockets are constantly exposed to extreme    conditions. Due to wear and tear, all chains and sprockets need to    be replaced eventually. It’s always a good idea to replace your    chains and sprockets at the same time. You’ll notice a difference    in the way your vehicle runs, shifts, and sounds",
+      "image": "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/sample.png?alt=media&token=8a880e60-72f9-4e64-a229-b25b3f325c54",
+      "serviceCharge": 200
+    },
+    {
+      "name": "Service 5",
+      "description": "Description",
+      "image": "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/sample.png?alt=media&token=8a880e60-72f9-4e64-a229-b25b3f325c54",
+      "serviceCharge": 500
+    },
+    {
+      "name": "Service 6",
+      "description": "Description",
+      "image": "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/MOT.jpg?alt=media&token=8ef2696d-09c7-4296-812b-2ecdda4d8d5f",
+      "serviceCharge": 600
+    }
   ]
 }

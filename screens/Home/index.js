@@ -13,21 +13,29 @@ const Stack = createStackNavigator();
 
 function HomeScreen(props) {
   const [userData, setUserData] = useState("Guest");
-  const [fireUser, setFireUser] = useState(null);
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user != null) {
-        setFireUser(user);
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
         setUserData(user.displayName);
-
-        console.log("We are authenticated now!");
-      } else {
-        setUserData("Guest");
-        console.log("We are unauthenticated.");
       }
     });
-  }, []);
+    return () => {
+      setUserData("Guest");
+    };
+  });
+
+  // firebase.auth().onAuthStateChanged((user) => {
+  //   if (user != null) {
+  //     console.log(user);
+
+  //     console.log("We are authenticated now!");
+  //   } else {
+  //     setUserData("Guest");
+  //     console.log("We are unauthenticated.");
+  //   }
+  // });
+
   function stackComponent() {
     return (
       <View style={styles.container}>
@@ -39,7 +47,6 @@ function HomeScreen(props) {
             contentContainerStyle={styles.scrollArea_contentContainerStyle}
           >
             <CurrentBooking
-              user={fireUser}
               style={styles.materialCardWithTextOverImage1}
             ></CurrentBooking>
             <Text style={styles.history}>History</Text>

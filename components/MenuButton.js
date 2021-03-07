@@ -22,12 +22,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    borderRadius: 2
+    borderRadius: 2,
   },
   caption: {
     color: theme?.PRIMARY_COLOR,
-    fontSize: 24
-  }
+    fontSize: 24,
+  },
 });
 
 export default MenuButton;

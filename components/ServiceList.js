@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     shadowColor: theme?.TEXT_INPUT,
     shadowOffset: {
       width: -2,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.1,
     shadowRadius: 1.5,
@@ -29,20 +29,21 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
   },
   serviceName: {
     fontSize: 18,
+    width: "80%",
     color: theme?.TEXT_INPUT,
     position: "absolute",
-    left: 12
+    left: 12,
   },
   icon: {
     color: theme?.PRIMARY_COLOR,
     fontSize: 40,
     position: "absolute",
-    right: 0
-  }
+    right: 0,
+  },
 });
 
 export default ServiceList;

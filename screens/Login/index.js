@@ -5,7 +5,7 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
-  Button
+  Button,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import firebase from "../../components/firebase";
@@ -21,7 +21,7 @@ function Login(props) {
   const [eyeCon, setEyecon] = useState("eye-outline");
   const [secText, setSecText] = useState(true);
 
-  const storeData = async value => {
+  const storeData = async (value) => {
     try {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem("@loggedUser", jsonValue);
@@ -44,7 +44,7 @@ function Login(props) {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../../assets/images/gmRepair-lines-05.png")}
+        source={require("../../assets/images/gulfmotorcycles.png")}
         resizeMode="contain"
         style={styles.image1}
       ></Image>
@@ -52,7 +52,7 @@ function Login(props) {
       <View style={styles.inputBlock}>
         <Icon name="account" style={styles.iconStyle}></Icon>
         <TextInput
-          onChangeText={text => setEmail(text)}
+          onChangeText={(text) => setEmail(text)}
           placeholder="email@example.com"
           textContentType={"emailAddress"}
           style={styles.inputStyle}
@@ -63,7 +63,7 @@ function Login(props) {
         <TextInput
           secureTextEntry={secText}
           textContentType={"newPassword"}
-          onChangeText={text => setPw(text)}
+          onChangeText={(text) => setPw(text)}
           placeholder="Password"
           style={styles.inputStyle}
         ></TextInput>
@@ -84,13 +84,13 @@ function Login(props) {
           firebase
             .auth()
             .signInWithEmailAndPassword(email, pw)
-            .then(userCredential => {
+            .then((userCredential) => {
               storeData(userCredential.user);
             })
             .then(() => {
               props.navigation.navigate("Home");
             })
-            .catch(error => {
+            .catch((error) => {
               var errorCode = error.code;
               var errorMessage = error.message;
               console.log(errorCode, errorMessage);

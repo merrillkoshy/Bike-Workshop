@@ -15,9 +15,13 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.gulfmotorcycles.gulfmotorcycles",
+      "buildNumber": "1.0.0"
     },
     "android": {
+      "package": "com.gulfmotorcycles.gulfmotorcycles",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

@@ -5,6 +5,7 @@ import Services from "../screens/Services";
 import PickAndDrop from "../screens/PickAndDrop";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import theme from "../appStyles";
+import ServicesScreen from "./ServicesStack";
 const Tab = createBottomTabNavigator();
 
 export default function Home(props) {
@@ -12,7 +13,7 @@ export default function Home(props) {
     <Tab.Navigator
       tabBarOptions={{
         activeTintColor: theme?.PRIMARY_COLOR,
-        inactiveTintColor: theme?.INACTIVE
+        inactiveTintColor: theme?.INACTIVE,
       }}
     >
       <Tab.Screen
@@ -24,7 +25,7 @@ export default function Home(props) {
               size={size}
               color={color}
             ></MaterialCommunityIconsIcon>
-          )
+          ),
         }}
         name="Home"
         props={props}
@@ -39,10 +40,10 @@ export default function Home(props) {
               size={size}
               color={color}
             ></MaterialCommunityIconsIcon>
-          )
+          ),
         }}
         name="Services"
-        component={Services}
+        component={ServicesScreen}
       />
       <Tab.Screen
         options={{
@@ -53,7 +54,7 @@ export default function Home(props) {
               size={size}
               color={color}
             ></MaterialCommunityIconsIcon>
-          )
+          ),
         }}
         name="Pick and Drop"
         component={PickAndDrop}

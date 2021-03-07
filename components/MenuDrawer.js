@@ -3,11 +3,11 @@ import Toast from "react-native-simple-toast";
 import {
   DrawerContentScrollView,
   DrawerItem,
-  DrawerItemList
+  DrawerItemList,
 } from "@react-navigation/drawer";
 import firebase from "./firebase";
 import "firebase/auth";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { DrawerActions } from "@react-navigation/core";
 
 function MenuDrawer(props) {
   return (
@@ -20,26 +20,28 @@ function MenuDrawer(props) {
             .auth()
             .signOut()
             .then(() => {
-              Toast.showWithGravity(
-                "Succesfully signed out",
-                Toast.LONG,
-                Toast.CENTER
-              );
+              // needs toast workaround for ios
+              // Toast.showWithGravity(
+              //   "Succesfully signed out",
+              //   Toast.LONG,
+              //   Toast.CENTER
+              // );
             })
             .then(async () => {
               try {
-                await AsyncStorage.removeItem("@loggedUser");
+                props.navigation.dispatch(DrawerActions.closeDrawer());
                 return true;
               } catch (error) {
                 return false;
               }
             })
-            .catch(error => {
-              Toast.showWithGravity(
-                "An error " + error + " - occured while signing out",
-                Toast.LONG,
-                Toast.CENTER
-              );
+            .catch((error) => {
+              // needs toast workaround for ios
+              //   Toast.showWithGravity(
+              //     "An error " + error + " - occured while signing out",
+              //     Toast.LONG,
+              //     Toast.CENTER
+              //   );
             });
         }}
       />

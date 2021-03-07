@@ -6,12 +6,6 @@ import "firebase/database";
 function CurrentBooking(props) {
   const user = props.user;
   useEffect(() => {
-    if (user != null) {
-      firebase.database().ref("users/" + user.uid);
-      // .set({
-      //   highscore: score
-      // });
-    }
     return () => {
       //
     };
@@ -19,7 +13,10 @@ function CurrentBooking(props) {
   return (
     <View style={[styles.container, props.style]}>
       <Image
-        source={require("../assets/images/sample.png")}
+        source={{
+          uri:
+            "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/sample.png?alt=media&token=8a880e60-72f9-4e64-a229-b25b3f325c54",
+        }}
         style={styles.cardItemImagePlace}
       ></Image>
       <View style={styles.cardBody}>
@@ -50,64 +47,64 @@ const styles = StyleSheet.create({
     shadowColor: theme?.TEXT_INPUT,
     shadowOffset: {
       width: -2,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.1,
     shadowRadius: 1.5,
     elevation: 3,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   cardItemImagePlace: {
     backgroundColor: "#ccc",
     flex: 1,
-    minHeight: 359
+    minHeight: 359,
   },
   cardBody: {
     position: "absolute",
     bottom: 0,
     backgroundColor: "rgba(0,0,0,0.2)",
     left: 0,
-    right: 0
+    right: 0,
   },
   bodyContent: {
     padding: 16,
     paddingTop: 24,
     justifyContent: "center",
-    backgroundColor: "rgba(4,4,4,0.6)"
+    backgroundColor: "rgba(4,4,4,0.6)",
   },
   titleStyle: {
     fontSize: 22,
     color: theme?.TEXT_DARK,
-    paddingBottom: 12
+    paddingBottom: 12,
   },
   subtitleStyle: {
     fontSize: 14,
     color: theme?.TEXT_DARK,
     lineHeight: 16,
-    opacity: 0.5
+    opacity: 0.5,
   },
   actionBody: {
     padding: 8,
-    flexDirection: "row"
+    flexDirection: "row",
   },
   actionButton1: {
     padding: 8,
-    height: 36
+    height: 36,
   },
   actionText1: {
     fontSize: 14,
     color: theme?.TEXT_DARK,
-    opacity: 0.9
+    opacity: 0.9,
   },
   actionButton2: {
     padding: 8,
-    height: 36
+    height: 36,
   },
   actionText2: {
     fontSize: 14,
     color: theme?.TEXT_DARK,
-    opacity: 0.9
-  }
+    opacity: 0.9,
+  },
 });
 
 export default CurrentBooking;

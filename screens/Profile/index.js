@@ -16,13 +16,15 @@ function ProfilePage(props) {
   function stackComponent() {
     return (
       <View style={styles.container}>
-        {user.photoURL ? (
+        {user?.photoURL ? (
           <Image style={styles.photo} source={{ uri: user.photoURL }} />
         ) : (
           <Icon name="account-circle" style={styles.icon}></Icon>
         )}
 
-        <Text style={styles.profileName}>{user.displayName}</Text>
+        <Text style={styles.profileName}>
+          {user ? user?.displayName : "Guest"}
+        </Text>
 
         <View style={styles.scrollArea}>
           <ScrollView
@@ -47,7 +49,7 @@ function ProfilePage(props) {
             <TouchableOpacity onPress={() => props.navigation.goBack()}>
               <Icon name="chevron-left" style={styles.backIcon}></Icon>
             </TouchableOpacity>
-          )
+          ),
         }}
         name="Profile"
         component={stackComponent}

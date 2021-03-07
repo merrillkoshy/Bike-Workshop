@@ -23,7 +23,7 @@ function HomeScreen(props) {
     return () => {
       setUserData("Guest");
     };
-  });
+  }, []);
 
   // firebase.auth().onAuthStateChanged((user) => {
   //   if (user != null) {

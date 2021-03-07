@@ -1,5 +1,4 @@
 import React from "react";
-import Toast from "react-native-simple-toast";
 import {
   DrawerContentScrollView,
   DrawerItem,

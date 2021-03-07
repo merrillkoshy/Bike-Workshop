@@ -244,19 +244,11 @@ function CreateAccount(props) {
         onPress={() => {
           let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
           let regPhone = /(\+\d{1,3}\s?)?((\(\d{3}\)\s?)|(\d{3})(\s|-?))(\d{3}(\s|-?))(\d{4})(\s?(([E|e]xt[:|.|]?)|x|X)(\s?\d+))?/g;
-
-          console.log(name, phoneNumber);
-          console.log(reg.test(email));
-          console.log(retypePw === pw);
           if (reg.test(email) === true) {
             retypePw === pw
               ? firebase
                   .auth()
                   .createUserWithEmailAndPassword(email, pw)
-                  .then((userCredential) => {
-                    var user = userCredential.user;
-                    console.log(user);
-                  })
                   .then(() => {
                     var user = firebase.auth().currentUser;
                     user.updateProfile({

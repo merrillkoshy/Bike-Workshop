@@ -129,18 +129,23 @@ function Booking(props) {
               style={styles.matButton}
               onPress={() => {
                 bookingRef
-                  .set({
+                  .update({
                     refId: currentDate,
                     vehicleName: vehicleName,
                     serviceName: serviceName,
                     serviceCharge: serviceCharge,
+                    address: address,
                     image: image,
+                    bookingStatus: "open",
                   })
                   .then(function() {
                     Toast.show({
                       text1: "Success",
                       text2: "Booking made! 👋",
                     });
+                  })
+                  .then(function() {
+                    props.navigation.navigate("Home");
                   })
                   .catch(function(error) {
                     console.log("An error " + error + " happened");

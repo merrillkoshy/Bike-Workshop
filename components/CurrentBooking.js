@@ -1,35 +1,55 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import theme from "../appStyles";
 import firebase from "./firebase";
 import "firebase/database";
+import "firebase/auth";
+
 function CurrentBooking(props) {
-  const user = props.user;
+  var user = firebase.auth().currentUser;
+  const [image, setImage] = useState(null);
+  const [serviceName, setServiceName] = useState(null);
+  const [status, setStatus] = useState(null);
   useEffect(() => {
-    return () => {
-      //
-    };
+    if (user != null) {
+      const db = firebase.database().ref("users/" + user.uid + "/bookings");
+      db.on("value", (snapshot) => {
+        const data = snapshot.val();
+        for (const [key, value] of Object.entries(data)) {
+          if (value.bookingStatus !== "closed") {
+            setStatus(value.bookingStatus);
+            setImage(value.image);
+            setServiceName(value.serviceName);
+          }
+        }
+      });
+    }
   }, []);
   return (
     <View style={[styles.container, props.style]}>
-      <Image
-        source={{
-          uri:
-            "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/sample.png?alt=media&token=8a880e60-72f9-4e64-a229-b25b3f325c54",
-        }}
-        style={styles.cardItemImagePlace}
-      ></Image>
+      {image && (
+        <Image
+          source={{
+            uri: image,
+          }}
+          style={styles.cardItemImagePlace}
+        ></Image>
+      )}
+
       <View style={styles.cardBody}>
         <View style={styles.bodyContent}>
-          <Text style={styles.titleStyle}>Chain and Sprocket Replacement</Text>
-          <Text style={styles.subtitleStyle}>Subtitle here</Text>
+          <Text style={styles.titleStyle}>
+            {serviceName
+              ? `${serviceName}`
+              : "Please Log in to view your bookings"}
+          </Text>
+          <Text style={styles.subtitleStyle}>
+            {status ? `Booking Status: ${status}` : ""}
+          </Text>
         </View>
         <View style={styles.actionBody}>
           <TouchableOpacity style={styles.actionButton1}>
             <Text style={styles.actionText1}>ACTION 1</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.actionButton2}>
-            <Text style={styles.actionText2}>ACTION 2</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -43,7 +63,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     borderColor: "#CCC",
     flexWrap: "nowrap",
-    backgroundColor: theme?.THEME_LIGHT,
+    backgroundColor: theme?.PRIMARY_COLOR,
     shadowColor: theme?.TEXT_INPUT,
     shadowOffset: {
       width: -2,

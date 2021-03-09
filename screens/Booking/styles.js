@@ -111,4 +111,16 @@ export default StyleSheet.create({
     marginTop: 30,
     alignSelf: "center",
   },
+  locateButton: {
+    backgroundColor: theme.PRIMARY_COLOR,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 10,
+  },
+  locateButtonText: {
+    color: theme.TEXT_DARK,
+    alignSelf: "center",
+  },
 });

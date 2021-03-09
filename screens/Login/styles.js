@@ -3,43 +3,44 @@ import theme from "../../appStyles";
 
 export default StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   materialIconTextbox: {
     height: 42,
     width: 307,
     marginTop: 10,
-    marginLeft: 37
+    marginLeft: 37,
   },
   image1: {
+    marginTop: 50,
     width: 240,
     height: 150,
-    alignSelf: "center"
+    alignSelf: "center",
   },
   materialIconTextboxStack: {
     width: 302,
     height: 255,
     marginTop: 10,
     marginLeft: 10,
-    marginRight: 10
+    marginRight: 10,
   },
   materialButtonPink: {
     height: 40,
     width: 120,
     marginTop: 50,
-    alignSelf: "center"
+    alignSelf: "center",
   },
   loremIpsum: {
     // fontFamily(.*)",
     color: "rgba(0,0,0,1)",
     marginTop: 49,
-    alignSelf: "center"
+    alignSelf: "center",
   },
   createNow: {
     // fontFamily(.*)",
     color: theme?.PRIMARY_COLOR,
     marginTop: 3,
-    alignSelf: "center"
+    alignSelf: "center",
   },
 
   inputStyle: {
@@ -53,20 +54,20 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: "#D9D5DC",
     paddingTop: 14,
-    paddingBottom: 8
+    paddingBottom: 8,
   },
   iconStyle: {
     color: theme?.PRIMARY_COLOR,
     fontSize: 24,
-    paddingLeft: 8
+    paddingLeft: 8,
   },
   inputBlock: {
     height: 42,
     width: 307,
-    marginTop: 10,
+    marginTop: 20,
     marginLeft: 37,
     backgroundColor: "transparent",
     flexDirection: "row",
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 });

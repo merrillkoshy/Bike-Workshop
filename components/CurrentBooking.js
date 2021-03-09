@@ -20,6 +20,8 @@ function CurrentBooking(props) {
             setStatus(value.bookingStatus);
             setImage(value.image);
             setServiceName(value.serviceName);
+          } else {
+            setStatus("closed");
           }
         }
       });
@@ -41,10 +43,14 @@ function CurrentBooking(props) {
           <Text style={styles.titleStyle}>
             {serviceName
               ? `${serviceName}`
-              : "Please Log in to view your bookings"}
+              : "Please Login to view your bookings"}
           </Text>
           <Text style={styles.subtitleStyle}>
-            {status ? `Booking Status: ${status}` : ""}
+            {status
+              ? status != "closed"
+                ? `Booking Status: ${status}`
+                : "Book a Service"
+              : ""}
           </Text>
         </View>
         <View style={styles.actionBody}>
@@ -63,7 +69,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     borderColor: "#CCC",
     flexWrap: "nowrap",
-    backgroundColor: theme?.PRIMARY_COLOR,
+    backgroundColor: theme?.HASNAIN_GREY,
     shadowColor: theme?.TEXT_INPUT,
     shadowOffset: {
       width: -2,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useColorScheme } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import {
@@ -21,11 +21,13 @@ import Toast from "react-native-toast-message";
 //   }
 // };
 export default function App(props) {
-  const scheme = useColorScheme();
-
   return (
     <NavigationContainer>
-      <StatusBar animated={true} backgroundColor={theme?.PRIMARY_COLOR} />
+      <StatusBar
+        style="light"
+        animated={true}
+        backgroundColor={theme?.HASNAIN_GREY}
+      />
       <RootDrawer {...props} />
       <Toast ref={(ref) => Toast.setRef(ref)} />
     </NavigationContainer>

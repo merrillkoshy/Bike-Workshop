@@ -8,15 +8,22 @@ import styles from "./styles";
 import headerOptions from "../../components/Header";
 import data from "../../components/FireJSON.json";
 import SiteButton from "../../components/SiteButton";
+import theme from "../../appStyles";
+import firebase from "../../components/firebase";
+import "firebase/auth";
+
+import Toast from "react-native-toast-message";
 
 const Stack = createStackNavigator();
 
 function Service(props) {
   const [description, setDescription] = useState(null);
   const [image, setImage] = useState(null);
-  const [serviceName, setServiceName] = useState(null);
+  const [serviceName, setServiceName] = useState("");
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
+    setUser(firebase.auth().currentUser);
     setDescription(props.route.params.serviceDescription);
     setImage(props.route.params.image);
     setServiceName(props.route.params.serviceName);
@@ -25,13 +32,17 @@ function Service(props) {
       headerTitleStyle: {
         fontSize: 18,
       },
+      headerStyle: {
+        backgroundColor: theme.HASNAIN_GREY,
+      },
+      headerTintColor: theme.TEXT_DARK,
     });
     return () => {
       setDescription(null);
       setImage(null);
       setServiceName(null);
     };
-  }, [props.navigation, serviceName]);
+  }, [props.navigation, serviceName, user]);
   return (
     <View style={styles.container}>
       <View style={styles.scrollArea}>
@@ -46,14 +57,38 @@ function Service(props) {
             ></Image>
           </View>
           <View style={styles.infoCard}>
-            <Text style={styles.descriptionPara}>{description}</Text>
+            {description &&
+              description.map((des, i) => {
+                return (
+                  <Text key={i} style={styles.descriptionPara}>
+                    {des}
+                  </Text>
+                );
+              })}
+
+            {(serviceName === "Major Service" ||
+              serviceName === "Minor Service") && (
+              <Text>
+                * Cost of Parts will be paid by customer in Major and Minor
+                Service, inlcuding Labor
+              </Text>
+            )}
             <SiteButton
               onPress={() =>
-                props.navigation.navigate("Booking", {
-                  serviceName: serviceName,
-                  image: image,
-                  serviceCharge: props.route.params.serviceCharge,
-                })
+                user
+                  ? props.navigation.navigate("Booking", {
+                      serviceName: serviceName,
+                      image: image,
+                      serviceCharge: props.route.params.serviceCharge,
+                    })
+                  : Promise.resolve(
+                      Toast.show({
+                        text1: "Please login to make a booking!",
+                        text2: "Taking you there",
+                      })
+                    ).then(() => {
+                      props.navigation.navigate("Login");
+                    })
               }
               style={styles.matButton}
               buttonText={"Book Now"}

@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Image, View, ScrollView, Text, TextInput } from "react-native";
+import {
+  Image,
+  View,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Switch,
+} from "react-native";
 import Toast from "react-native-toast-message";
 import styles from "./styles";
 import firebase from "../../components/firebase";
@@ -7,25 +15,54 @@ import "firebase/auth";
 import "firebase/database";
 import SiteButton from "../../components/SiteButton";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
+//import theme
+import theme from "../../appStyles";
 //Import moment for date and time
 import moment from "moment";
 
+//Location
+import * as Permissions from "expo-permissions";
+import * as Location from "expo-location";
+
 function Booking(props) {
-  const [image, setImage] = useState(null);
   //user
   const [name, setName] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(0);
   const [address, setAddress] = useState(null);
   //workshop
+  const [image, setImage] = useState(null);
   const [serviceName, setServiceName] = useState(null);
   const [serviceCharge, setServiceCharge] = useState(0);
   const [bookingRef, setBookingRef] = useState(null);
   const [vehicleName, setVehicleName] = useState(null);
   //Get date with moment.js
   const [currentDate, setCurrentDate] = useState("");
+  //location Props
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [city, setCity] = useState("Waiting for location...");
+  //switch
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   var user = firebase.auth().currentUser;
   const db = firebase.database().ref("users/" + user.uid);
+
+  //location getter function
+  async function getLocationAsync() {
+    // permissions returns only for location permissions on iOS and under certain conditions, see Permissions.LOCATION
+    const { status, permissions } = await Permissions.askAsync(
+      Permissions.LOCATION
+    );
+    if (status === "granted") {
+      return Location.getCurrentPositionAsync({
+        enableHighAccuracy: true,
+      });
+    } else {
+      throw new Error("Location permission not granted");
+    }
+  }
 
   useEffect(() => {
     db.on("value", (snapshot) => {
@@ -43,18 +80,46 @@ function Booking(props) {
     setImage(props.route.params.image);
     setServiceName(props.route.params.serviceName);
     setServiceCharge(props.route.params.serviceCharge);
+    //header Styling
     props.navigation.setOptions({
-      title: serviceName === "" ? "No title" : serviceName,
+      title: serviceName === "" ? "No title" : `Booking ${serviceName}`,
       headerTitleStyle: {
         fontSize: 18,
       },
+      headerStyle: {
+        backgroundColor: theme.HASNAIN_GREY,
+      },
+      headerTintColor: theme.TEXT_DARK,
     });
     return () => {
       setImage(null);
       setServiceName(null);
     };
-  }, []);
+  }, [serviceName]);
 
+  const locateCustomer = () => {
+    getLocationAsync().then(async (data) => {
+      const place = await Location.reverseGeocodeAsync({
+        latitude: data.coords.latitude,
+        longitude: data.coords.longitude,
+      });
+
+      place.find((p) => {
+        setCity(
+          `${p.street ? p.street + ", " : ""} ${
+            p.district ? p.district + ", " : ""
+          } ${
+            p.city
+              ? p.city
+              : setErrorMsg("Unavailable. Please turn on location services")
+          }`
+        );
+      });
+    });
+  };
+  if (errorMsg) {
+    setCity(errorMsg);
+  }
   return (
     <View style={styles.container}>
       <View style={styles.scrollArea}>
@@ -94,12 +159,36 @@ function Booking(props) {
               <Icon name="map-marker" style={styles.iconStyle}></Icon>
               <Text>Address : </Text>
               <TextInput
-                value={address ? address : ""}
+                value={city ? city : address ? address : ""}
                 placeholder={"123 Ave, Deira, Dubai"}
                 onChangeText={(text) => setAddress(text)}
                 style={styles.inputStyle}
               />
             </View>
+
+            <View style={styles.inputBlock}>
+              <Text> Pick and Drop? : </Text>
+              <Switch
+                trackColor={{ false: "#767577", true: "#4dd163" }}
+                thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={toggleSwitch}
+                value={isEnabled}
+              />
+            </View>
+            {isEnabled
+              ? city && (
+                  <View style={styles.inputBlock}>
+                    <TouchableOpacity
+                      style={styles.locateButton}
+                      onPress={locateCustomer}
+                    >
+                      <Text style={styles.locateButtonText}>Locate</Text>
+                    </TouchableOpacity>
+                    <Text>{city}</Text>
+                  </View>
+                )
+              : null}
             <View style={styles.inputBlock}>
               <Icon name="motorbike" style={styles.iconStyle}></Icon>
 

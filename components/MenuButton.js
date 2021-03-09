@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   caption: {
-    color: theme?.PRIMARY_COLOR,
+    color: theme?.HASNAIN_GREY,
     fontSize: 24,
   },
 });

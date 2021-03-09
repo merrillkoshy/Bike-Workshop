@@ -11,6 +11,8 @@ import "firebase/auth";
 const Drawer = createDrawerNavigator();
 
 export default function RootDrawer(props) {
+  const locationData = props.locationData;
+
   const [user, setUser] = useState(null);
   useEffect(() => {
     var currentUser = firebase.auth().currentUser;
@@ -31,8 +33,12 @@ export default function RootDrawer(props) {
         inactiveTintColor: theme?.INACTIVE,
       }}
     >
-      <Drawer.Screen name="Home" component={Home} props={props} />
-      <Drawer.Screen name="Profile" component={ProfilePage} />
+      <Drawer.Screen
+        name="Home"
+        component={Home}
+        locationData={locationData}
+        props={props}
+      />
       <Drawer.Screen name="Login" component={AccountsScreen} props={props} />
     </Drawer.Navigator>
   );

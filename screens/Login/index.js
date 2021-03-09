@@ -31,8 +31,6 @@ function Login(props) {
   };
 
   useEffect(() => {
-    console.log(email, pw);
-
     return () => {
       setSecText(true);
       setEmail(null);

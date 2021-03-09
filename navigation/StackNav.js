@@ -15,14 +15,16 @@ export default function AccountsScreen(props) {
         options={{
           headerStyle: {
             elevation: 0,
-            shadowOpacity: 0
+            shadowOpacity: 0,
+            backgroundColor: "#424242",
           },
+          headerTintColor: "#FFFFFF",
           headerRight: () => (
             <MenuButton
               style={styles.materialButtonTransparentHamburger}
               {...props}
             ></MenuButton>
-          )
+          ),
         }}
       />
       <Stack.Screen
@@ -31,14 +33,14 @@ export default function AccountsScreen(props) {
         options={{
           headerStyle: {
             elevation: 0,
-            shadowOpacity: 0
+            shadowOpacity: 0,
           },
           headerRight: () => (
             <MenuButton
               style={styles.materialButtonTransparentHamburger}
               {...props}
             ></MenuButton>
-          )
+          ),
         }}
       />
     </Stack.Navigator>

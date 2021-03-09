@@ -70,6 +70,7 @@ export default StyleSheet.create({
   },
   descriptionPara: {
     flexWrap: "wrap",
+    marginLeft: 10,
   },
   matButton: {
     color: "#FFFFFF",

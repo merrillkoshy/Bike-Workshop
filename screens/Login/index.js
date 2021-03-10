@@ -42,7 +42,7 @@ function Login(props) {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../../assets/images/gulfmotorcycles.png")}
+        source={require("../../assets/images/gulfmotorcycles-light.png")}
         resizeMode="contain"
         style={styles.image1}
       ></Image>

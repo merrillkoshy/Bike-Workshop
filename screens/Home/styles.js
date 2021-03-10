@@ -1,9 +1,16 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import theme from "../../appStyles";
 
 export default StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: theme.HASNAIN_GREY,
+  },
+  carding: {
+    marginTop: 30,
+    borderRadius: 20,
+    backgroundColor: theme.THEME_LIGHT,
+    height: Dimensions.get("screen").height,
   },
   yusufsDashboard: {
     // fontFamily(.*)",
@@ -38,7 +45,7 @@ export default StyleSheet.create({
     // fontFamily(.*)",
     color: theme?.TEXT_LIGHT,
     fontSize: 24,
-    textDecorationLine: "underline",
+
     marginTop: 27,
     marginLeft: 16,
   },

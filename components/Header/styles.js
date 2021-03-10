@@ -2,15 +2,15 @@ import { StyleSheet } from "react-native";
 import theme from "../../appStyles";
 export default StyleSheet.create({
   image1: {
-    width: 50,
-    height: 50,
-    marginTop: 0,
-    marginLeft: 15,
+    width: 30,
+    height: 30,
+    alignSelf: "center",
+    marginLeft: 30,
   },
   materialButtonTransparentHamburger: {
     height: 36,
     width: 36,
-    backgroundColor: theme?.PRIMARY_COLOR,
+
     position: "absolute",
     right: 20,
   },

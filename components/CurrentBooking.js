@@ -6,7 +6,7 @@ import "firebase/database";
 import "firebase/auth";
 
 function CurrentBooking(props) {
-  var user = props.user;
+  const user = props.user;
   const [image, setImage] = useState(null);
   const [serviceName, setServiceName] = useState(null);
   const [status, setStatus] = useState(null);
@@ -15,13 +15,15 @@ function CurrentBooking(props) {
       const db = firebase.database().ref("users/" + user.uid + "/bookings");
       db.on("value", (snapshot) => {
         const data = snapshot.val();
-        for (const [key, value] of Object.entries(data)) {
-          if (value.bookingStatus !== "closed") {
-            setStatus(value.bookingStatus);
-            setImage(value.image);
-            setServiceName(value.serviceName);
-          } else {
-            setStatus("closed");
+        if (data) {
+          for (const [key, value] of Object.entries(data)) {
+            if (value.bookingStatus !== "closed") {
+              setStatus(value.bookingStatus);
+              setImage(value.image);
+              setServiceName(value.serviceName);
+            } else {
+              setStatus("closed");
+            }
           }
         }
       });
@@ -41,9 +43,7 @@ function CurrentBooking(props) {
       <View style={styles.cardBody}>
         <View style={styles.bodyContent}>
           <Text style={styles.titleStyle}>
-            {serviceName
-              ? `${serviceName}`
-              : "Please Login to view your bookings"}
+            {serviceName ? `${serviceName}` : "Book a Service"}
           </Text>
           <Text style={styles.subtitleStyle}>
             {status

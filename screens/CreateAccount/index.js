@@ -22,6 +22,7 @@ import {
   FirebaseRecaptchaVerifierModal,
   FirebaseRecaptchaBanner,
 } from "expo-firebase-recaptcha";
+import Toast from "react-native-toast-message";
 
 function CreateAccount(props) {
   const [name, setName] = useState(null);
@@ -31,6 +32,7 @@ function CreateAccount(props) {
   const [eyeCon, setEyecon] = useState("eye-outline");
   const [secText, setSecText] = useState(true);
   const [image, setImage] = useState(null);
+  const [address, setAddress] = useState(null);
 
   //Phone
   const recaptchaVerifier = useRef(null);
@@ -90,19 +92,24 @@ function CreateAccount(props) {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require("../../assets/images/gulfmotorcycles.png")}
-        resizeMode="contain"
-        style={styles.image1}
-      />
-      <View style={{ alignItems: "center", justifyContent: "center" }}>
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: 50,
+        }}
+      >
         {image ? (
           <Image
             source={{ uri: image }}
             style={{ width: 100, height: 100, borderRadius: 50 }}
           />
         ) : (
-          <Icon name="account-circle" style={styles.icon}></Icon>
+          <Image
+            source={require("../../assets/images/Monogram.png")}
+            resizeMode="contain"
+            style={styles.image1}
+          ></Image>
         )}
         <Icon
           name="lead-pencil"
@@ -110,32 +117,33 @@ function CreateAccount(props) {
           onPress={pickImage}
         ></Icon>
       </View>
-      <View style={styles.inputBlock}>
-        <Icon name="account" style={styles.iconStyle}></Icon>
-        <TextInput
-          onChangeText={(text) => setName(text)}
-          autoFocus
-          placeholder="Yusuf Yakub"
-          style={styles.inputStyle}
-        />
-      </View>
-      <View style={styles.inputBlock}>
-        <FirebaseRecaptchaVerifierModal
-          ref={recaptchaVerifier}
-          firebaseConfig={firebaseConfig}
-          attemptInvisibleVerification={attemptInvisibleVerification}
-        />
+      <View style={styles.inputWrapper}>
+        <View style={styles.inputBlock}>
+          <Icon name="account" style={styles.iconStyle}></Icon>
+          <TextInput
+            onChangeText={(text) => setName(text)}
+            autoFocus
+            placeholder="Yusuf Yakub"
+            style={styles.inputStyle}
+          />
+        </View>
+        <View style={styles.inputBlock}>
+          <FirebaseRecaptchaVerifierModal
+            ref={recaptchaVerifier}
+            firebaseConfig={firebaseConfig}
+            attemptInvisibleVerification={attemptInvisibleVerification}
+          />
 
-        <Icon name="cellphone-basic" style={styles.iconStyle}></Icon>
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="+971 55 555 5555"
-          autoCompleteType="tel"
-          keyboardType="phone-pad"
-          textContentType="telephoneNumber"
-          onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
-        />
-        {/* <TouchableOpacity
+          <Icon name="cellphone-basic" style={styles.iconStyle}></Icon>
+          <TextInput
+            style={styles.inputStyle}
+            placeholder="+971 55 555 5555"
+            autoCompleteType="tel"
+            keyboardType="phone-pad"
+            textContentType="telephoneNumber"
+            onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+          />
+          {/* <TouchableOpacity
           style={
             !phoneNumber
               ? styles.verificationButtonDisabled
@@ -164,82 +172,89 @@ function CreateAccount(props) {
         >
           <Text style={{ color: "#FFFFFF" }}>Verify</Text>
         </TouchableOpacity> */}
-      </View>
-      <View style={styles.inputBlock}>
-        <Icon name="email" style={styles.iconStyle}></Icon>
-        <TextInput
-          onChangeText={(text) => setEmail(text)}
-          placeholder="email@example.com"
-          textContentType={"emailAddress"}
-          style={styles.inputStyle}
-        />
-      </View>
-      <View style={styles.inputBlock}>
-        <Icon name="account-key" style={styles.iconStyle}></Icon>
-        <TextInput
-          secureTextEntry={secText}
-          textContentType={"newPassword"}
-          onChangeText={(text) => setPw(text)}
-          placeholder="Password"
-          style={styles.inputStyle}
-        ></TextInput>
-        <TouchableOpacity
-          onPress={() => {
-            eyeCon === "eye-outline"
-              ? setEyecon("eye-off-outline")
-              : setEyecon("eye-outline");
-            secText === true ? setSecText(false) : setSecText(true);
-          }}
-        >
-          <Icon name={eyeCon} style={styles.iconStyle}></Icon>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.inputBlock}>
-        <Icon name="key-change" style={styles.iconStyle}></Icon>
-        <TextInput
-          secureTextEntry={secText}
-          textContentType={"newPassword"}
-          onChangeText={(text) => setRetypePw(text)}
-          placeholder="Retype Password"
-          style={styles.inputStyle}
-        ></TextInput>
-      </View>
-
-      {/* Modal */}
-      <View style={styles.centeredView}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            alert("Modal has been closed.");
-          }}
-        >
-          <View style={styles.modalView}>
-            <View style={styles.modalBlock}>
-              <Text>Enter Verification code</Text>
-              <TextInput
-                style={styles.verificationCode}
-                autoFocus
-                editable={!!verificationId}
-                placeholder="123456"
-                onChangeText={setVerificationCode}
+        </View>
+        <View style={styles.inputBlock}>
+          <Icon name="email" style={styles.iconStyle}></Icon>
+          <TextInput
+            onChangeText={(text) => setEmail(text)}
+            placeholder="email@example.com"
+            textContentType={"emailAddress"}
+            style={styles.inputStyle}
+          />
+        </View>
+        <View style={styles.inputBlock}>
+          <Icon name="account-key" style={styles.iconStyle}></Icon>
+          <TextInput
+            secureTextEntry={secText}
+            textContentType={"newPassword"}
+            onChangeText={(text) => setPw(text)}
+            placeholder="Password"
+            style={styles.inputStyle}
+          ></TextInput>
+          <TouchableOpacity
+            onPress={() => {
+              eyeCon === "eye-outline"
+                ? setEyecon("eye-off-outline")
+                : setEyecon("eye-outline");
+              secText === true ? setSecText(false) : setSecText(true);
+            }}
+          >
+            <Icon name={eyeCon} style={styles.iconStyle}></Icon>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.inputBlock}>
+          <Icon name="key-change" style={styles.iconStyle}></Icon>
+          <TextInput
+            secureTextEntry={secText}
+            textContentType={"newPassword"}
+            onChangeText={(text) => setRetypePw(text)}
+            placeholder="Retype Password"
+            style={styles.inputStyle}
+          ></TextInput>
+        </View>
+        <View style={styles.inputBlock}>
+          <Icon name="home" style={styles.iconStyle}></Icon>
+          <TextInput
+            onChangeText={(text) => setAddress(text)}
+            placeholder="Flat #1, Street, District, Dubai"
+            style={styles.inputStyle}
+          />
+        </View>
+        {/* Modal */}
+        <View style={styles.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              alert("Modal has been closed.");
+            }}
+          >
+            <View style={styles.modalView}>
+              <View style={styles.modalBlock}>
+                <Text>Enter Verification code</Text>
+                <TextInput
+                  style={styles.verificationCode}
+                  autoFocus
+                  editable={!!verificationId}
+                  placeholder="123456"
+                  onChangeText={setVerificationCode}
+                />
+              </View>
+              <SiteButton
+                buttonText={"CONFIRM"}
+                disabled={!verificationId}
+                onPress={() => setModalVisible(false)}
+                style={styles.matButton}
               />
+              <View style={styles.googleVerificationMessage}>
+                {attemptInvisibleVerification && <FirebaseRecaptchaBanner />}
+              </View>
             </View>
-            <SiteButton
-              buttonText={"CONFIRM"}
-              disabled={!verificationId}
-              onPress={() => setModalVisible(false)}
-              style={styles.matButton}
-            />
-            <View style={styles.googleVerificationMessage}>
-              {attemptInvisibleVerification && <FirebaseRecaptchaBanner />}
-            </View>
-          </View>
-        </Modal>
+          </Modal>
+        </View>
+        {/* End Modal */}
       </View>
-      {/* End Modal */}
-
       <SiteButton
         onPress={() => {
           let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -268,6 +283,7 @@ function CreateAccount(props) {
                           ? image
                           : "https://cdn.icon-icons.com/icons2/2119/PNG/512/google_icon_131222.png",
                         phoneNumber: phoneNumber,
+                        address: address,
                       });
                   })
                   .then(function() {
@@ -275,16 +291,23 @@ function CreateAccount(props) {
                     props.navigation.navigate("Home");
                   })
                   .catch(function(error) {
-                    console.log("An error " + error + " happened");
+                    Toast.show({
+                      position: "top",
+                      text1: " " + error + " ",
+                      text2: "Lets try that again",
+                    });
                   })
-              : console.log("Passwords does not match");
+              : Toast.show({
+                  position: "top",
+                  text1: "Passwords does not match",
+                  text2: "Lets try that again",
+                });
           } else {
-            console.log(
-              "Please fill in all the details",
-              name,
-              phoneNumber,
-              email
-            );
+            Toast.show({
+              position: "top",
+              text1: "Please fill in all the details",
+              text2: "Lets try that again",
+            });
           }
         }}
         // onPress={async () => {

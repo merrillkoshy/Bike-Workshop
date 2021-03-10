@@ -1,10 +1,11 @@
 {
   "expo": {
-    "name": "gulf-motorcycles",
+    "name": "Gulf Motorcycles",
     "slug": "gulf-motorcycles",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "primaryColor": "#424242",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

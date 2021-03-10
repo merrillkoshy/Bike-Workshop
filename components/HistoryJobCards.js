@@ -23,29 +23,29 @@ const styles = StyleSheet.create({
     shadowColor: theme?.TEXT_INPUT,
     shadowOffset: {
       width: -2,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.1,
     shadowRadius: 1.5,
     elevation: 3,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   bodyContent: {
     padding: 16,
-    justifyContent: "center"
+    justifyContent: "center",
   },
   tireChange: {
     fontSize: 24,
     color: theme?.TEXT_INPUT,
-    paddingBottom: 12
+    paddingBottom: 12,
   },
   materialButtonWithVioletText: {
     height: 36,
     width: 100,
     position: "absolute",
     left: 14,
-    top: 55
-  }
+    top: 55,
+  },
 });
 
 export default HistoryJobCards;

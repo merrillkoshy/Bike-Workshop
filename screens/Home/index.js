@@ -18,10 +18,8 @@ function HomeScreen(props) {
   const [user, setUser] = useState(null);
   useFocusEffect(
     React.useCallback(() => {
-      // console.log(props);
       (() => {
         var currentUser = firebase.auth().currentUser;
-
         if (currentUser) {
           setUserData(currentUser.displayName);
           setUser(currentUser);
@@ -36,20 +34,22 @@ function HomeScreen(props) {
   function stackComponent() {
     return (
       <View style={styles.container}>
-        <View style={styles.yusufsDashboardRow}>
-          <Text style={styles.yusufsDashboard}>{userData}'s Dashboard</Text>
-        </View>
-        <View style={styles.scrollArea}>
-          <ScrollView
-            contentContainerStyle={styles.scrollArea_contentContainerStyle}
-          >
-            <CurrentBooking
-              user={user}
-              style={styles.materialCardWithTextOverImage1}
-            ></CurrentBooking>
-            <Text style={styles.history}>History</Text>
-            <HistoryJobCards style={styles.infoCard}></HistoryJobCards>
-          </ScrollView>
+        <View style={styles.carding}>
+          <View style={styles.yusufsDashboardRow}>
+            <Text style={styles.yusufsDashboard}>{userData}'s Dashboard</Text>
+          </View>
+          <View style={styles.scrollArea}>
+            <ScrollView
+              contentContainerStyle={styles.scrollArea_contentContainerStyle}
+            >
+              <CurrentBooking
+                user={user}
+                style={styles.materialCardWithTextOverImage1}
+              ></CurrentBooking>
+              <Text style={styles.history}>History</Text>
+              <HistoryJobCards style={styles.infoCard}></HistoryJobCards>
+            </ScrollView>
+          </View>
         </View>
       </View>
     );

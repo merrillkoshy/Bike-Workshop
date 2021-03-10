@@ -12,9 +12,11 @@ export default StyleSheet.create({
     marginLeft: 37,
   },
   image1: {
-    width: 240,
-    height: 150,
+    height: 120,
     alignSelf: "center",
+  },
+  inputWrapper: {
+    marginTop: 30,
   },
   matButton: {
     color: "#FFFFFF",

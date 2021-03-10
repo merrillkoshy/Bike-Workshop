@@ -5,8 +5,8 @@ export default StyleSheet.create({
   materialButtonTransparentHamburger: {
     height: 36,
     width: 36,
-    backgroundColor: theme?.THEME_LIGHT,
+
     position: "absolute",
-    right: 20
-  }
+    right: 20,
+  },
 });

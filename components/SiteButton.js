@@ -8,7 +8,14 @@ function SiteButton(props) {
       disabled={props.disabled}
       style={[styles.container, props.style]}
     >
-      <Text style={styles.create}>{props.buttonText}</Text>
+      <Text
+        style={{
+          color: theme?.THEME_LIGHT,
+          fontSize: props.fontSize ? props.fontSize : 14,
+        }}
+      >
+        {props.buttonText}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -31,10 +38,6 @@ const styles = StyleSheet.create({
     minWidth: 88,
     paddingLeft: 16,
     paddingRight: 16,
-  },
-  create: {
-    color: theme?.THEME_LIGHT,
-    fontSize: 14,
   },
 });
 

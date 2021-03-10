@@ -34,7 +34,9 @@ export default function AccountsScreen(props) {
           headerStyle: {
             elevation: 0,
             shadowOpacity: 0,
+            backgroundColor: "#424242",
           },
+          headerTintColor: "#FFFFFF",
           headerRight: () => (
             <MenuButton
               style={styles.materialButtonTransparentHamburger}

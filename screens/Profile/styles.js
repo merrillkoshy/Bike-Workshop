@@ -3,6 +3,13 @@ import theme from "../../appStyles";
 export default StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: theme.HASNAIN_GREY,
+  },
+  carding: {
+    marginTop: 30,
+    borderRadius: 20,
+    backgroundColor: theme.THEME_LIGHT,
+    height: Dimensions.get("screen").height,
   },
   icon: {
     color: theme?.PRIMARY_COLOR,
@@ -51,8 +58,9 @@ export default StyleSheet.create({
     marginLeft: 10,
   },
   logout: {
-    height: 40,
+    height: 45,
     width: 90,
+
     marginTop: 50,
     alignSelf: "center",
   },

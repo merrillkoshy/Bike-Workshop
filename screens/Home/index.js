@@ -10,6 +10,7 @@ import { useFocusEffect } from "@react-navigation/native";
 
 import firebase from "../../components/firebase";
 import "firebase/auth";
+import MainServices from "../../components/MainServices";
 
 const Stack = createStackNavigator();
 
@@ -46,8 +47,9 @@ function HomeScreen(props) {
                 user={user}
                 style={styles.materialCardWithTextOverImage1}
               ></CurrentBooking>
-              <Text style={styles.history}>History</Text>
-              <HistoryJobCards style={styles.infoCard}></HistoryJobCards>
+              <Text style={styles.history}>Services</Text>
+              <MainServices {...props} style={styles.servicesListing} />
+              {/* <HistoryJobCards style={styles.infoCard}></HistoryJobCards> */}
             </ScrollView>
           </View>
         </View>

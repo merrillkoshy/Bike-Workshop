@@ -21,16 +21,35 @@ function Service(props) {
   const [image, setImage] = useState(null);
   const [serviceName, setServiceName] = useState("");
   const [user, setUser] = useState(null);
+  const [includedServices, setIncludedServices] = useState(null);
+  const [serviceCharge, setServiceCharge] = useState(0);
+  //Pricing States
+  const [mrp, setMrp] = useState(0);
+  const [discount, setDiscount] = useState(null);
+  const [salesPrice, setSalesPrice] = useState(0);
 
   useEffect(() => {
     setUser(firebase.auth().currentUser);
     setDescription(props.route.params.serviceDescription);
     setImage(props.route.params.image);
     setServiceName(props.route.params.serviceName);
+    setIncludedServices(props.route.params?.includedServices);
+    setServiceCharge(props.route.params.salesPrice);
+
+    //Pricing
+    setMrp(props.route.params.mrp);
+    setDiscount(props.route.params.discount);
+    setSalesPrice(props.route.params.salesPrice);
+    //Bounces
+    if (props.route.params.currentUser) {
+      setUser(props.route.params.currentUser);
+    }
     props.navigation.setOptions({
       title: serviceName === "" ? "No title" : serviceName,
       headerTitleStyle: {
         fontSize: 18,
+        textTransform: "capitalize",
+        marginLeft: 20,
       },
       headerStyle: {
         backgroundColor: theme.HASNAIN_GREY,
@@ -41,6 +60,7 @@ function Service(props) {
       setDescription(null);
       setImage(null);
       setServiceName(null);
+      setServiceCharge(0);
     };
   }, [props.navigation, serviceName, user]);
   return (
@@ -57,6 +77,69 @@ function Service(props) {
             ></Image>
           </View>
           <View style={styles.infoCard}>
+            <Text style={styles.title}>Pricing</Text>
+          </View>
+          <View style={styles.infoCard}>
+            {discount && discount > 0 ? (
+              <>
+                <View style={styles.pricingSection}>
+                  <Text style={styles.priceListing}>Service Cost : </Text>
+                  <Text style={styles.mrpStrikethrough}>AED {mrp}</Text>
+
+                  <Text style={styles.priceListing}>AED {salesPrice}</Text>
+                </View>
+                <View style={styles.pricingSection}>
+                  <Text style={styles.badge}>Discount</Text>
+                  <Text style={styles.priceListing}>
+                    {(discount / mrp) * 100}% off
+                  </Text>
+                </View>
+              </>
+            ) : (
+              discount && (
+                <View style={styles.pricingSection}>
+                  <Text style={styles.priceListing}>Service Cost : </Text>
+                  <Text style={styles.priceListing}>AED {salesPrice}</Text>
+                </View>
+              )
+            )}
+            {includedServices &&
+              includedServices.map((service, i) => {
+                return (
+                  <View key={service?.itemCode}>
+                    <Text style={styles.priceListing}>{service.itemName}</Text>
+                    {service.discount > 0 ? (
+                      <>
+                        <View style={styles.pricingSection}>
+                          <Text style={styles.priceListing}>
+                            Service Cost :{" "}
+                          </Text>
+                          <Text style={styles.mrpStrikethrough}>
+                            AED {service?.mrp}
+                          </Text>
+
+                          <Text style={styles.priceListing}>
+                            AED {service?.salesPrice}
+                          </Text>
+                        </View>
+                        <View style={styles.pricingSection}>
+                          <Text style={styles.badge}>Discount</Text>
+                          <Text style={styles.priceListing}>
+                            {(service?.discount / service?.mrp) * 100}% off
+                          </Text>
+                        </View>
+                      </>
+                    ) : (
+                      <View style={styles.pricingSection}>
+                        <Text style={styles.priceListing}>Service Cost : </Text>
+                        <Text style={styles.priceListing}>
+                          AED {service?.salesPrice}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+                );
+              })}
             {description &&
               description.map((des, i) => {
                 return (
@@ -79,7 +162,7 @@ function Service(props) {
                   ? props.navigation.navigate("Booking", {
                       serviceName: serviceName,
                       image: image,
-                      serviceCharge: props.route.params.serviceCharge,
+                      serviceCharge: serviceCharge,
                     })
                   : Promise.resolve(
                       Toast.show({
@@ -87,7 +170,12 @@ function Service(props) {
                         text2: "Taking you there",
                       })
                     ).then(() => {
-                      props.navigation.navigate("Login");
+                      props.navigation.navigate("LoginStack", {
+                        screen: "Login",
+                        params: {
+                          condition: "bookingBounce",
+                        },
+                      });
                     })
               }
               style={styles.matButton}

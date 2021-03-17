@@ -43,8 +43,9 @@ export default function Home(props) {
               color={color}
             ></MaterialCommunityIconsIcon>
           ),
+          tabBarLabel: "Services",
         }}
-        name="Services"
+        name="ServicesStack"
         component={ServicesScreen}
       />
       <Tab.Screen

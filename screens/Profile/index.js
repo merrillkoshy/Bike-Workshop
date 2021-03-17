@@ -34,7 +34,7 @@ function ProfilePage(props) {
       <View style={styles.container}>
         <View style={styles.carding}>
           {user?.photoURL ? (
-            <Image style={styles.photo} source={{ uri: user.photoURL }} />
+            <Image style={styles.photo} source={{ uri: user?.photoURL }} />
           ) : (
             <Icon name="account-circle" style={styles.icon}></Icon>
           )}
@@ -89,7 +89,7 @@ function ProfilePage(props) {
                   buttonText={"Login"}
                   style={styles.logout}
                   fontSize={20}
-                  onPress={() => props.navigation.navigate("Login")}
+                  onPress={() => props.navigation.navigate("LoginStack")}
                 />
               )}
             </ScrollView>

@@ -27,12 +27,11 @@ export default StyleSheet.create({
   },
   scrollArea: {
     alignSelf: "stretch",
-    height: 527,
+    height: Dimensions.get("screen").height / 1.3,
     marginLeft: 13,
     marginRight: 13,
   },
   scrollArea_contentContainerStyle: {
-    height: 527,
     alignSelf: "stretch",
   },
   materialCardWithTextOverImage1: {
@@ -40,6 +39,15 @@ export default StyleSheet.create({
     alignSelf: "stretch",
     borderRadius: 15,
     marginTop: 21,
+  },
+  servicesListing: {
+    height: 550,
+    alignSelf: "center",
+    paddingLeft: 30,
+    paddingRight: 30,
+    borderRadius: 15,
+    marginTop: 21,
+    marginBottom: 40,
   },
   history: {
     // fontFamily(.*)",

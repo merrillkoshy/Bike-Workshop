@@ -15,6 +15,11 @@ export default StyleSheet.create({
   scrollArea_contentContainerStyle: {
     alignSelf: "center",
   },
+  mrpStrikethrough: {
+    marginLeft: 10,
+    textDecorationLine: "line-through",
+    textDecorationStyle: "solid",
+  },
   infoCard: {
     marginTop: 20,
     width: Dimensions.get("window").width / 1.1,
@@ -68,6 +73,9 @@ export default StyleSheet.create({
     flexDirection: "column",
     flex: 1,
   },
+  priceListing: {
+    marginLeft: 10,
+  },
   descriptionPara: {
     flexWrap: "wrap",
     marginLeft: 10,
@@ -78,5 +86,25 @@ export default StyleSheet.create({
     width: 120,
     marginTop: 30,
     alignSelf: "center",
+  },
+  pricingSection: {
+    flexDirection: "row",
+  },
+  badge: {
+    marginLeft: 10,
+    fontSize: 10,
+    alignSelf: "center",
+    backgroundColor: "#00FF00",
+    borderRadius: 10,
+    paddingLeft: 6,
+    paddingRight: 6,
+    paddingTop: 3,
+    paddingBottom: 3,
+  },
+  title: {
+    fontWeight: "600",
+    marginLeft: 10,
+    fontSize: 20,
+    textDecorationLine: "underline",
   },
 });

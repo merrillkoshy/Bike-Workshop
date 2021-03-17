@@ -12,7 +12,7 @@ function CurrentBooking(props) {
   const [status, setStatus] = useState(null);
   useEffect(() => {
     if (user != null) {
-      const db = firebase.database().ref("users/" + user.uid + "/bookings");
+      const db = firebase.database().ref("users/" + user?.uid + "/bookings");
       db.on("value", (snapshot) => {
         const data = snapshot.val();
         if (data) {
@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: theme?.TEXT_DARK,
     paddingBottom: 12,
+    textTransform: "capitalize",
   },
   subtitleStyle: {
     fontSize: 14,

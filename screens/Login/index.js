@@ -12,7 +12,7 @@ import firebase from "../../components/firebase";
 import "firebase/auth";
 import styles from "./styles";
 import SiteButton from "../../components/SiteButton";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import Toast from "react-native-toast-message";
 
 function Login(props) {
   const [submit, setSubmit] = useState(false);
@@ -20,15 +20,6 @@ function Login(props) {
   const [pw, setPw] = useState(null);
   const [eyeCon, setEyecon] = useState("eye-outline");
   const [secText, setSecText] = useState(true);
-
-  const storeData = async (value) => {
-    try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem("@loggedUser", jsonValue);
-    } catch (e) {
-      console.log("saving error..probably");
-    }
-  };
 
   useEffect(() => {
     return () => {
@@ -82,11 +73,20 @@ function Login(props) {
           firebase
             .auth()
             .signInWithEmailAndPassword(email, pw)
-            .then((userCredential) => {
-              storeData(userCredential.user);
-            })
             .then(() => {
-              props.navigation.navigate("Home");
+              Promise.resolve(
+                Toast.show({
+                  text1: "Success!",
+                  text2: `Welcome ${firebase.auth().currentUser.displayName}`,
+                })
+              ).then(() => {
+                props.navigation.navigate("HomeStack", {
+                  screen: "Home",
+                  params: {
+                    currentUser: firebase.auth().currentUser,
+                  },
+                });
+              });
             })
             .catch((error) => {
               var errorCode = error.code;

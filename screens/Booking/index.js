@@ -47,7 +47,7 @@ function Booking(props) {
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   var user = firebase.auth().currentUser;
-  const db = firebase.database().ref("users/" + user.uid);
+  const db = firebase.database().ref("users/" + user?.uid);
 
   //location getter function
   async function getLocationAsync() {
@@ -74,9 +74,9 @@ function Booking(props) {
       .format("M-D-YYhhmmss");
     setCurrentDate(date);
     setBookingRef(
-      firebase.database().ref("users/" + user.uid + "/bookings/" + date)
+      firebase.database().ref("users/" + user?.uid + "/bookings/" + date)
     );
-    setName(user.displayName);
+    setName(user?.displayName);
     setImage(props.route.params.image);
     setServiceName(props.route.params.serviceName);
     setServiceCharge(props.route.params.serviceCharge);
@@ -202,16 +202,26 @@ function Booking(props) {
               <Icon name="cog-outline" style={styles.iconStyle}></Icon>
 
               <Text> Service Name : </Text>
-              <Text style={styles.labels}>{serviceName}</Text>
+              <Text style={styles.serviceName}>{serviceName}</Text>
             </View>
             <View style={styles.inputBlock}>
               <Icon
                 name="circle-multiple-outline"
                 style={styles.iconStyle}
               ></Icon>
-
-              <Text> Service Charge : </Text>
-              <Text style={styles.labels}>AED {serviceCharge}</Text>
+              {isEnabled ? (
+                <>
+                  <Text> Service Charge : </Text>
+                  <Text style={styles.labels}>
+                    AED {serviceCharge}* + Pick and Drop Charges
+                  </Text>
+                </>
+              ) : (
+                <>
+                  <Text> Service Charge : </Text>
+                  <Text style={styles.labels}>AED {serviceCharge}*</Text>
+                </>
+              )}
             </View>
 
             <SiteButton
@@ -225,6 +235,7 @@ function Booking(props) {
                     serviceCharge: serviceCharge,
                     address: address,
                     image: image,
+                    pickAndDrop: isEnabled,
                     bookingStatus: "open",
                   })
                   .then(function() {
@@ -242,6 +253,9 @@ function Booking(props) {
               }}
               buttonText={"Confirm Booking"}
             />
+          </View>
+          <View style={styles.finePrint}>
+            <Text> * Exclusive of Labor Charge and VAT </Text>
           </View>
         </ScrollView>
       </View>

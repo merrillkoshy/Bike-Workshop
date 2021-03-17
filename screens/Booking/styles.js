@@ -23,6 +23,17 @@ export default StyleSheet.create({
     marginBottom: 10,
     fontWeight: "bold",
   },
+  finePrint: {
+    marginTop: 20,
+    width: Dimensions.get("window").width / 1.1,
+    alignSelf: "center",
+    paddingLeft: 10,
+    marginBottom: 10,
+    fontWeight: "bold",
+    fontStyle: "italic",
+    textAlign: "center",
+    justifyContent: "center",
+  },
   iconStyle: {
     color: theme?.PRIMARY_COLOR,
     fontSize: 24,
@@ -54,6 +65,13 @@ export default StyleSheet.create({
     marginLeft: 16,
     color: theme?.TEXT_LIGHT,
     width: Dimensions.get("window").width / 2,
+  },
+  serviceName: {
+    flexWrap: "wrap",
+    marginLeft: 16,
+    color: theme?.TEXT_LIGHT,
+    width: Dimensions.get("window").width / 2,
+    textTransform: "capitalize",
   },
 
   text: {

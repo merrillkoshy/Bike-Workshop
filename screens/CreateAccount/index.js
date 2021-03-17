@@ -266,7 +266,7 @@ function CreateAccount(props) {
                   .createUserWithEmailAndPassword(email, pw)
                   .then(() => {
                     var user = firebase.auth().currentUser;
-                    user.updateProfile({
+                    user?.updateProfile({
                       displayName: name,
                       photoURL: image
                         ? image
@@ -274,7 +274,7 @@ function CreateAccount(props) {
                     });
                     firebase
                       .database()
-                      .ref("users/" + user.uid)
+                      .ref("users/" + user?.uid)
                       .set({
                         username: name,
                         email: email,
@@ -325,7 +325,7 @@ function CreateAccount(props) {
         //           var user = firebase.auth().currentUser;
         //           firebase
         //             .database()
-        //             .ref("users/" + user.uid)
+        //             .ref("users/" + user?.uid)
         //             .set({
         //               username: name,
         //               email: email,

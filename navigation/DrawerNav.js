@@ -36,7 +36,7 @@ export default function RootDrawer(props) {
       }}
     >
       <Drawer.Screen
-        name="Home"
+        name="HomeStack"
         component={Home}
         options={{
           drawerIcon: ({ focused, color, size }) => (
@@ -47,13 +47,14 @@ export default function RootDrawer(props) {
               color={color}
             />
           ),
+          drawerLabel: "Home",
         }}
         locationData={locationData}
         props={props}
       />
       {!user && (
         <Drawer.Screen
-          name="Login"
+          name="LoginStack"
           component={AccountsScreen}
           options={{
             drawerIcon: ({ focused, color, size }) => (
@@ -64,6 +65,7 @@ export default function RootDrawer(props) {
                 color={color}
               />
             ),
+            drawerLabel: "Login",
           }}
           props={props}
         />

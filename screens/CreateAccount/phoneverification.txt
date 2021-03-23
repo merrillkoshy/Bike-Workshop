@@ -1,0 +1,221 @@
+import {
+  FirebaseRecaptchaVerifierModal,
+  FirebaseRecaptchaBanner,
+} from "expo-firebase-recaptcha";
+
+<View style={styles.inputBlock}>
+              <FirebaseRecaptchaVerifierModal
+                ref={recaptchaVerifier}
+                firebaseConfig={firebaseConfig}
+                attemptInvisibleVerification={attemptInvisibleVerification}
+              />
+
+              <Icon name="cellphone-basic" style={styles.iconStyle}></Icon>
+              <TextInput
+                style={styles.inputStyle}
+                placeholder="+971 55 555 5555"
+                placeholderTextColor="#FFFFFF"
+                autoCompleteType="tel"
+                keyboardType="phone-pad"
+                textContentType="telephoneNumber"
+                value={phoneNumber}
+                onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+              />
+              {/* <TouchableOpacity
+          style={
+            !phoneNumber
+              ? styles.verificationButtonDisabled
+              : styles.verificationButton
+          }
+          disabled={!phoneNumber}
+          onPress={async () => {
+            // The FirebaseRecaptchaVerifierModal ref implements the
+            // FirebaseAuthApplicationVerifier interface and can be
+            // passed directly to `verifyPhoneNumber`.
+            try {
+              const phoneProvider = new firebase.auth.PhoneAuthProvider();
+              const verificationId = await phoneProvider.verifyPhoneNumber(
+                phoneNumber,
+                recaptchaVerifier.current
+              );
+              setVerificationId(verificationId);
+              showMessage({
+                text: "Verification code has been sent to your phone.",
+              });
+              setModalVisible(true);
+            } catch (err) {
+              showMessage({ text: `Error: ${err.message}`, color: "red" });
+            }
+          }}
+        >
+          <Text style={{ color: "#FFFFFF" }}>Verify</Text>
+        </TouchableOpacity> */}
+            </View>
+
+
+
+            {/* Modal */}
+            <View style={styles.centeredView}>
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                  alert("Modal has been closed.");
+                }}
+              >
+                <View style={styles.modalView}>
+                  <View style={styles.modalBlock}>
+                    <Text>Enter Verification code</Text>
+                    <TextInput
+                      style={styles.verificationCode}
+                      autoFocus
+                      editable={!!verificationId}
+                      placeholder="123456"
+                      placeholderTextColor="#FFFFFF"
+                      onChangeText={setVerificationCode}
+                    />
+                  </View>
+                  <SiteButton
+                    buttonText={"CONFIRM"}
+                    disabled={!verificationId}
+                    onPress={() => setModalVisible(false)}
+                    style={styles.matButton}
+                  />
+                  <View style={styles.googleVerificationMessage}>
+                    {attemptInvisibleVerification && (
+                      <FirebaseRecaptchaBanner />
+                    )}
+                  </View>
+                </View>
+              </Modal>
+            </View>
+            {/* End Modal */}
+
+
+
+
+
+
+             // onPress={async () => {
+            //   if (retypePw === pw) {
+            //     try {
+            //       const credential = firebase.auth.PhoneAuthProvider.credential(
+            //         verificationId,
+            //         verificationCode
+            //       );
+            //       await firebase
+            //         .auth()
+            //         .signInWithCredential(credential)
+            //         .then(() => {
+            //           console.log("Phone authentication successful 👍");
+            //           var user = firebase.auth().currentUser;
+            //           firebase
+            //             .database()
+            //             .ref("users/" + user?.uid)
+            //             .set({
+            //               username: name,
+            //               email: email,
+            //               photoURL: image
+            //                 ? image
+            //                 : "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/mono.png?alt=media&token=c208f0a6-aea9-4157-ae85-386f1310720d",
+            //               phoneNumber: phoneNumber,
+            //             });
+            //           user
+            //             .updateProfile({
+            //               displayName: name,
+            //               photoURL: image
+            //                 ? image
+            //                 : "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/mono.png?alt=media&token=c208f0a6-aea9-4157-ae85-386f1310720d",
+            //             })
+            //             .then(function() {
+            //               console.log("Update success");
+            //               props.navigation.navigate("Home");
+            //             })
+            //             .catch(function(error) {
+            //               console.log("An error " + error + " happened");
+            //             });
+            //         });
+            //     } catch (err) {
+            //       console.log("An error " + err + " happened while authing");
+            //     }
+            //   } else {
+            //     console.log("Passwords does not match");
+            //   }
+            // }}
+
+
+
+            styling
+            // Modal
+  centeredView: {
+    position: "absolute",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalView: {
+    marginTop: Dimensions.get("window").height / 3,
+
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  openButton: {
+    backgroundColor: "#F194FF",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  textStyle: {
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  modalBlock: {
+    backgroundColor: "transparent",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  verificationButton: {
+    backgroundColor: theme.PRIMARY_COLOR,
+    borderRadius: 5,
+    padding: 5,
+
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  verificationButtonDisabled: {
+    backgroundColor: theme.INACTIVE,
+    borderRadius: 5,
+    padding: 5,
+
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  verificationCode: {
+    color: theme?.TEXT_INPUT,
+    marginLeft: 30,
+    alignSelf: "stretch",
+    flex: 1,
+    lineHeight: 16,
+    borderBottomWidth: 1,
+    borderColor: "#D9D5DC",
+  },
+  googleVerificationMessage: {
+    marginTop: 30,
+    alignItems: "flex-end",
+  },

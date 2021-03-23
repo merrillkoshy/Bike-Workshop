@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import Toast from "react-native-toast-message";
 import styles from "./styles";
-import firebase from "../../components/firebase";
+import firebase from "../../firebase";
 import "firebase/auth";
 import "firebase/database";
 import SiteButton from "../../components/SiteButton";
@@ -159,7 +159,16 @@ function Booking(props) {
               <Icon name="map-marker" style={styles.iconStyle}></Icon>
               <Text>Address : </Text>
               <TextInput
-                value={city ? city : address ? address : ""}
+                value={
+                  city
+                    ? () => {
+                        setAddress(city);
+                        return city;
+                      }
+                    : address
+                    ? address
+                    : ""
+                }
                 placeholder={"123 Ave, Deira, Dubai"}
                 onChangeText={(text) => setAddress(text)}
                 style={styles.inputStyle}
@@ -255,7 +264,11 @@ function Booking(props) {
             />
           </View>
           <View style={styles.finePrint}>
-            <Text> * Exclusive of Labor Charge and VAT </Text>
+            <Text>
+              {" "}
+              * Exclusive of Labor Charge and VAT. All parts are paid by
+              customer, charged seperately.
+            </Text>
           </View>
         </ScrollView>
       </View>

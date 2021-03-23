@@ -4,9 +4,8 @@ import { Image, View, ScrollView, Text, TouchableOpacity } from "react-native";
 import ServiceList from "../../components/ServiceList";
 
 import styles from "./styles";
-import headerOptions from "../../components/Header";
-import data from "../../components/FireJSON.json";
-import firebase from "../../components/firebase";
+
+import firebase from "../../firebase";
 
 function Services(props) {
   var servicesRef = firebase.database().ref("/services");

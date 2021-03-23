@@ -5,16 +5,16 @@ export default StyleSheet.create({
   container: {
     flex: 1,
   },
-  image: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
-  },
   contentContainer: {
-    backgroundColor: "rgba(0,0,0,0.5)",
-    // alignSelf: "center",
+    borderColor: "#000000",
+    borderWidth: 2,
+    flex: 1,
+    alignSelf: "center",
+    justifyContent: "center",
     borderRadius: 20,
-    padding: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: "rgba(255,255,255,0.9)",
   },
   materialIconTextbox: {
     marginTop: 10,
@@ -34,19 +34,14 @@ export default StyleSheet.create({
     marginTop: 30,
     alignSelf: "center",
   },
-  termsConditions: {
-    // fontFamily(.*)",
-    color: theme?.PRIMARY_COLOR,
-    marginTop: 54,
-    alignSelf: "center",
-  },
+
   helpText: {
-    color: theme?.TEXT_DARK,
+    color: theme?.TEXT_LIGHT,
     marginTop: 20,
     alignSelf: "center",
   },
   inputStyle: {
-    color: theme.TEXT_DARK,
+    color: theme.TEXT_LIGHT,
     marginLeft: 16,
     paddingRight: 5,
     fontSize: 16,
@@ -66,7 +61,6 @@ export default StyleSheet.create({
     paddingLeft: 8,
   },
   inputBlock: {
-    height: 40,
     width: Dimensions.get("window").width / 1.4,
     marginTop: 20,
     backgroundColor: "rgba(255,255,255,0.6)",
@@ -82,12 +76,21 @@ export default StyleSheet.create({
   pencilIcon: {
     color: theme?.PRIMARY_COLOR,
     fontSize: 30,
-    marginLeft: "20%",
-    marginTop: "-10%",
+    marginLeft: "2%",
+    marginTop: "-1%",
     alignSelf: "center",
     backgroundColor: theme?.THEME_LIGHT,
     borderColor: theme?.PRIMARY_COLOR,
     borderWidth: 2,
     borderRadius: 50,
+  },
+  hideButton: {
+    marginTop: 30,
+    alignSelf: "center",
+    borderRadius: 100,
+  },
+  closeIcon: {
+    color: theme.TEXT_LIGHT,
+    textDecorationLine: "underline",
   },
 });

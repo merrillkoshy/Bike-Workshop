@@ -4,7 +4,7 @@ import {
   DrawerItem,
   DrawerItemList,
 } from "@react-navigation/drawer";
-import firebase from "../firebase";
+import firebase from "../../firebase";
 import "firebase/auth";
 import { DrawerActions } from "@react-navigation/core";
 import styles from "./styles";
@@ -53,7 +53,8 @@ function MenuDrawer(props) {
               }}
             >
               <Text style={styles.locationText}>
-                Harebs Building Warehouse 10 Al Quoz Industrial 1 - Dubai
+                Behind Burjeel Hospital, Sheikh Zayed Road, Al Quoz Industrial
+                1, Dubai
               </Text>
             </TouchableOpacity>
           </View>

@@ -1,3 +1,4 @@
+import { Dimensions } from "react-native";
 import { StyleSheet } from "react-native";
 import theme from "../../appStyles";
 
@@ -5,28 +6,33 @@ export default StyleSheet.create({
   container: {
     flex: 1,
   },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+  },
   materialIconTextbox: {
-    height: 42,
-    width: 307,
     marginTop: 10,
     marginLeft: 37,
   },
+  contentContainer: {
+    backgroundColor: "rgba(255,255,255,0.7)",
+    alignSelf: "center",
+    borderRadius: 20,
+    padding: 20,
+  },
   image1: {
-    marginTop: 50,
     width: 240,
     height: 150,
     alignSelf: "center",
   },
   materialIconTextboxStack: {
-    width: 302,
-    height: 255,
     marginTop: 10,
     marginLeft: 10,
     marginRight: 10,
   },
   materialButtonPink: {
-    height: 40,
-    width: 120,
+    padding: 10,
     marginTop: 50,
     alignSelf: "center",
   },
@@ -62,11 +68,10 @@ export default StyleSheet.create({
     paddingLeft: 8,
   },
   inputBlock: {
-    height: 42,
-    width: 307,
+    height: 40,
+    width: Dimensions.get("window").width / 1.4,
     marginTop: 20,
-    marginLeft: 37,
-    backgroundColor: "transparent",
+    backgroundColor: "rgba(255,255,255,0.6)",
     flexDirection: "row",
     alignItems: "center",
   },

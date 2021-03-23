@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Image, View, ScrollView, Text, TouchableOpacity } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { CommonActions } from "@react-navigation/native";
+
 import ServiceList from "../../components/ServiceList";
 import Header from "../../components/Header";
 import MenuButton from "../../components/MenuButton";
 import styles from "./styles";
 import headerOptions from "../../components/Header";
-import data from "../../components/FireJSON.json";
+
 import SiteButton from "../../components/SiteButton";
 import theme from "../../appStyles";
-import firebase from "../../components/firebase";
+import firebase from "../../firebase";
 import "firebase/auth";
 
 import Toast from "react-native-toast-message";
@@ -96,12 +98,10 @@ function Service(props) {
                 </View>
               </>
             ) : (
-              discount && (
-                <View style={styles.pricingSection}>
-                  <Text style={styles.priceListing}>Service Cost : </Text>
-                  <Text style={styles.priceListing}>AED {salesPrice}</Text>
-                </View>
-              )
+              <View style={styles.pricingSection}>
+                <Text style={styles.priceListing}>Service Cost : </Text>
+                <Text style={styles.priceListing}>AED {salesPrice}</Text>
+              </View>
             )}
             {includedServices &&
               includedServices.map((service, i) => {
@@ -156,31 +156,19 @@ function Service(props) {
                 Service, inlcuding Labor
               </Text>
             )}
-            <SiteButton
-              onPress={() =>
-                user
-                  ? props.navigation.navigate("Booking", {
-                      serviceName: serviceName,
-                      image: image,
-                      serviceCharge: serviceCharge,
-                    })
-                  : Promise.resolve(
-                      Toast.show({
-                        text1: "Please login to make a booking!",
-                        text2: "Taking you there",
-                      })
-                    ).then(() => {
-                      props.navigation.navigate("LoginStack", {
-                        screen: "Login",
-                        params: {
-                          condition: "bookingBounce",
-                        },
-                      });
-                    })
-              }
-              style={styles.matButton}
-              buttonText={"Book Now"}
-            />
+            {user && (
+              <SiteButton
+                onPress={() =>
+                  props.navigation.navigate("Booking", {
+                    serviceName: serviceName,
+                    image: image,
+                    serviceCharge: serviceCharge,
+                  })
+                }
+                style={styles.matButton}
+                buttonText={"Book Now"}
+              />
+            )}
           </View>
         </ScrollView>
       </View>

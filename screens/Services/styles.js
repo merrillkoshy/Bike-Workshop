@@ -18,7 +18,7 @@ export default StyleSheet.create({
   },
   scrollArea: {
     alignSelf: "stretch",
-
+    height: Dimensions.get("window").height / 1.3,
     marginTop: 22,
     marginLeft: 22,
     marginRight: 22,

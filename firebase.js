@@ -24,6 +24,7 @@ if (!firebase.apps.length) {
 } else {
   firebase.app();
 }
+firebase.auth();
 firebase.database();
 
 export default firebase;

@@ -9,18 +9,14 @@ import {
 import theme from "./appStyles";
 import RootDrawer from "./navigation/DrawerNav";
 import Toast from "react-native-toast-message";
+import firebase from "./firebase";
+import AppStack from "./navigation/AppStack";
 
-// const appTheme = {
-//   colors: {
-//     primary: "rgb(255, 45, 85)",
-//     background: "#FFFFFF",
-//     card: "rgb(255, 255, 255)",
-//     text: "#0c0c0c",
-//     border: "rgb(199, 199, 204)",
-//     notification: "rgb(255, 69, 58)"
-//   }
-// };
 export default function App(props) {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    setUser(firebase.auth().currentUser);
+  }, []);
   return (
     <NavigationContainer>
       <StatusBar
@@ -28,7 +24,7 @@ export default function App(props) {
         animated={true}
         backgroundColor={theme?.HASNAIN_GREY}
       />
-      <RootDrawer {...props} />
+      <AppStack />
       <Toast ref={(ref) => Toast.setRef(ref)} />
     </NavigationContainer>
   );

@@ -6,34 +6,32 @@ import CreateAccount from "../screens/CreateAccount";
 import styles from "./styles";
 import ProfilePage from "../screens/Profile";
 import headerOptions from "../components/Header";
+import RootDrawer from "./DrawerNav";
 const Stack = createStackNavigator();
 
-export default function AccountsScreen(props) {
+export default function AppStack(props) {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
-        name="Login"
         options={{
-          headerStyle: {
-            elevation: 0,
-            shadowOpacity: 0,
-            backgroundColor: "#424242",
-          },
-          headerTintColor: "#FFFFFF",
+          headerShown: false,
         }}
+        name="Login"
         component={Login}
       />
       <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
         name="Create Account"
         component={CreateAccount}
+      />
+      <Stack.Screen
         options={{
-          headerStyle: {
-            elevation: 0,
-            shadowOpacity: 0,
-            backgroundColor: "#424242",
-          },
-          headerTintColor: "#FFFFFF",
+          headerShown: false,
         }}
+        name="Dashboard"
+        component={RootDrawer}
       />
     </Stack.Navigator>
   );

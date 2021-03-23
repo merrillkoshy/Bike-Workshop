@@ -30,6 +30,7 @@
     "react-native-gesture-handler": "~1.8.0",
     "react-native-maps": "^0.27.1",
     "react-native-maps-directions": "^1.8.0",
+    "react-native-modal": "^11.7.0",
     "react-native-reanimated": "~1.13.0",
     "react-native-safe-area-context": "3.1.9",
     "react-native-screens": "~2.15.2",
@@ -41,5 +42,7 @@
   "devDependencies": {
     "@babel/core": "~7.9.0"
   },
-  "private": true
+  "private": true,
+  "name": "gulf-motorcycle-repairs",
+  "version": "1.0.0"
 }

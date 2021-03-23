@@ -1,62 +1,111 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import data from "../../components/FireJSON.json";
+import Modal from "react-native-modal";
+import Toast from "react-native-toast-message";
 import { createStackNavigator } from "@react-navigation/stack";
+import "firebase/auth";
+
 import InfoCard from "../../components/InfoCard";
 import styles from "./styles";
-import firebase from "../../components/firebase";
-import "firebase/auth";
-import { useFocusEffect } from "@react-navigation/native";
+import firebase from "../../firebase";
 import SiteButton from "../../components/SiteButton";
-import Toast from "react-native-toast-message";
+import headerOptions from "../../components/Header";
+import UpdateDetails from "../../components/UpdateDetails";
+
 const Stack = createStackNavigator();
 
 function ProfilePage(props) {
   const [user, setUser] = useState(null);
-  useFocusEffect(
-    React.useCallback(() => {
-      // console.log(props);
-      (() => {
-        var currentUser = firebase.auth().currentUser;
+  const [datum, setDatum] = useState(null);
+  const [isModalVisible, setModalVisible] = useState(false);
 
-        if (currentUser) {
-          setUser(currentUser);
-        } else {
-          setUser(null);
-        }
-      })();
-    }, [])
-  );
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
 
-  function stackComponent() {
+  var currentUser = firebase.auth().currentUser;
+
+  const fetch = () => {
+    const db = firebase.database().ref("users/" + currentUser?.uid);
+    db.on("value", (snapshot) => {
+      const data = snapshot.val();
+      setDatum(data);
+    });
+  };
+  const authenticate = () => {
+    if (currentUser) {
+      setUser(currentUser);
+    } else {
+      setUser(null);
+    }
+  };
+
+  useEffect(() => {
+    authenticate();
+    fetch();
+  }, []);
+
+  const stackComponent = () => {
     return (
       <View style={styles.container}>
-        <View style={styles.carding}>
-          {user?.photoURL ? (
-            <Image style={styles.photo} source={{ uri: user?.photoURL }} />
-          ) : (
-            <Icon name="account-circle" style={styles.icon}></Icon>
-          )}
+        {user && (
+          <View style={styles.carding}>
+            {user?.photoURL ? (
+              <Image style={styles.photo} source={{ uri: user?.photoURL }} />
+            ) : (
+              <Icon name="account-circle" style={styles.icon}></Icon>
+            )}
 
-          <Text style={styles.profileName}>
-            {user ? user?.displayName : "Guest"}
-          </Text>
+            <Text style={styles.profileName}>
+              {user ? user?.displayName : "Guest"}
+            </Text>
 
-          <View style={styles.scrollArea}>
-            <ScrollView
-              contentContainerStyle={styles.scrollArea_contentContainerStyle}
-            >
-              {data.profile_strings.map((str, i) => {
-                return (
-                  <InfoCard
-                    key={str + i}
+            <View style={styles.scrollArea}>
+              <ScrollView
+                contentContainerStyle={styles.scrollArea_contentContainerStyle}
+              >
+                <View style={styles.infoBlock}>
+                  {datum?.address && (
+                    <Text style={styles.detailText}>
+                      Address : {datum.address}
+                    </Text>
+                  )}
+                  {datum?.email && (
+                    <Text style={styles.detailText}>Email : {datum.email}</Text>
+                  )}
+                  {datum?.phoneNumber && (
+                    <Text style={styles.detailText}>
+                      Phone : {datum.phoneNumber}
+                    </Text>
+                  )}
+
+                  <Modal
+                    style={styles.modalContainer}
+                    animationIn={"rubberBand"}
+                    animationOut={"slideOutDown"}
+                    isVisible={isModalVisible}
+                    animationOutTiming={1000}
+                    transparent={true}
+                  >
+                    <View style={styles.modalContent}>
+                      <UpdateDetails
+                        name={user?.displayName}
+                        address={datum?.address}
+                        photoURL={user?.photoURL}
+                        toggleModal={toggleModal}
+                      />
+                    </View>
+                  </Modal>
+                </View>
+                <View style={styles.infoBlock}>
+                  <TouchableOpacity
                     style={styles.infoCard}
-                    string={str}
-                  />
-                );
-              })}
-              {user ? (
+                    onPress={toggleModal}
+                  >
+                    <Text style={styles.buttonText}>{"Edit Profile"}</Text>
+                  </TouchableOpacity>
+                </View>
                 <SiteButton
                   buttonText={"Logout"}
                   style={styles.logout}
@@ -65,13 +114,11 @@ function ProfilePage(props) {
                       .auth()
                       .signOut()
                       .then(() => {
-                        props.navigation.navigate("Home", {
-                          loggedOut: true,
-                        });
                         Toast.show({
                           text1: "Succesfully signed out",
                           text2: "Byee! 👋",
                         });
+                        props.navigation.navigate("Login");
                       })
                       .catch((error) => {
                         Toast.show({
@@ -84,37 +131,34 @@ function ProfilePage(props) {
                       });
                   }}
                 />
-              ) : (
-                <SiteButton
-                  buttonText={"Login"}
-                  style={styles.logout}
-                  fontSize={20}
-                  onPress={() => props.navigation.navigate("LoginStack")}
-                />
-              )}
-            </ScrollView>
+              </ScrollView>
+            </View>
           </View>
-        </View>
+        )}
+        {!user && (
+          <View style={styles.carding}>
+            <Icon name="account-circle" style={styles.icon}></Icon>
+
+            <Text style={styles.profileName}>Guest</Text>
+
+            <View style={styles.scrollArea}>
+              <SiteButton
+                buttonText={"Login"}
+                style={styles.logout}
+                fontSize={20}
+                onPress={() => props.navigation.navigate("Login")}
+              />
+            </View>
+          </View>
+        )}
       </View>
     );
-  }
+  };
 
   return (
     <Stack.Navigator>
       <Stack.Screen
-        options={{
-          headerStyle: {
-            elevation: 0,
-            shadowOpacity: 0,
-            backgroundColor: "#424242",
-          },
-          headerTintColor: "#FFFFFF",
-          headerLeft: () => (
-            <TouchableOpacity onPress={() => props.navigation.goBack()}>
-              <Icon name="chevron-left" style={styles.backIcon}></Icon>
-            </TouchableOpacity>
-          ),
-        }}
+        options={headerOptions(props)}
         name="Profile"
         component={stackComponent}
       />

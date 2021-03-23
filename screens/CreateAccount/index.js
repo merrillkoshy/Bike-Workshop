@@ -10,32 +10,30 @@ import {
   Button,
   Platform,
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import SiteButton from "../../components/SiteButton";
 import styles from "./styles";
-import firebase, { firebaseConfig } from "../../components/firebase";
+import firebase from "../../firebase";
 import "firebase/auth";
 import "firebase/database";
 import * as ImagePicker from "expo-image-picker";
-import {
-  FirebaseRecaptchaVerifierModal,
-  FirebaseRecaptchaBanner,
-} from "expo-firebase-recaptcha";
+import { StatusBar } from "expo-status-bar";
+
 import Toast from "react-native-toast-message";
+import { ImageBackground } from "react-native";
 
 function CreateAccount(props) {
-  const [name, setName] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [pw, setPw] = useState(null);
-  const [retypePw, setRetypePw] = useState(null);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [pw, setPw] = useState("");
+  const [retypePw, setRetypePw] = useState("");
   const [eyeCon, setEyecon] = useState("eye-outline");
   const [secText, setSecText] = useState(true);
-  const [image, setImage] = useState(null);
-  const [address, setAddress] = useState(null);
+  const [image, setImage] = useState("");
+  const [address, setAddress] = useState("");
 
   //Phone
-  const recaptchaVerifier = useRef(null);
+  const recaptchaVerifier = useRef("");
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [verificationId, setVerificationId] = React.useState();
   const [verificationCode, setVerificationCode] = React.useState();
@@ -65,13 +63,13 @@ function CreateAccount(props) {
       }
     })();
     return () => {
-      setName(null);
-      setEmail(null);
+      setName("");
+      setEmail("");
       setPw("");
-      setRetypePw(null);
+      setRetypePw("");
       setEyecon("eye-outline");
       setSecText(true);
-      setImage(null);
+      setImage("");
       setPhoneNumber(null);
     };
   }, []);
@@ -92,274 +90,168 @@ function CreateAccount(props) {
 
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          marginTop: 50,
-        }}
+      <StatusBar style="light" animated={true} />
+      <ImageBackground
+        source={require("../../assets/images/loginBackground.jpg")}
+        style={styles.image}
+        blurRadius={1}
       >
-        {image ? (
-          <Image
-            source={{ uri: image }}
-            style={{ width: 100, height: 100, borderRadius: 50 }}
-          />
-        ) : (
-          <Image
-            source={require("../../assets/images/Monogram.png")}
-            resizeMode="contain"
-            style={styles.image1}
-          ></Image>
-        )}
-        <Icon
-          name="lead-pencil"
-          style={styles.pencilIcon}
-          onPress={pickImage}
-        ></Icon>
-      </View>
-      <View style={styles.inputWrapper}>
-        <View style={styles.inputBlock}>
-          <Icon name="account" style={styles.iconStyle}></Icon>
-          <TextInput
-            onChangeText={(text) => setName(text)}
-            autoFocus
-            placeholder="Yusuf Yakub"
-            style={styles.inputStyle}
-          />
-        </View>
-        <View style={styles.inputBlock}>
-          <FirebaseRecaptchaVerifierModal
-            ref={recaptchaVerifier}
-            firebaseConfig={firebaseConfig}
-            attemptInvisibleVerification={attemptInvisibleVerification}
-          />
-
-          <Icon name="cellphone-basic" style={styles.iconStyle}></Icon>
-          <TextInput
-            style={styles.inputStyle}
-            placeholder="+971 55 555 5555"
-            autoCompleteType="tel"
-            keyboardType="phone-pad"
-            textContentType="telephoneNumber"
-            onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
-          />
-          {/* <TouchableOpacity
-          style={
-            !phoneNumber
-              ? styles.verificationButtonDisabled
-              : styles.verificationButton
-          }
-          disabled={!phoneNumber}
-          onPress={async () => {
-            // The FirebaseRecaptchaVerifierModal ref implements the
-            // FirebaseAuthApplicationVerifier interface and can be
-            // passed directly to `verifyPhoneNumber`.
-            try {
-              const phoneProvider = new firebase.auth.PhoneAuthProvider();
-              const verificationId = await phoneProvider.verifyPhoneNumber(
-                phoneNumber,
-                recaptchaVerifier.current
-              );
-              setVerificationId(verificationId);
-              showMessage({
-                text: "Verification code has been sent to your phone.",
-              });
-              setModalVisible(true);
-            } catch (err) {
-              showMessage({ text: `Error: ${err.message}`, color: "red" });
-            }
-          }}
-        >
-          <Text style={{ color: "#FFFFFF" }}>Verify</Text>
-        </TouchableOpacity> */}
-        </View>
-        <View style={styles.inputBlock}>
-          <Icon name="email" style={styles.iconStyle}></Icon>
-          <TextInput
-            onChangeText={(text) => setEmail(text)}
-            placeholder="email@example.com"
-            textContentType={"emailAddress"}
-            style={styles.inputStyle}
-          />
-        </View>
-        <View style={styles.inputBlock}>
-          <Icon name="account-key" style={styles.iconStyle}></Icon>
-          <TextInput
-            secureTextEntry={secText}
-            textContentType={"newPassword"}
-            onChangeText={(text) => setPw(text)}
-            placeholder="Password"
-            style={styles.inputStyle}
-          ></TextInput>
-          <TouchableOpacity
-            onPress={() => {
-              eyeCon === "eye-outline"
-                ? setEyecon("eye-off-outline")
-                : setEyecon("eye-outline");
-              secText === true ? setSecText(false) : setSecText(true);
+        <View style={styles.contentContainer}>
+          <View
+            style={{
+              alignItems: "center",
+              marginTop: 50,
             }}
           >
-            <Icon name={eyeCon} style={styles.iconStyle}></Icon>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.inputBlock}>
-          <Icon name="key-change" style={styles.iconStyle}></Icon>
-          <TextInput
-            secureTextEntry={secText}
-            textContentType={"newPassword"}
-            onChangeText={(text) => setRetypePw(text)}
-            placeholder="Retype Password"
-            style={styles.inputStyle}
-          ></TextInput>
-        </View>
-        <View style={styles.inputBlock}>
-          <Icon name="home" style={styles.iconStyle}></Icon>
-          <TextInput
-            onChangeText={(text) => setAddress(text)}
-            placeholder="Flat #1, Street, District, Dubai"
-            style={styles.inputStyle}
-          />
-        </View>
-        {/* Modal */}
-        <View style={styles.centeredView}>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              alert("Modal has been closed.");
-            }}
-          >
-            <View style={styles.modalView}>
-              <View style={styles.modalBlock}>
-                <Text>Enter Verification code</Text>
-                <TextInput
-                  style={styles.verificationCode}
-                  autoFocus
-                  editable={!!verificationId}
-                  placeholder="123456"
-                  onChangeText={setVerificationCode}
-                />
-              </View>
-              <SiteButton
-                buttonText={"CONFIRM"}
-                disabled={!verificationId}
-                onPress={() => setModalVisible(false)}
-                style={styles.matButton}
+            {image ? (
+              <Image
+                source={{ uri: image }}
+                style={{ width: 100, height: 100, borderRadius: 50 }}
               />
-              <View style={styles.googleVerificationMessage}>
-                {attemptInvisibleVerification && <FirebaseRecaptchaBanner />}
-              </View>
+            ) : (
+              <Image
+                source={require("../../assets/images/Monogram.png")}
+                resizeMode="contain"
+                style={styles.image1}
+              ></Image>
+            )}
+            <Icon
+              name="lead-pencil"
+              style={styles.pencilIcon}
+              onPress={pickImage}
+            ></Icon>
+            <Text style={styles.helpText}>Upload Profile Picture</Text>
+          </View>
+          <View style={styles.inputWrapper}>
+            <View style={styles.inputBlock}>
+              <Icon name="account" style={styles.iconStyle}></Icon>
+              <TextInput
+                onChangeText={(text) => setName(text)}
+                autoFocus
+                value={name}
+                placeholder="Yusuf Yakub"
+                placeholderTextColor="#FFFFFF"
+                style={styles.inputStyle}
+              />
             </View>
-          </Modal>
-        </View>
-        {/* End Modal */}
-      </View>
-      <SiteButton
-        onPress={() => {
-          let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-          let regPhone = /(\+\d{1,3}\s?)?((\(\d{3}\)\s?)|(\d{3})(\s|-?))(\d{3}(\s|-?))(\d{4})(\s?(([E|e]xt[:|.|]?)|x|X)(\s?\d+))?/g;
-          if (reg.test(email) === true) {
-            retypePw === pw
-              ? firebase
-                  .auth()
-                  .createUserWithEmailAndPassword(email, pw)
-                  .then(() => {
-                    var user = firebase.auth().currentUser;
-                    user?.updateProfile({
-                      displayName: name,
-                      photoURL: image
-                        ? image
-                        : "https://cdn.icon-icons.com/icons2/2119/PNG/512/google_icon_131222.png",
-                    });
-                    firebase
-                      .database()
-                      .ref("users/" + user?.uid)
-                      .set({
-                        username: name,
-                        email: email,
-                        phoneNumber: phoneNumber,
-                        photoURL: image
-                          ? image
-                          : "https://cdn.icon-icons.com/icons2/2119/PNG/512/google_icon_131222.png",
-                        phoneNumber: phoneNumber,
-                        address: address,
-                      });
-                  })
-                  .then(function() {
-                    console.log("Update success");
-                    props.navigation.navigate("Home");
-                  })
-                  .catch(function(error) {
-                    Toast.show({
+
+            <View style={styles.inputBlock}>
+              <Icon name="email" style={styles.iconStyle}></Icon>
+              <TextInput
+                onChangeText={(text) => setEmail(text)}
+                placeholder="email@example.com"
+                placeholderTextColor="#FFFFFF"
+                textContentType={"emailAddress"}
+                value={email}
+                style={styles.inputStyle}
+              />
+            </View>
+            <View style={styles.inputBlock}>
+              <Icon name="account-key" style={styles.iconStyle}></Icon>
+              <TextInput
+                secureTextEntry={secText}
+                textContentType={"newPassword"}
+                onChangeText={(text) => setPw(text)}
+                placeholder="Password"
+                placeholderTextColor="#FFFFFF"
+                value={pw}
+                style={styles.inputStyle}
+              ></TextInput>
+              <TouchableOpacity
+                onPress={() => {
+                  eyeCon === "eye-outline"
+                    ? setEyecon("eye-off-outline")
+                    : setEyecon("eye-outline");
+                  secText === true ? setSecText(false) : setSecText(true);
+                }}
+              >
+                <Icon name={eyeCon} style={styles.iconStyle}></Icon>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.inputBlock}>
+              <Icon name="key-change" style={styles.iconStyle}></Icon>
+              <TextInput
+                secureTextEntry={secText}
+                textContentType={"newPassword"}
+                onChangeText={(text) => setRetypePw(text)}
+                placeholder="Retype Password"
+                placeholderTextColor="#FFFFFF"
+                value={retypePw}
+                style={styles.inputStyle}
+              ></TextInput>
+            </View>
+            <View style={styles.inputBlock}>
+              <Icon name="home" style={styles.iconStyle}></Icon>
+              <TextInput
+                onChangeText={(text) => setAddress(text)}
+                value={address}
+                placeholder="Flat #1, Street, District, Dubai"
+                placeholderTextColor="#FFFFFF"
+                style={styles.inputStyle}
+              />
+            </View>
+          </View>
+          <SiteButton
+            onPress={() => {
+              let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+              let regPhone = /(\+\d{1,3}\s?)?((\(\d{3}\)\s?)|(\d{3})(\s|-?))(\d{3}(\s|-?))(\d{4})(\s?(([E|e]xt[:|.|]?)|x|X)(\s?\d+))?/g;
+              if (reg.test(email) === true) {
+                retypePw === pw
+                  ? firebase
+                      .auth()
+                      .createUserWithEmailAndPassword(email, pw)
+                      .then(() => {
+                        var user = firebase.auth().currentUser;
+                        user?.updateProfile({
+                          displayName: name,
+                          photoURL: image
+                            ? image
+                            : "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/mono.png?alt=media&token=c208f0a6-aea9-4157-ae85-386f1310720d",
+                        });
+                        firebase
+                          .database()
+                          .ref("users/" + user?.uid)
+                          .set({
+                            username: name,
+                            email: email,
+                            phoneNumber: phoneNumber,
+                            photoURL: image
+                              ? image
+                              : "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/mono.png?alt=media&token=c208f0a6-aea9-4157-ae85-386f1310720d",
+                            phoneNumber: phoneNumber,
+                            address: address,
+                          });
+                      })
+                      .then(function() {
+                        console.log("Update success");
+                        props.navigation.navigate("Home");
+                      })
+                      .catch(function(error) {
+                        Toast.show({
+                          position: "top",
+                          text1: " " + error + " ",
+                          text2: "Lets try that again",
+                        });
+                      })
+                  : Toast.show({
                       position: "top",
-                      text1: " " + error + " ",
+                      text1: "Passwords does not match",
                       text2: "Lets try that again",
                     });
-                  })
-              : Toast.show({
+              } else {
+                Toast.show({
                   position: "top",
-                  text1: "Passwords does not match",
+                  text1: "Please fill in all the details",
                   text2: "Lets try that again",
                 });
-          } else {
-            Toast.show({
-              position: "top",
-              text1: "Please fill in all the details",
-              text2: "Lets try that again",
-            });
-          }
-        }}
-        // onPress={async () => {
-        //   if (retypePw === pw) {
-        //     try {
-        //       const credential = firebase.auth.PhoneAuthProvider.credential(
-        //         verificationId,
-        //         verificationCode
-        //       );
-        //       await firebase
-        //         .auth()
-        //         .signInWithCredential(credential)
-        //         .then(() => {
-        //           console.log("Phone authentication successful 👍");
-        //           var user = firebase.auth().currentUser;
-        //           firebase
-        //             .database()
-        //             .ref("users/" + user?.uid)
-        //             .set({
-        //               username: name,
-        //               email: email,
-        //               photoURL: image
-        //                 ? image
-        //                 : "https://cdn.icon-icons.com/icons2/2119/PNG/512/google_icon_131222.png",
-        //               phoneNumber: phoneNumber,
-        //             });
-        //           user
-        //             .updateProfile({
-        //               displayName: name,
-        //               photoURL: image
-        //                 ? image
-        //                 : "https://cdn.icon-icons.com/icons2/2119/PNG/512/google_icon_131222.png",
-        //             })
-        //             .then(function() {
-        //               console.log("Update success");
-        //               props.navigation.navigate("Home");
-        //             })
-        //             .catch(function(error) {
-        //               console.log("An error " + error + " happened");
-        //             });
-        //         });
-        //     } catch (err) {
-        //       console.log("An error " + err + " happened while authing");
-        //     }
-        //   } else {
-        //     console.log("Passwords does not match");
-        //   }
-        // }}
-        buttonText={"CREATE"}
-        style={styles.matButton}
-      />
-      <Text style={styles.termsConditions}>Terms &amp; Conditions</Text>
+              }
+            }}
+            buttonText={"CREATE"}
+            style={styles.matButton}
+          />
+          <Text style={styles.termsConditions}>Terms &amp; Conditions</Text>
+        </View>
+      </ImageBackground>
     </View>
   );
 }

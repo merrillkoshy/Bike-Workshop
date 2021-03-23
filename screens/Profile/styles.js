@@ -32,6 +32,32 @@ export default StyleSheet.create({
     alignSelf: "center",
   },
 
+  infoBlock: {
+    color: theme?.TEXT_LIGHT,
+    fontSize: 28,
+    marginTop: 10,
+    marginBottom: 30,
+    alignSelf: "center",
+  },
+  detailText: {
+    textAlign: "center",
+    marginTop: 5,
+  },
+
+  buttonText: {
+    textAlign: "center",
+    borderWidth: 2,
+    color: theme.PRIMARY_COLOR,
+    paddingLeft: 3,
+    paddingRight: 3,
+    paddingTop: 5,
+    paddingBottom: 5,
+    borderColor: theme.PRIMARY_COLOR,
+    marginTop: 2,
+    marginBottom: 2,
+
+    fontSize: 16,
+  },
   scrollArea: {
     height: Dimensions.get("window").height,
     marginTop: 0,
@@ -62,6 +88,18 @@ export default StyleSheet.create({
     width: 90,
 
     marginTop: 50,
+    alignSelf: "center",
+  },
+  modalContainer: {
+    borderRadius: 20,
+    justifyContent: "center",
+    alignSelf: "center",
+    flexDirection: "column",
+    flex: 1,
+  },
+  modalContent: {
+    flex: 6,
+    justifyContent: "center",
     alignSelf: "center",
   },
 });

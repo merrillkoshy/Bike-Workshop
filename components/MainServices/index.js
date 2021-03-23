@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { View, Image, Text, TouchableOpacity } from "react-native";
-import firebase from "../firebase";
+
+import firebase from "../../firebase";
 import styles from "./styles";
+import Shimmer from "../Shimmer";
 const MainServices = (props) => {
   const [mainServices, setMainServices] = useState(null);
 
@@ -13,7 +15,6 @@ const MainServices = (props) => {
       .once("value", (snapshot) => {
         snapshot.forEach((snap) => {
           const svObject = snap.val();
-
           serviceList.push(svObject);
         });
       })
@@ -67,6 +68,18 @@ const MainServices = (props) => {
             </TouchableOpacity>
           );
         })}
+      {!mainServices && (
+        <>
+          <Shimmer
+            width={styles.serviceCards.width}
+            marginTop={styles.serviceCards.marginTop}
+            marginBottom={styles.serviceCards.marginBottom}
+            height={150}
+          />
+          <Shimmer width={styles.serviceCards.width} height={150} />
+          <Shimmer width={styles.serviceCards.width} height={150} />
+        </>
+      )}
     </View>
   );
 };

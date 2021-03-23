@@ -5,23 +5,13 @@ import theme from "../appStyles";
 import Home from "./TabNav";
 import AccountsScreen from "./StackNav";
 import MenuDrawer from "../components/MenuDrawer";
-import firebase from "../components/firebase";
+import firebase from "../firebase";
 import "firebase/auth";
 import { Dimensions } from "react-native";
 
 const Drawer = createDrawerNavigator();
 
 export default function RootDrawer(props) {
-  const locationData = props.locationData;
-
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    var currentUser = firebase.auth().currentUser;
-    if (currentUser != null) {
-      setUser(currentUser);
-    }
-  }, []);
   return (
     <Drawer.Navigator
       drawerContent={(props) => <MenuDrawer {...props} />}
@@ -49,53 +39,8 @@ export default function RootDrawer(props) {
           ),
           drawerLabel: "Home",
         }}
-        locationData={locationData}
         props={props}
       />
-      {!user && (
-        <Drawer.Screen
-          name="LoginStack"
-          component={AccountsScreen}
-          options={{
-            drawerIcon: ({ focused, color, size }) => (
-              <MaterialCommunityIconsIcon
-                focused={focused}
-                name="login"
-                size={size}
-                color={color}
-              />
-            ),
-            drawerLabel: "Login",
-          }}
-          props={props}
-        />
-      )}
-      {/* {user && (
-        <SiteButton
-          buttonText={"Logout"}
-          style={styles.logout}
-          onPress={() => {
-            firebase
-              .auth()
-              .signOut()
-              .then(() => {
-                props.navigation.navigate("Home", {
-                  loggedOut: true,
-                });
-                Toast.show({
-                  text1: "Succesfully signed out",
-                  text2: "Byee! 👋",
-                });
-              })
-              .catch((error) => {
-                Toast.show({
-                  text1: "An error " + error + " - occured while signing out",
-                  text2: "Oops...",
-                });
-              });
-          }}
-        />
-      )} */}
     </Drawer.Navigator>
   );
 }

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/Home";
-import Services from "../screens/Services";
-import PickAndDrop from "../screens/PickAndDrop";
+
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import theme from "../appStyles";
 import ServicesScreen from "./ServicesStack";
@@ -60,6 +59,7 @@ export default function Home(props) {
           ),
         }}
         name="Profile"
+        props={props}
         component={ProfilePage}
       />
     </Tab.Navigator>

@@ -221,24 +221,31 @@ function CreateAccount(props) {
                           });
                       })
                       .then(function() {
-                        console.log("Update success");
+                        Toast.show({
+                          position: "top",
+                          text1: "You are all set " + name + "!",
+                          text2: "Get Started. Log in!",
+                        });
                         props.navigation.navigate("Login");
                       })
                       .catch(function(error) {
                         Toast.show({
                           position: "top",
+                          type: "error",
                           text1: " " + error + " ",
                           text2: "Lets try that again",
                         });
                       })
                   : Toast.show({
                       position: "top",
+                      type: "error",
                       text1: "Passwords does not match",
                       text2: "Lets try that again",
                     });
               } else {
                 Toast.show({
                   position: "top",
+                  type: "error",
                   text1: "Please fill in all the details",
                   text2: "Lets try that again",
                 });

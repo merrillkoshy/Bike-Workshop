@@ -68,6 +68,7 @@ function Booking(props) {
     db.on("value", (snapshot) => {
       const data = snapshot.val();
       setPhoneNumber(data?.phoneNumber);
+      setAddress(data?.address);
     });
     var date = moment()
       .utcOffset("+4")

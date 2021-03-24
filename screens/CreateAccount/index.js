@@ -33,23 +33,8 @@ function CreateAccount(props) {
   const [address, setAddress] = useState("");
 
   //Phone
-  const recaptchaVerifier = useRef("");
+
   const [phoneNumber, setPhoneNumber] = useState(null);
-  const [verificationId, setVerificationId] = React.useState();
-  const [verificationCode, setVerificationCode] = React.useState();
-  const attemptInvisibleVerification = true;
-
-  //Verification Modal
-  const [modalVisible, setModalVisible] = useState(false);
-
-  // const storeData = async (value) => {
-  //   try {
-  //     const jsonValue = JSON.stringify(value);
-  //     await AsyncStorage.setItem("@loggedUser", jsonValue);
-  //   } catch (e) {
-  //     console.log("saving error..probably");
-  //   }
-  // };
 
   useEffect(() => {
     (async () => {
@@ -147,6 +132,19 @@ function CreateAccount(props) {
               />
             </View>
             <View style={styles.inputBlock}>
+              <Icon name="cellphone-basic" style={styles.iconStyle}></Icon>
+              <TextInput
+                style={styles.inputStyle}
+                placeholder="+971 55 555 5555"
+                placeholderTextColor="#FFFFFF"
+                autoCompleteType="tel"
+                keyboardType="phone-pad"
+                textContentType="telephoneNumber"
+                value={phoneNumber}
+                onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+              />
+            </View>
+            <View style={styles.inputBlock}>
               <Icon name="account-key" style={styles.iconStyle}></Icon>
               <TextInput
                 secureTextEntry={secText}
@@ -224,7 +222,7 @@ function CreateAccount(props) {
                       })
                       .then(function() {
                         console.log("Update success");
-                        props.navigation.navigate("Home");
+                        props.navigation.navigate("Login");
                       })
                       .catch(function(error) {
                         Toast.show({

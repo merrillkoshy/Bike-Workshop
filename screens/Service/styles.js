@@ -107,4 +107,11 @@ export default StyleSheet.create({
     fontSize: 20,
     textDecorationLine: "underline",
   },
+  priceListingTitle: {
+    fontWeight: "600",
+    marginLeft: 10,
+    fontSize: 18,
+    marginBottom: 5,
+    marginTop: 10,
+  },
 });

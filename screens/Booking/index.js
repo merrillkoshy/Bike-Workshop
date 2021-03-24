@@ -67,7 +67,7 @@ function Booking(props) {
   useEffect(() => {
     db.on("value", (snapshot) => {
       const data = snapshot.val();
-      setPhoneNumber(data.phoneNumber);
+      setPhoneNumber(data?.phoneNumber);
     });
     var date = moment()
       .utcOffset("+4")
@@ -148,7 +148,7 @@ function Booking(props) {
               <Text>Phone Number : </Text>
               <TextInput
                 style={styles.inputStyle}
-                value={phoneNumber.toString()}
+                value={phoneNumber?.toString()}
                 autoCompleteType="tel"
                 keyboardType="phone-pad"
                 textContentType="telephoneNumber"

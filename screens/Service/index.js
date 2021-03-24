@@ -98,16 +98,20 @@ function Service(props) {
                 </View>
               </>
             ) : (
-              <View style={styles.pricingSection}>
-                <Text style={styles.priceListing}>Service Cost : </Text>
-                <Text style={styles.priceListing}>AED {salesPrice}</Text>
-              </View>
+              discount && (
+                <View style={styles.pricingSection}>
+                  <Text style={styles.priceListingTitle}>Service Cost : </Text>
+                  <Text style={styles.priceListing}>AED {salesPrice}</Text>
+                </View>
+              )
             )}
             {includedServices &&
               includedServices.map((service, i) => {
                 return (
                   <View key={service?.itemCode}>
-                    <Text style={styles.priceListing}>{service.itemName}</Text>
+                    <Text style={styles.priceListingTitle}>
+                      {service.itemName}
+                    </Text>
                     {service.discount > 0 ? (
                       <>
                         <View style={styles.pricingSection}>

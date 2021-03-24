@@ -71,6 +71,7 @@ function ProfilePage(props) {
                       Address : {datum.address}
                     </Text>
                   )}
+
                   {datum?.email && (
                     <Text style={styles.detailText}>Email : {datum.email}</Text>
                   )}
@@ -92,6 +93,7 @@ function ProfilePage(props) {
                       <UpdateDetails
                         name={user?.displayName}
                         address={datum?.address}
+                        phone={datum?.phoneNumber}
                         photoURL={user?.photoURL}
                         toggleModal={toggleModal}
                       />

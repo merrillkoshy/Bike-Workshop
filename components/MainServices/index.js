@@ -41,7 +41,7 @@ const MainServices = (props) => {
                 props.navigation.navigate("ServicesStack", {
                   screen: "Service",
                   params: {
-                    serviceName: service?.serviceName,
+                    serviceName: service?.serviceName + " Service",
                     image: service?.image,
                     includedServices: service?.services,
                     salesPrice: service?.salesPrice,

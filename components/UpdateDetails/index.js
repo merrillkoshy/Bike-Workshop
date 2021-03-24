@@ -91,8 +91,22 @@ const UpdateDetails = (props) => {
             onChangeText={(text) => setName(text)}
             value={name}
             placeholder="Yusuf Yakub"
-            placeholderTextColor="#000000"
+            placeholderTextColor="#808080"
             style={styles.inputStyle}
+          />
+        </View>
+
+        <View style={styles.inputBlock}>
+          <Icon name="cellphone-basic" style={styles.iconStyle}></Icon>
+          <TextInput
+            style={styles.inputStyle}
+            placeholder="+971 55 555 5555"
+            placeholderTextColor="#808080"
+            autoCompleteType="tel"
+            keyboardType="phone-pad"
+            textContentType="telephoneNumber"
+            value={phoneNumber}
+            onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
           />
         </View>
 
@@ -102,7 +116,7 @@ const UpdateDetails = (props) => {
             onChangeText={(text) => setAddress(text)}
             value={address}
             placeholder="Flat #1, Street, District, Dubai"
-            placeholderTextColor="#000000"
+            placeholderTextColor="#808080"
             style={styles.inputStyle}
           />
         </View>

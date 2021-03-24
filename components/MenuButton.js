@@ -7,7 +7,7 @@ function MenuButton(props) {
   return (
     <TouchableOpacity
       onPress={() => {
-        props.navigation.dispatch(DrawerActions.toggleDrawer());
+        props.navigation?.dispatch(DrawerActions.toggleDrawer());
       }}
       style={[styles.container, props.style]}
     >

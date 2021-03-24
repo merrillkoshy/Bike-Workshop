@@ -14,8 +14,6 @@ export default function ServicesScreen(props) {
         component={Services}
         options={headerOptions(props)}
       />
-      <Stack.Screen name="Service" component={Service} />
-      <Stack.Screen name="Booking" component={Booking} />
     </Stack.Navigator>
   );
 }

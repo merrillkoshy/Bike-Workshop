@@ -5,8 +5,11 @@ import Login from "../screens/Login";
 import CreateAccount from "../screens/CreateAccount";
 import styles from "./styles";
 import ProfilePage from "../screens/Profile";
-import headerOptions from "../components/Header";
+import headerOptions, { partialHeader } from "../components/Header";
 import RootDrawer from "./DrawerNav";
+
+import Service from "../screens/Service";
+import Booking from "../screens/Booking";
 const Stack = createStackNavigator();
 
 export default function AppStack(props) {
@@ -32,6 +35,16 @@ export default function AppStack(props) {
         }}
         name="Dashboard"
         component={RootDrawer}
+      />
+      <Stack.Screen
+        name="Service"
+        options={partialHeader(props)}
+        component={Service}
+      />
+      <Stack.Screen
+        name="Booking"
+        options={partialHeader(props)}
+        component={Booking}
       />
     </Stack.Navigator>
   );

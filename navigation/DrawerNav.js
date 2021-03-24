@@ -3,7 +3,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import theme from "../appStyles";
 import Home from "./TabNav";
-import AccountsScreen from "./StackNav";
+import AccountsScreen from "./AccountsStack";
 import MenuDrawer from "../components/MenuDrawer";
 import firebase from "../firebase";
 import "firebase/auth";

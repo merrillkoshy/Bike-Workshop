@@ -7,6 +7,11 @@ export default StyleSheet.create({
     alignSelf: "center",
     marginLeft: 30,
   },
+  image2: {
+    width: 30,
+    height: 30,
+    marginRight: 30,
+  },
   materialButtonTransparentHamburger: {
     height: 36,
     width: 36,

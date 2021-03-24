@@ -38,14 +38,11 @@ const MainServices = (props) => {
               key={service?.serviceName}
               style={styles.serviceCards}
               onPress={() =>
-                props.navigation.navigate("ServicesStack", {
-                  screen: "Service",
-                  params: {
-                    serviceName: service?.serviceName + " Service",
-                    image: service?.image,
-                    includedServices: service?.services,
-                    salesPrice: service?.salesPrice,
-                  },
+                props.navigation.navigate("Service", {
+                  serviceName: service?.serviceName + " Service",
+                  image: service?.image,
+                  includedServices: service?.services,
+                  salesPrice: service?.salesPrice,
                 })
               }
             >

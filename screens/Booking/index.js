@@ -160,16 +160,7 @@ function Booking(props) {
               <Icon name="map-marker" style={styles.iconStyle}></Icon>
               <Text>Address : </Text>
               <TextInput
-                value={
-                  city
-                    ? () => {
-                        setAddress(city);
-                        return city;
-                      }
-                    : address
-                    ? address
-                    : ""
-                }
+                value={city != "Waiting for location..." ? city : address}
                 placeholder={"123 Ave, Deira, Dubai"}
                 onChangeText={(text) => setAddress(text)}
                 style={styles.inputStyle}

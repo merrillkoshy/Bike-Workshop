@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import MenuButton from "../components/MenuButton";
+
 import Login from "../screens/Login";
 import CreateAccount from "../screens/CreateAccount";
-import styles from "./styles";
-import ProfilePage from "../screens/Profile";
-import headerOptions from "../components/Header";
+
 const Stack = createStackNavigator();
 
 export default function AccountsScreen(props) {

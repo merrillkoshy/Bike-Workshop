@@ -3,14 +3,18 @@ import theme from "../../appStyles";
 export default StyleSheet.create({
   container: {
     flex: 1,
+    alignSelf: "center",
+    justifyContent: "center",
   },
 
   scrollArea: {
-    alignSelf: "stretch",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 20,
 
-    marginTop: 22,
-    marginLeft: 22,
-    marginRight: 22,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 20,
+    width: Dimensions.get("window").width / 1.5,
   },
   scrollArea_contentContainerStyle: {
     alignSelf: "center",
@@ -21,8 +25,7 @@ export default StyleSheet.create({
     textDecorationStyle: "solid",
   },
   infoCard: {
-    marginTop: 20,
-    width: Dimensions.get("window").width / 1.1,
+    marginTop: 10,
     alignSelf: "center",
     paddingLeft: 10,
     marginBottom: 10,
@@ -66,8 +69,7 @@ export default StyleSheet.create({
     borderRadius: 15,
   },
   imageWrap: {
-    marginTop: 20,
-    height: Dimensions.get("window").width / 2.2,
+    height: Dimensions.get("window").height / 4,
   },
   contentContainer: {
     flexDirection: "column",
@@ -75,10 +77,12 @@ export default StyleSheet.create({
   },
   priceListing: {
     marginLeft: 10,
+    fontFamily: "Ubuntu-L",
   },
   descriptionPara: {
     flexWrap: "wrap",
     marginLeft: 10,
+    fontStyle: "italic",
   },
   matButton: {
     color: "#FFFFFF",
@@ -91,27 +95,48 @@ export default StyleSheet.create({
     flexDirection: "row",
   },
   badge: {
-    marginLeft: 10,
-    fontSize: 10,
+    fontSize: 20,
+    textTransform: "capitalize",
     alignSelf: "center",
-    backgroundColor: "#00FF00",
+    fontFamily: "Ubuntu-B",
     borderRadius: 10,
     paddingLeft: 6,
     paddingRight: 6,
     paddingTop: 3,
+
     paddingBottom: 3,
   },
+  inputBlock: {
+    marginTop: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+  },
   title: {
+    fontFamily: "Ubuntu-R",
     fontWeight: "600",
-    marginLeft: 10,
+
     fontSize: 20,
     textDecorationLine: "underline",
   },
+  includedServicesTitle: {
+    fontFamily: "Ubuntu-B",
+    fontSize: 16,
+  },
   priceListingTitle: {
-    fontWeight: "600",
-    marginLeft: 10,
-    fontSize: 18,
-    marginBottom: 5,
-    marginTop: 10,
+    fontFamily: "Ubuntu-B",
+    fontSize: 16,
+  },
+  includedServices: {
+    fontFamily: "Ubuntu-L",
+  },
+  hideButton: {
+    marginTop: 30,
+    alignSelf: "center",
+    borderRadius: 100,
+  },
+  closeIcon: {
+    color: theme.TEXT_LIGHT,
+    textDecorationLine: "underline",
   },
 });

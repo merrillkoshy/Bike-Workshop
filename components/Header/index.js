@@ -12,11 +12,14 @@ export default function headerOptions(props) {
       shadowOpacity: 0,
       backgroundColor: "#424242",
     },
+    headerTitleStyle: {
+      fontFamily: "Ubuntu-B",
+    },
     headerTintColor: "#FFFFFF",
     headerLeft: () => (
       <Pressable onPress={() => props?.navigation.navigate("Home")}>
         <Image
-          source={require("../../assets/images/Monogram.png")}
+          source={require("../../assets/icon-light.png")}
           resizeMode="contain"
           style={styles.image1}
         ></Image>
@@ -39,9 +42,12 @@ export function partialHeader(props) {
       backgroundColor: "#424242",
     },
     headerTitleAlign: "center",
+    headerTitleStyle: {
+      fontFamily: "Ubuntu-B",
+    },
     headerRight: () => (
       <Image
-        source={require("../../assets/images/Monogram.png")}
+        source={require("../../assets/icon-light.png")}
         resizeMode="contain"
         style={styles.image2}
       ></Image>

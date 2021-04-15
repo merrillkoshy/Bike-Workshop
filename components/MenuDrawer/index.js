@@ -1,12 +1,10 @@
 import React from "react";
 import {
   DrawerContentScrollView,
-  DrawerItem,
   DrawerItemList,
 } from "@react-navigation/drawer";
 import firebase from "../../firebase";
 import "firebase/auth";
-import { DrawerActions } from "@react-navigation/core";
 import styles from "./styles";
 import { Image, View, Text, Linking, TouchableOpacity } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -70,11 +68,24 @@ function MenuDrawer(props) {
                 name="instagram"
                 style={styles.icon}
               />
-              <Text style={styles.smBlockText}>instagramID</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL(`https://www.instagram.com/gulfrepairs/`);
+                }}
+              >
+                <Text style={styles.smBlockText}>#gulfrepairs</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.smBlock}>
               <MaterialCommunityIconsIcon name="twitter" style={styles.icon} />
-              <Text style={styles.smBlockText}>twitterID</Text>
+
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL(`https://twitter.com/GulfRepairs`);
+                }}
+              >
+                <Text style={styles.smBlockText}>@GulfRepairs</Text>
+              </TouchableOpacity>
             </View>
           </View>
           <View style={styles.copyRight}>

@@ -6,11 +6,9 @@ export default StyleSheet.create({
   },
 
   scrollArea: {
-    alignSelf: "stretch",
-
-    marginTop: 22,
-    marginLeft: 22,
-    marginRight: 22,
+    alignSelf: "center",
+    width: Dimensions.get("window").width / 1.1,
+    marginTop: 20,
   },
   scrollArea_contentContainerStyle: {
     alignSelf: "center",
@@ -39,6 +37,11 @@ export default StyleSheet.create({
     fontSize: 24,
     paddingLeft: 8,
   },
+  pickupContainer: {
+    borderRadius: 10,
+    borderColor: "#000000",
+    borderWidth: 1,
+  },
   inputBlock: {
     height: 42,
     width: Dimensions.get("window").width / 1.1,
@@ -47,7 +50,13 @@ export default StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  label: {
+    fontFamily: "Ubuntu-R",
+    marginLeft: 2,
+  },
+
   inputStyle: {
+    fontFamily: "Ubuntu-R",
     color: theme?.TEXT_INPUT,
     marginLeft: 16,
     paddingRight: 5,

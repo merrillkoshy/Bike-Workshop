@@ -4,17 +4,29 @@ import theme from "../../appStyles";
 export default StyleSheet.create({
   container: {
     flex: 1,
+  },
+  captureContainer: {
+    marginTop: 30,
+    flex: 1,
+  },
+  welcome: {
+    borderBottomEndRadius: 20,
+    borderBottomStartRadius: 20,
     backgroundColor: theme.HASNAIN_GREY,
+    paddingBottom: 30,
+    shadowColor: theme?.TEXT_INPUT,
+    shadowRadius: 1.5,
   },
   carding: {
-    marginTop: 30,
-    borderRadius: 20,
     backgroundColor: theme.THEME_LIGHT,
-    height: Dimensions.get("screen").height,
+    height: Dimensions.get("screen").height / 1.4,
   },
   yusufsDashboard: {
-    // fontFamily(.*)",
-    color: theme?.TEXT_LIGHT,
+    fontFamily: "Ubuntu-B",
+    alignSelf: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    color: theme?.TEXT_DARK,
     fontSize: 22,
     marginTop: 5,
   },
@@ -26,36 +38,46 @@ export default StyleSheet.create({
     marginRight: 30,
   },
   scrollArea: {
+    flex: 1,
     alignSelf: "stretch",
-    height: Dimensions.get("screen").height / 1.3,
-    marginLeft: 13,
-    marginRight: 13,
   },
   scrollArea_contentContainerStyle: {
     alignSelf: "stretch",
   },
-  materialCardWithTextOverImage1: {
-    height: 218,
-    alignSelf: "stretch",
+  bookingHeroPanel: {
+    alignSelf: "center",
+    height: 100,
     borderRadius: 15,
     marginTop: 21,
+    width: Dimensions.get("window").width / 1.1,
+
+    borderColor: "#CCC",
+    flexWrap: "nowrap",
+
+    shadowColor: theme?.TEXT_INPUT,
+    shadowOffset: {
+      width: -2,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 1.5,
+    elevation: 3,
+    overflow: "hidden",
   },
   servicesListing: {
-    height: 550,
     alignSelf: "center",
     paddingLeft: 30,
     paddingRight: 30,
     borderRadius: 15,
-    marginTop: 21,
+
     marginBottom: 40,
   },
   history: {
-    // fontFamily(.*)",
+    fontFamily: "Ubuntu-B",
     color: theme?.TEXT_LIGHT,
     fontSize: 24,
-
-    marginTop: 27,
-    marginLeft: 16,
+    marginBottom: 30,
+    marginLeft: 30,
   },
   infoCard: {
     height: 97,

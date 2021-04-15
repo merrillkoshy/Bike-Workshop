@@ -5,6 +5,9 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: theme.HASNAIN_GREY,
   },
+  animatableCard: {
+    flex: 1,
+  },
   carding: {
     marginTop: 30,
     borderRadius: 20,
@@ -25,7 +28,7 @@ export default StyleSheet.create({
     alignSelf: "center",
   },
   profileName: {
-    // fontFamily(.*)",
+    fontFamily: "Ubuntu-B",
     color: theme?.TEXT_LIGHT,
     fontSize: 28,
     marginTop: 7,
@@ -39,19 +42,32 @@ export default StyleSheet.create({
     marginBottom: 30,
     alignSelf: "center",
   },
+  rowField: {
+    flexDirection: "row",
+    alignSelf: "center",
+    justifyContent: "center",
+  },
   detailText: {
+    fontFamily: "Ubuntu-R",
     textAlign: "center",
     marginTop: 5,
   },
-
+  outputText: {
+    fontFamily: "Ubuntu-L",
+    textAlign: "center",
+    marginTop: 5,
+    marginLeft: 15,
+  },
   buttonText: {
+    fontFamily: "Ubuntu-R",
     textAlign: "center",
     borderWidth: 2,
     color: theme.PRIMARY_COLOR,
     paddingLeft: 3,
     paddingRight: 3,
-    paddingTop: 5,
-    paddingBottom: 5,
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderRadius: 8,
     borderColor: theme.PRIMARY_COLOR,
     marginTop: 2,
     marginBottom: 2,
@@ -72,6 +88,7 @@ export default StyleSheet.create({
     width: Dimensions.get("window").width / 1.5,
     alignSelf: "center",
     paddingLeft: 30,
+
     marginBottom: 10,
   },
   infoCard1: {

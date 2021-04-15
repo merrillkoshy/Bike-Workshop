@@ -118,7 +118,7 @@ import {
             //               email: email,
             //               photoURL: image
             //                 ? image
-            //                 : "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/mono.png?alt=media&token=c208f0a6-aea9-4157-ae85-386f1310720d",
+            //                 : "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/icon.png?alt=media&token=68d4488a-adaa-4d3a-94e9-2842a25c86d5",
             //               phoneNumber: phoneNumber,
             //             });
             //           user
@@ -126,7 +126,7 @@ import {
             //               displayName: name,
             //               photoURL: image
             //                 ? image
-            //                 : "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/mono.png?alt=media&token=c208f0a6-aea9-4157-ae85-386f1310720d",
+            //                 : "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/icon.png?alt=media&token=68d4488a-adaa-4d3a-94e9-2842a25c86d5",
             //             })
             //             .then(function() {
             //               console.log("Update success");

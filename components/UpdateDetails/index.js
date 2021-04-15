@@ -12,7 +12,7 @@ import * as ImagePicker from "expo-image-picker";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import Toast from "react-native-toast-message";
 
-import SiteButton from "../../components/SiteButton";
+import SiteButton from "../SiteButton";
 import styles from "./styles";
 import firebase from "../../firebase";
 
@@ -63,108 +63,121 @@ const UpdateDetails = (props) => {
       <View
         style={{
           alignItems: "center",
+          paddingVertical: 30,
+          paddingHorizontal: 20,
+          borderRadius: 10,
+          backgroundColor: "rgba(255,255,255,0.9)",
         }}
       >
-        {image ? (
-          <Image
-            source={{ uri: image }}
-            style={{ width: 100, height: 100, borderRadius: 50 }}
-          />
-        ) : (
-          <Image
-            source={require("../../assets/images/Monogram.png")}
-            resizeMode="contain"
-            style={styles.image1}
-          ></Image>
-        )}
-        <Icon
-          name="lead-pencil"
-          style={styles.pencilIcon}
-          onPress={pickImage}
-        ></Icon>
-        <Text style={styles.helpText}>Change Profile Picture</Text>
-      </View>
-      <View style={styles.inputWrapper}>
-        <View style={styles.inputBlock}>
-          <Icon name="account" style={styles.iconStyle}></Icon>
-          <TextInput
-            onChangeText={(text) => setName(text)}
-            value={name}
-            placeholder="Yusuf Yakub"
-            placeholderTextColor="#808080"
-            style={styles.inputStyle}
-          />
+        <View
+          style={{
+            alignItems: "center",
+          }}
+        >
+          {image ? (
+            <Image
+              source={{ uri: image }}
+              style={{ width: 100, height: 100, borderRadius: 50 }}
+            />
+          ) : (
+            <Image
+              source={require("../../assets/icon.png")}
+              resizeMode="contain"
+              style={styles.image1}
+            ></Image>
+          )}
+          <Icon
+            name="lead-pencil"
+            style={styles.pencilIcon}
+            onPress={pickImage}
+          ></Icon>
+          <Text style={styles.helpText}>Change Profile Picture</Text>
         </View>
+        <View style={styles.inputWrapper}>
+          <View style={styles.inputBlock}>
+            <Icon name="account" style={styles.iconStyle}></Icon>
+            <TextInput
+              onChangeText={(text) => setName(text)}
+              value={name}
+              placeholder="Yusuf Yakub"
+              placeholderTextColor="#808080"
+              style={styles.inputStyle}
+            />
+          </View>
 
-        <View style={styles.inputBlock}>
-          <Icon name="cellphone-basic" style={styles.iconStyle}></Icon>
-          <TextInput
-            style={styles.inputStyle}
-            placeholder="+971 55 555 5555"
-            placeholderTextColor="#808080"
-            autoCompleteType="tel"
-            keyboardType="phone-pad"
-            textContentType="telephoneNumber"
-            value={phoneNumber}
-            onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
-          />
-        </View>
+          <View style={styles.inputBlock}>
+            <Icon name="cellphone-basic" style={styles.iconStyle}></Icon>
+            <TextInput
+              style={styles.inputStyle}
+              placeholder="+971 55 555 5555"
+              placeholderTextColor="#808080"
+              autoCompleteType="tel"
+              keyboardType="phone-pad"
+              textContentType="telephoneNumber"
+              value={phoneNumber}
+              onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+            />
+          </View>
 
-        <View style={styles.inputBlock}>
-          <Icon name="home" style={styles.iconStyle}></Icon>
-          <TextInput
-            onChangeText={(text) => setAddress(text)}
-            value={address}
-            placeholder="Flat #1, Street, District, Dubai"
-            placeholderTextColor="#808080"
-            style={styles.inputStyle}
-          />
+          <View style={styles.inputBlock}>
+            <Icon name="home" style={styles.iconStyle}></Icon>
+            <TextInput
+              onChangeText={(text) => setAddress(text)}
+              value={address}
+              placeholder="Flat #1, Street, District, Dubai"
+              placeholderTextColor="#808080"
+              style={styles.inputStyle}
+            />
+          </View>
         </View>
-      </View>
-      <SiteButton
-        onPress={() => {
-          try {
-            user?.updateProfile({
-              displayName: name,
-              photoURL: image
-                ? image
-                : "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/mono.png?alt=media&token=c208f0a6-aea9-4157-ae85-386f1310720d",
-            });
-            firebase
-              .database()
-              .ref("users/" + user?.uid)
-              .update({
-                username: name,
-                phoneNumber: phoneNumber,
+        <SiteButton
+          onPress={() => {
+            try {
+              user?.updateProfile({
+                displayName: name,
                 photoURL: image
                   ? image
-                  : "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/mono.png?alt=media&token=c208f0a6-aea9-4157-ae85-386f1310720d",
-                phoneNumber: phoneNumber,
-                address: address,
-              })
-              .then(function() {
-                Toast.show({
-                  position: "top",
-                  text1: "Update success",
-                  text2: "",
-                });
-                props.navigation.navigate("Home");
+                  : "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/icon.png?alt=media&token=68d4488a-adaa-4d3a-94e9-2842a25c86d5",
               });
-          } catch (error) {
-            Toast.show({
-              position: "top",
-              type: "error",
-              text1: " " + error + " ",
-              text2: "Lets try that again",
-            });
-          }
-        }}
-        buttonText={"UPDATE"}
-        style={styles.matButton}
-      />
-      <TouchableOpacity style={styles.hideButton} onPress={props?.toggleModal}>
-        <Text style={styles.closeIcon}>CLOSE</Text>
-      </TouchableOpacity>
+              firebase
+                .database()
+                .ref("users/" + user?.uid)
+                .update({
+                  username: name,
+                  phoneNumber: phoneNumber,
+                  photoURL: image
+                    ? image
+                    : "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/icon.png?alt=media&token=68d4488a-adaa-4d3a-94e9-2842a25c86d5",
+                  phoneNumber: phoneNumber,
+                  address: address,
+                })
+                .then(function() {
+                  Toast.show({
+                    position: "top",
+                    text1: "Update success",
+                    text2: "",
+                  });
+                  props.navigation.navigate("Home");
+                });
+            } catch (error) {
+              Toast.show({
+                position: "top",
+                type: "error",
+                text1: " " + error + " ",
+                text2: "Lets try that again",
+              });
+            }
+          }}
+          buttonText={"UPDATE"}
+          style={styles.matButton}
+        />
+        <TouchableOpacity
+          style={styles.hideButton}
+          onPress={props?.toggleModal}
+        >
+          <Text style={styles.closeIcon}>CLOSE</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

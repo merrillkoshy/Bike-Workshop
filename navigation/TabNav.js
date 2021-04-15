@@ -7,11 +7,44 @@ import theme from "../appStyles";
 import ServicesScreen from "./ServicesStack";
 import ProfilePage from "../screens/Profile";
 
-const Tab = createBottomTabNavigator();
+import {
+  BottomNavigation,
+  BottomNavigationTab,
+  Icon,
+  Layout,
+  Text,
+} from "@ui-kitten/components";
+
+const { Navigator, Screen } = createBottomTabNavigator();
 
 export default function Home(props) {
+  const HomeIcon = (props) => <Icon {...props} name="home-outline" />;
+  const ServiceIcon = (props) => <Icon {...props} name="list-outline" />;
+  const ProfileIcon = (props) => <Icon {...props} name="person-outline" />;
+
+  const BottomTabBar = ({ navigation, state }) => (
+    <BottomNavigation
+      selectedIndex={state.index}
+      onSelect={(index) => navigation.navigate(state.routeNames[index])}
+    >
+      <BottomNavigationTab
+        title={(evaProps) => <Text {...evaProps}>Home</Text>}
+        icon={HomeIcon}
+      />
+      <BottomNavigationTab
+        title={(evaProps) => <Text {...evaProps}>Services</Text>}
+        icon={ServiceIcon}
+      />
+      <BottomNavigationTab
+        title={(evaProps) => <Text {...evaProps}>Profile</Text>}
+        icon={ProfileIcon}
+      />
+    </BottomNavigation>
+  );
+
   return (
-    <Tab.Navigator
+    <Navigator tabBar={(props) => <BottomTabBar {...props} />}>
+      {/* <Tab.Navigator
       tabBarOptions={{
         activeTintColor: theme?.PRIMARY_COLOR,
         inactiveTintColor: theme?.INACTIVE,
@@ -62,6 +95,10 @@ export default function Home(props) {
         props={props}
         component={ProfilePage}
       />
-    </Tab.Navigator>
+    </Tab.Navigator> */}
+      <Screen name="Home" component={HomeScreen} />
+      <Screen name="Services" component={ServicesScreen} />
+      <Screen name="Profile" component={ProfilePage} />
+    </Navigator>
   );
 }

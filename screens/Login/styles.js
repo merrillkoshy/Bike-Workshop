@@ -32,6 +32,7 @@ export default StyleSheet.create({
     marginRight: 10,
   },
   materialButtonPink: {
+    fontFamily: "Ubuntu-R",
     padding: 10,
     marginTop: 50,
     alignSelf: "center",
@@ -50,6 +51,7 @@ export default StyleSheet.create({
   },
 
   inputStyle: {
+    fontFamily: "Ubuntu-R",
     color: theme?.TEXT_INPUT,
     marginLeft: 16,
     paddingRight: 5,
@@ -61,6 +63,7 @@ export default StyleSheet.create({
     borderColor: "#D9D5DC",
     paddingTop: 14,
     paddingBottom: 8,
+    borderRadius: 10,
   },
   iconStyle: {
     color: theme?.PRIMARY_COLOR,

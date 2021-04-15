@@ -69,27 +69,27 @@ const StatusView = (props) => {
         <View style={styles.inputBlock}>
           <Text style={styles.textStyle}>Booking Status : {status}</Text>
         </View>
-        {props?.booking?.startDate && (
+        {props?.booking?.startDate ? (
           <View style={styles.inputBlock}>
             <Text style={styles.textStyle}>
               Start Date : {props?.booking?.startDate}
             </Text>
           </View>
-        )}
-        {props?.booking?.completionDate && (
+        ) : null}
+        {props?.booking?.completionDate ? (
           <View style={styles.inputBlock}>
             <Text style={styles.textStyle}>
               Completion Date (Estd.) : {props?.booking?.completionDate}
             </Text>
           </View>
-        )}
-        {props?.booking?.completedDate && (
+        ) : null}
+        {props?.booking?.completedDate ? (
           <View style={styles.inputBlock}>
             <Text style={styles.textStyle}>
               Completed Date : {props?.booking?.completedDate}
             </Text>
           </View>
-        )}
+        ) : null}
 
         <Pressable style={styles.hideButton} onPress={props?.closeModal}>
           <Text style={styles.closeIcon}>CLOSE</Text>

@@ -3,10 +3,10 @@ import theme from "../../appStyles";
 export default StyleSheet.create({
   container: {
     borderWidth: 1,
-    borderRadius: 2,
-    borderColor: "#CCC",
+    borderRadius: 20,
+
     flexWrap: "nowrap",
-    backgroundColor: theme?.HASNAIN_GREY,
+
     shadowColor: theme?.TEXT_INPUT,
     shadowOffset: {
       width: -2,
@@ -18,9 +18,10 @@ export default StyleSheet.create({
     overflow: "hidden",
   },
   cardItemImagePlace: {
-    backgroundColor: "#ccc",
+    borderRadius: 20,
+
     flex: 1,
-    minHeight: 359,
+    height: 300,
   },
   cardBody: {
     position: "absolute",
@@ -32,20 +33,31 @@ export default StyleSheet.create({
   bodyContent: {
     padding: 16,
     paddingTop: 24,
+    paddingLeft: 30,
     justifyContent: "center",
     backgroundColor: "rgba(4,4,4,0.6)",
   },
   titleStyle: {
+    fontFamily: "Ubuntu-B",
     fontSize: 22,
     color: theme?.TEXT_DARK,
     paddingBottom: 12,
     textTransform: "capitalize",
   },
   subtitleStyle: {
+    fontFamily: "Ubuntu-R",
     fontSize: 14,
     color: theme?.TEXT_DARK,
     lineHeight: 16,
     opacity: 0.5,
+  },
+  pickAndDrop: {
+    marginTop: 5,
+    fontFamily: "Ubuntu-R",
+    fontSize: 16,
+    color: theme?.TEXT_DARK,
+    lineHeight: 16,
+    opacity: 1,
   },
   actionBody: {
     padding: 8,
@@ -53,11 +65,15 @@ export default StyleSheet.create({
   },
   actionButton1: {
     backgroundColor: theme.PRIMARY_COLOR,
-    padding: 8,
+
     height: 36,
     borderRadius: 10,
+    marginLeft: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 8,
   },
   actionText1: {
+    fontFamily: "Ubuntu-R",
     fontSize: 14,
     color: theme?.TEXT_DARK,
   },

@@ -10,15 +10,63 @@ export default StyleSheet.create({
     alignSelf: "center",
     justifyContent: "center",
   },
+  contentWrapper: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 30,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    height: Dimensions.get("window").height / 1.4,
+    backgroundColor: "rgba(255,255,255,0.9)",
+  },
   materialIconTextbox: {
     marginTop: 10,
+  },
+  badge: {
+    fontSize: 20,
+    textTransform: "capitalize",
+    alignSelf: "center",
+    fontFamily: "Ubuntu-B",
+    borderRadius: 10,
+    paddingLeft: 6,
+    paddingRight: 6,
+    paddingTop: 3,
+
+    paddingBottom: 3,
   },
   image1: {
     height: 120,
     alignSelf: "center",
+    width: 120,
+  },
+  locateButton: {
+    backgroundColor: theme.PRIMARY_COLOR,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 10,
+  },
+  slot: {
+    borderColor: "#000000",
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 15,
+    paddingRight: 15,
+    margin: 5,
+    borderRadius: 10,
+    borderWidth: 1,
+  },
+  locateButtonText: {
+    color: theme.TEXT_DARK,
+    alignSelf: "center",
+  },
+  slotText: {
+    color: theme.TEXT_LIGHT,
+    alignSelf: "center",
   },
   inputWrapper: {
-    marginTop: 30,
+    marginTop: 0,
     alignSelf: "center",
     justifyContent: "center",
   },
@@ -59,10 +107,15 @@ export default StyleSheet.create({
   inputBlock: {
     width: Dimensions.get("window").width / 1.4,
     marginTop: 20,
-    backgroundColor: "rgba(255,255,255,0.6)",
+    justifyContent: "center",
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 10,
+  },
+  slotsBlock: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
   icon: {
     color: theme?.PRIMARY_COLOR,
@@ -88,5 +141,10 @@ export default StyleSheet.create({
   closeIcon: {
     color: theme.TEXT_LIGHT,
     textDecorationLine: "underline",
+  },
+  label: {
+    fontFamily: "Ubuntu-R",
+    flex: 1,
+    flexWrap: "wrap",
   },
 });

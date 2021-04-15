@@ -21,6 +21,7 @@ import { StatusBar } from "expo-status-bar";
 
 import Toast from "react-native-toast-message";
 import { ImageBackground } from "react-native";
+import { buildNotification, sendNotif } from "../../lib/NotificationsHandler";
 
 function CreateAccount(props) {
   const [name, setName] = useState("");
@@ -95,7 +96,7 @@ function CreateAccount(props) {
               />
             ) : (
               <Image
-                source={require("../../assets/images/Monogram.png")}
+                source={require("../../assets/icon.png")}
                 resizeMode="contain"
                 style={styles.image1}
               ></Image>
@@ -204,7 +205,7 @@ function CreateAccount(props) {
                           displayName: name,
                           photoURL: image
                             ? image
-                            : "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/mono.png?alt=media&token=c208f0a6-aea9-4157-ae85-386f1310720d",
+                            : "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/icon.png?alt=media&token=68d4488a-adaa-4d3a-94e9-2842a25c86d5",
                         });
                         firebase
                           .database()
@@ -215,12 +216,14 @@ function CreateAccount(props) {
                             phoneNumber: phoneNumber,
                             photoURL: image
                               ? image
-                              : "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/mono.png?alt=media&token=c208f0a6-aea9-4157-ae85-386f1310720d",
+                              : "https://firebasestorage.googleapis.com/v0/b/bike-workshop-e2f5d.appspot.com/o/icon.png?alt=media&token=68d4488a-adaa-4d3a-94e9-2842a25c86d5",
                             phoneNumber: phoneNumber,
                             address: address,
                           });
                       })
                       .then(function() {
+                        const notification = buildNotification(name);
+                        sendNotif(notification);
                         Toast.show({
                           position: "top",
                           text1: "You are all set " + name + "!",

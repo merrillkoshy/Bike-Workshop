@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
   View,
   Image,
   Text,
   TouchableOpacity,
   TextInput,
-  Button,
   ImageBackground,
+  SafeAreaView,
 } from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
 import { StatusBar } from "expo-status-bar";
 import "firebase/auth";
 import Toast from "react-native-toast-message";
+import { useFocusEffect } from "@react-navigation/native";
 
 import styles from "./styles";
 import firebase from "../../firebase";
-import SiteButton from "../../components/SiteButton";
+import { Icon, Button } from "@ui-kitten/components";
 
 function Login(props) {
   const [submit, setSubmit] = useState(false);
@@ -24,23 +25,28 @@ function Login(props) {
   const [eyeCon, setEyecon] = useState("eye-outline");
   const [secText, setSecText] = useState(true);
 
-  const gateKeeper = () => {
-    if (firebase.auth().currentUser) {
-      props.navigation.navigate("Dashboard");
-    }
-  };
+  useFocusEffect(
+    useCallback(() => {
+      if (firebase.auth().currentUser) {
+        return props.navigation.navigate("Dashboard");
+      }
+    }, [])
+  );
+
   useEffect(() => {
-    gateKeeper();
+    if (firebase.auth().currentUser) {
+      return props.navigation.navigate("Dashboard");
+    }
     return () => {
       setSecText(true);
       setEmail(null);
       setPw(null);
       setEyecon("eye-outline");
     };
-  }, []);
+  }, [firebase.auth().currentUser]);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar style="light" animated={true} />
       <ImageBackground
         source={require("../../assets/images/loginBackground.jpg")}
@@ -55,7 +61,7 @@ function Login(props) {
           ></Image>
 
           <View style={styles.inputBlock}>
-            <Icon name="account" style={styles.iconStyle}></Icon>
+            <Icon name="person-outline" style={styles.iconStyle}></Icon>
             <TextInput
               value={email}
               onChangeText={(text) => setEmail(text)}
@@ -65,7 +71,7 @@ function Login(props) {
             />
           </View>
           <View style={styles.inputBlock}>
-            <Icon name="account-key" style={styles.iconStyle}></Icon>
+            <Icon name="lock-outline" style={styles.iconStyle}></Icon>
             <TextInput
               secureTextEntry={secText}
               value={pw}
@@ -86,7 +92,8 @@ function Login(props) {
             </TouchableOpacity>
           </View>
 
-          <SiteButton
+          <Button
+            status="secondary"
             onPress={() => {
               try {
                 firebase
@@ -124,9 +131,10 @@ function Login(props) {
                 });
               }
             }}
-            buttonText={"LOGIN"}
             style={styles.materialButtonPink}
-          />
+          >
+            LOGIN
+          </Button>
           {/* <Button
         title={"Sign-in With Google"}
         onPress={() => firebase.auth.GoogleAuthProvider()}
@@ -142,7 +150,7 @@ function Login(props) {
           </TouchableOpacity>
         </View>
       </ImageBackground>
-    </View>
+    </SafeAreaView>
   );
 }
 

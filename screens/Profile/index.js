@@ -5,8 +5,9 @@ import Modal from "react-native-modal";
 import Toast from "react-native-toast-message";
 import { createStackNavigator } from "@react-navigation/stack";
 import "firebase/auth";
+import * as Animatable from "react-native-animatable";
+import { useFocusEffect } from "@react-navigation/native";
 
-import InfoCard from "../../components/InfoCard";
 import styles from "./styles";
 import firebase from "../../firebase";
 import SiteButton from "../../components/SiteButton";
@@ -19,17 +20,35 @@ function ProfilePage(props) {
   const [user, setUser] = useState(null);
   const [datum, setDatum] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
+  const [pageLoad, setPageLoad] = useState(false);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
   var currentUser = firebase.auth().currentUser;
+  const stackUp = {
+    from: {
+      marginTop: 50,
+    },
+    to: {
+      marginTop: 30,
+    },
+  };
+  const stackDown = {
+    from: {
+      marginTop: 30,
+    },
+    to: {
+      marginTop: 50,
+    },
+  };
 
   const fetch = () => {
     const db = firebase.database().ref("users/" + currentUser?.uid);
     db.on("value", (snapshot) => {
       const data = snapshot.val();
+
       setDatum(data);
     });
   };
@@ -41,6 +60,14 @@ function ProfilePage(props) {
     }
   };
 
+  useFocusEffect(
+    React.useCallback(() => {
+      setPageLoad(true);
+
+      return () => setPageLoad(false);
+    }, [])
+  );
+
   useEffect(() => {
     authenticate();
     fetch();
@@ -49,7 +76,11 @@ function ProfilePage(props) {
   const stackComponent = () => {
     return (
       <View style={styles.container}>
-        {user && (
+        <Animatable.View
+          style={styles.animatableCard}
+          animation={pageLoad ? stackUp : stackDown}
+          delay={100}
+        >
           <View style={styles.carding}>
             {user?.photoURL ? (
               <Image style={styles.photo} source={{ uri: user?.photoURL }} />
@@ -57,36 +88,42 @@ function ProfilePage(props) {
               <Icon name="account-circle" style={styles.icon}></Icon>
             )}
 
-            <Text style={styles.profileName}>
-              {user ? user?.displayName : "Guest"}
-            </Text>
+            <Text style={styles.profileName}>{user?.displayName}</Text>
 
             <View style={styles.scrollArea}>
               <ScrollView
                 contentContainerStyle={styles.scrollArea_contentContainerStyle}
               >
                 <View style={styles.infoBlock}>
-                  {datum?.address && (
-                    <Text style={styles.detailText}>
-                      Address : {datum.address}
-                    </Text>
-                  )}
+                  {datum?.address ? (
+                    <View style={styles.rowField}>
+                      <Text style={styles.detailText}>Address:</Text>
+                      <Text style={styles.outputText}>{datum?.address}</Text>
+                    </View>
+                  ) : null}
 
-                  {datum?.email && (
-                    <Text style={styles.detailText}>Email : {datum.email}</Text>
-                  )}
-                  {datum?.phoneNumber && (
-                    <Text style={styles.detailText}>
-                      Phone : {datum.phoneNumber}
-                    </Text>
-                  )}
+                  {datum?.email ? (
+                    <View style={styles.rowField}>
+                      <Text style={styles.detailText}>Email:</Text>
+                      <Text style={styles.outputText}>{datum?.email}</Text>
+                    </View>
+                  ) : null}
+                  {datum?.phoneNumber ? (
+                    <View style={styles.rowField}>
+                      <Text style={styles.detailText}>Phone:</Text>
+                      <Text style={styles.outputText}>
+                        {datum?.phoneNumber}
+                      </Text>
+                    </View>
+                  ) : null}
 
                   <Modal
                     style={styles.modalContainer}
                     animationIn={"rubberBand"}
                     animationOut={"slideOutDown"}
                     isVisible={isModalVisible}
-                    animationOutTiming={1000}
+                    animationInTiming={500}
+                    animationOutTiming={500}
                     transparent={true}
                   >
                     <View style={styles.modalContent}>
@@ -136,23 +173,7 @@ function ProfilePage(props) {
               </ScrollView>
             </View>
           </View>
-        )}
-        {!user && (
-          <View style={styles.carding}>
-            <Icon name="account-circle" style={styles.icon}></Icon>
-
-            <Text style={styles.profileName}>Guest</Text>
-
-            <View style={styles.scrollArea}>
-              <SiteButton
-                buttonText={"Login"}
-                style={styles.logout}
-                fontSize={20}
-                onPress={() => props.navigation.navigate("Login")}
-              />
-            </View>
-          </View>
-        )}
+        </Animatable.View>
       </View>
     );
   };

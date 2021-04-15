@@ -19,6 +19,8 @@ function CurrentBooking(props) {
   const user = props.user;
   const [image, setImage] = useState(null);
   const [serviceName, setServiceName] = useState(null);
+  const [pickAndDrop, setPickAndDrop] = useState(false);
+  const [timeSlot, setTimeSlot] = useState(null);
   const [status, setStatus] = useState(null);
   const [booking, setBooking] = useState(null);
 
@@ -37,13 +39,11 @@ function CurrentBooking(props) {
         if (data) {
           for (const [key, value] of Object.entries(data)) {
             setBooking(value);
-            if (value.bookingStatus !== "closed") {
-              setStatus(value.bookingStatus);
-              setImage(value.image);
-              setServiceName(value.serviceName);
-            } else {
-              setStatus("closed");
-            }
+            setStatus(value.bookingStatus);
+            setImage(value.image);
+            setServiceName(value.serviceName);
+            setPickAndDrop(value.pickAndDrop);
+            setTimeSlot(value.timeSlot);
           }
         }
       });
@@ -53,15 +53,15 @@ function CurrentBooking(props) {
     };
   }, []);
   return (
-    <View style={[styles.container, props.style]}>
-      {image && (
+    <>
+      {image ? (
         <Image
           source={{
             uri: image,
           }}
           style={styles.cardItemImagePlace}
         ></Image>
-      )}
+      ) : null}
 
       <View style={styles.cardBody}>
         <View style={styles.bodyContent}>
@@ -69,11 +69,12 @@ function CurrentBooking(props) {
             {serviceName ? `${serviceName}` : "Book a Service"}
           </Text>
           <Text style={styles.subtitleStyle}>
-            {status
-              ? status != "closed"
-                ? `Booking Status: ${status}`
-                : "Book a Service"
-              : ""}
+            {status ? `Booking Status: ${status}` : "Book a Service"}
+          </Text>
+          <Text style={styles.pickAndDrop}>
+            {pickAndDrop
+              ? `Pick up between ${timeSlot}`
+              : "Receive at service center"}
           </Text>
         </View>
         <View style={styles.actionBody}>
@@ -88,9 +89,10 @@ function CurrentBooking(props) {
       <Modal
         style={styles.modalContainer}
         animationIn={"rubberBand"}
-        animationOut={"slideOutDown"}
+        animationOut={"bounceOut"}
         isVisible={isModalVisible}
-        animationOutTiming={1000}
+        animationInTiming={500}
+        animationOutTiming={500}
         transparent={true}
       >
         <View style={styles.modalContent}>
@@ -100,7 +102,7 @@ function CurrentBooking(props) {
           />
         </View>
       </Modal>
-    </View>
+    </>
   );
 }
 

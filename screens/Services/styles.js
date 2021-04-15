@@ -5,10 +5,16 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: theme.HASNAIN_GREY,
   },
+  animatableCard: {
+    flex: 1,
+  },
   carding: {
-    marginTop: 30,
-    borderRadius: 20,
-    backgroundColor: theme.THEME_LIGHT,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    flex: 1,
+    // justifyContent: "center",
+    // alignItems: "center",
+    // backgroundColor: theme.THEME_LIGHT,
     height: Dimensions.get("screen").height,
   },
   footer: {
@@ -27,11 +33,13 @@ export default StyleSheet.create({
     alignSelf: "center",
   },
   infoCard: {
-    height: 60,
-    width: Dimensions.get("window").width / 1.5,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 30,
+    // width: Dimensions.get("window").width / 1.5,
     alignSelf: "center",
-    paddingLeft: 30,
-    marginBottom: 10,
+    // paddingLeft: 30,
+    marginBottom: 100,
   },
   text: {
     top: 0,
@@ -65,5 +73,10 @@ export default StyleSheet.create({
     height: 65,
     marginTop: 0,
     marginLeft: 10,
+  },
+  modalContent: {
+    flex: 6,
+    justifyContent: "center",
+    alignSelf: "center",
   },
 });

@@ -46,6 +46,7 @@ export default StyleSheet.create({
     alignSelf: "center",
   },
   inputStyle: {
+    fontFamily: "Ubuntu-R",
     color: theme.TEXT_DARK,
     marginLeft: 16,
     paddingRight: 5,

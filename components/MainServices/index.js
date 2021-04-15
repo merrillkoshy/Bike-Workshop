@@ -1,83 +1,106 @@
 import React, { useEffect, useState } from "react";
-import { View, Image, Text, TouchableOpacity } from "react-native";
+import { View, Image, Pressable } from "react-native";
+import { Card, List, Text } from "@ui-kitten/components";
+import DisplayService from "../DisplayService";
+import Modal from "react-native-modal";
 
-import firebase from "../../firebase";
+import theme from "../../appStyles";
 import styles from "./styles";
 import Shimmer from "../Shimmer";
+
 const MainServices = (props) => {
   const [mainServices, setMainServices] = useState(null);
-
-  var dbRef = firebase.database().ref("mainServices/");
-  const servicesList = () => {
-    var serviceList = [];
-
-    dbRef
-      .once("value", (snapshot) => {
-        snapshot.forEach((snap) => {
-          const svObject = snap.val();
-          serviceList.push(svObject);
-        });
-      })
-      .then(() => {
-        setMainServices(serviceList);
-      });
-  };
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalAble, setModalAble] = useState(null);
 
   useEffect(() => {
-    servicesList();
+    setMainServices(props?.mainServices);
     return () => {
       //
     };
   }, []);
-  return (
-    <View style={[styles.container, props.style]}>
-      {mainServices &&
-        mainServices.map((service, i) => {
-          return (
-            <TouchableOpacity
-              key={service?.serviceName}
-              style={styles.serviceCards}
-              onPress={() =>
-                props.navigation.navigate("Service", {
-                  serviceName: service?.serviceName + " Service",
-                  image: service?.image,
-                  includedServices: service?.services,
-                  salesPrice: service?.salesPrice,
-                })
-              }
-            >
-              {service?.image && (
-                <Image
-                  source={{
-                    uri: service?.image,
-                  }}
-                  resizeMode={"cover"}
-                  style={styles.cardItemImagePlace}
-                ></Image>
-              )}
 
-              <View style={styles.cardBody}>
-                <View style={styles.bodyContent}>
-                  <Text style={styles.titleStyle}>{service?.serviceName}</Text>
-                  {/* <Text style={styles.subtitleStyle}>{"Lorem Ipsum"}</Text> */}
-                </View>
-              </View>
-            </TouchableOpacity>
-          );
-        })}
-      {!mainServices && (
-        <>
-          <Shimmer
-            width={styles.serviceCards.width}
-            marginTop={styles.serviceCards.marginTop}
-            marginBottom={styles.serviceCards.marginBottom}
-            height={150}
+  const renderItemFooter = (footerProps, service) => (
+    <Text style={styles.titleStyle}>{service?.serviceName}</Text>
+  );
+
+  const renderItem = ({ item, index }) => (
+    <>
+      <Pressable
+        style={styles.item}
+        onPress={() => {
+          setIsModalVisible(true);
+          setModalAble(item);
+        }}
+      >
+        <View style={styles.wrapper}>
+          <View style={styles.iconHolder}>
+            <Image
+              source={{
+                uri: item?.icon,
+              }}
+              style={styles.iconPlace}
+              tintColor={theme.PRIMARY_COLOR}
+            />
+          </View>
+
+          <View style={styles.imageHolder}>
+            {item?.image ? (
+              <Image
+                source={{
+                  uri: item?.image,
+                }}
+                resizeMode={"cover"}
+                style={styles.cardItemImagePlace}
+              />
+            ) : null}
+          </View>
+        </View>
+        <Text style={styles.titleStyle}>{item?.serviceName}</Text>
+      </Pressable>
+    </>
+  );
+
+  return mainServices ? (
+    <>
+      <List
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+        data={mainServices}
+        renderItem={renderItem}
+      />
+      <Modal
+        style={styles.modalContainer}
+        animationIn={"slideInUp"}
+        animationOut={"slideOutDown"}
+        isVisible={isModalVisible}
+        animationOutTiming={1000}
+        transparent={true}
+      >
+        <View style={styles.modalContent}>
+          <DisplayService
+            {...props}
+            serviceName={modalAble?.serviceName + " Service"}
+            image={modalAble?.image}
+            includedServices={modalAble?.services}
+            description={modalAble?.description}
+            salesPrice={modalAble?.salesPrice}
+            closeModal={() => setIsModalVisible(false)}
           />
-          <Shimmer width={styles.serviceCards.width} height={150} />
-          <Shimmer width={styles.serviceCards.width} height={150} />
-        </>
-      )}
-    </View>
+        </View>
+      </Modal>
+    </>
+  ) : (
+    <>
+      <Shimmer
+        width={styles.serviceCards.width}
+        marginTop={styles.serviceCards.marginTop}
+        marginBottom={styles.serviceCards.marginBottom}
+        height={150}
+      />
+      <Shimmer width={styles.serviceCards.width} height={150} />
+      <Shimmer width={styles.serviceCards.width} height={150} />
+    </>
   );
 };
 

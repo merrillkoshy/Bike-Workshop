@@ -6,17 +6,25 @@ import {
 import firebase from "../../firebase";
 import "firebase/auth";
 import styles from "./styles";
-import { Image, View, Text, Linking, TouchableOpacity } from "react-native";
+import {
+  Image,
+  View,
+  Text,
+  Linking,
+  TouchableOpacity,
+  SafeAreaView,
+} from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import moment from "moment";
 
 function MenuDrawer(props) {
   var user = firebase.auth().currentUser;
 
   return (
     <DrawerContentScrollView {...props}>
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Image
-          source={require("../../assets/images/gulfmotorcycles.png")}
+          source={require("../../assets/icon-light.png")}
           resizeMode="contain"
           style={styles.image1}
         ></Image>
@@ -51,8 +59,9 @@ function MenuDrawer(props) {
               }}
             >
               <Text style={styles.locationText}>
-                Behind Burjeel Hospital, Sheikh Zayed Road, Al Quoz Industrial
-                1, Dubai
+                Gulf Motorcycles-Motorcycle Repairs, Behind Burjeel
+                Hospital,Sheikh Zayed Road, 6A Street, Al Quoz Industrial 1,
+                Dubai, UAE
               </Text>
             </TouchableOpacity>
           </View>
@@ -61,7 +70,15 @@ function MenuDrawer(props) {
           <View style={styles.smWrapper}>
             <View style={styles.smBlock}>
               <MaterialCommunityIconsIcon name="facebook" style={styles.icon} />
-              <Text style={styles.smBlockText}>facebookID</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL(
+                    `https://www.facebook.com/gulfmotorcyclerepairs/`
+                  );
+                }}
+              >
+                <Text style={styles.smBlockText}>@GulfMotorCycleRepairs</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.smBlock}>
               <MaterialCommunityIconsIcon
@@ -91,11 +108,13 @@ function MenuDrawer(props) {
           <View style={styles.copyRight}>
             <Text style={styles.appVer}>v1.0.0</Text>
             <Text style={styles.copyText}>
-              2021 Gulf Motorcycles® for Motorcycle Repairs
+              {`${moment().format("YYYY")}-${parseInt(moment().format("YY")) +
+                1}`}{" "}
+              Gulf Motorcycles® for Motorcycle Repairs
             </Text>
           </View>
         </View>
-      </View>
+      </SafeAreaView>
     </DrawerContentScrollView>
   );
 }

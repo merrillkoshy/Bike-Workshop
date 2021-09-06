@@ -19,49 +19,49 @@ import AppLoading from "expo-app-loading";
 
 import AppStack from "./navigation/AppStack";
 
-export default function App(props) {
-  const [appIsReady, setAppIsReady] = useState(false);
+export default function App() {
+	const [appIsReady, setAppIsReady] = useState(false);
 
-  const _cacheResourcesAsync = async () => {
-    return Promise.all(
-      await Font.loadAsync({
-        "Ubuntu-R": require("./assets/Ubuntu-R.ttf"),
-        "Ubuntu-L": require("./assets/Ubuntu-L.ttf"),
-        "Ubuntu-B": require("./assets/Ubuntu-B.ttf"),
-      })
-    );
-  };
+	const _cacheResourcesAsync = async () => {
+		return Promise.all(
+			await Font.loadAsync({
+				"Ubuntu-R": require("./assets/Ubuntu-R.ttf"),
+				"Ubuntu-L": require("./assets/Ubuntu-L.ttf"),
+				"Ubuntu-B": require("./assets/Ubuntu-B.ttf"),
+			})
+		);
+	};
 
-  if (!appIsReady) {
-    return (
-      <AppLoading
-        startAsync={_cacheResourcesAsync}
-        onFinish={() => setAppIsReady(true)}
-        onError={console.warn}
-      />
-    );
-  }
+	if (!appIsReady) {
+		return (
+			<AppLoading
+				startAsync={_cacheResourcesAsync}
+				onFinish={() => setAppIsReady(true)}
+				onError={console.warn}
+			/>
+		);
+	}
 
-  return (
-    <>
-      <IconRegistry icons={EvaIconsPack} />
+	return (
+		<>
+			<IconRegistry icons={EvaIconsPack} />
 
-      <ApplicationProvider
-        {...eva}
-        theme={{ ...eva.light, ...evaTheme }}
-        customMapping={mapping}
-      >
-        <NavigationContainer>
-          <StatusBar
-            style="light"
-            animated={true}
-            backgroundColor={theme?.HASNAIN_GREY}
-          />
-          <AppStack />
+			<ApplicationProvider
+				{...eva}
+				theme={{ ...eva.light, ...evaTheme }}
+				customMapping={mapping}
+			>
+				<NavigationContainer>
+					<StatusBar
+						style="light"
+						animated={true}
+						backgroundColor={theme?.HASNAIN_GREY}
+					/>
+					<AppStack />
 
-          <Toast ref={(ref) => Toast.setRef(ref)} />
-        </NavigationContainer>
-      </ApplicationProvider>
-    </>
-  );
+					<Toast ref={(ref) => Toast.setRef(ref)} />
+				</NavigationContainer>
+			</ApplicationProvider>
+		</>
+	);
 }

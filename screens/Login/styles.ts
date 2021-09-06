@@ -5,6 +5,7 @@ import theme from "../../appStyles";
 export default StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#000000",
   },
   image: {
     flex: 1,
@@ -59,8 +60,8 @@ export default StyleSheet.create({
     alignSelf: "stretch",
     flex: 1,
     lineHeight: 16,
-    borderBottomWidth: 1,
-    borderColor: "#D9D5DC",
+    borderBottomWidth: 3,
+    borderColor: theme?.PRIMARY_COLOR,
     paddingTop: 14,
     paddingBottom: 8,
     borderRadius: 10,
@@ -74,7 +75,7 @@ export default StyleSheet.create({
     height: 40,
     width: Dimensions.get("window").width / 1.4,
     marginTop: 20,
-    backgroundColor: "rgba(255,255,255,0.6)",
+    // backgroundColor: "rgba(255,255,255,0.6)",
     flexDirection: "row",
     alignItems: "center",
   },

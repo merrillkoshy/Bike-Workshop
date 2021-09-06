@@ -145,4 +145,13 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
   },
+  history: {
+    fontFamily: "Ubuntu-B",
+    backgroundColor: theme?.TEXT_DARK,
+    color: theme?.TEXT_LIGHT,
+    fontSize: 24,
+    paddingTop: 10,
+    paddingBottom: 20,
+    paddingLeft: 30,
+  },
 });

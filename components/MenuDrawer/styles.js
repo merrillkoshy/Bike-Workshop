@@ -2,7 +2,8 @@ import { Dimensions, StyleSheet } from "react-native";
 import theme from "../../appStyles";
 export default StyleSheet.create({
   container: {
-    height: Dimensions.get("window").height - 40,
+    flex: 1,
+    // height: Dimensions.get("window").height - 80,
   },
   image1: {
     marginTop: 50,
@@ -14,9 +15,12 @@ export default StyleSheet.create({
     marginBottom: 20,
   },
   footer: {
+    marginTop: 20,
+    flex: 3,
+
     flexDirection: "column",
-    position: "absolute", //Here is the trick
-    bottom: 0,
+    // position: "absolute", //Here is the trick
+    // bottom: 0,
   },
   companyDetailsBlock: {
     flexDirection: "row",
@@ -33,7 +37,7 @@ export default StyleSheet.create({
   },
   smWrapper: {
     flexDirection: "row",
-    width: Dimensions.get("window").width / 1.4,
+    width: Dimensions.get("window").width / 1.6,
     flexWrap: "wrap",
     marginBottom: 30,
   },
@@ -65,6 +69,8 @@ export default StyleSheet.create({
   copyRight: {
     marginLeft: 10,
     marginRight: 10,
+    marginTop: 10,
+    width: Dimensions.get("window").width / 1.6,
     alignSelf: "center",
   },
   appVer: {
@@ -72,6 +78,7 @@ export default StyleSheet.create({
     color: theme?.PRIMARY_COLOR,
   },
   copyText: {
+    marginTop: 10,
     textAlign: "center",
     color: theme?.TEXT_DARK,
   },

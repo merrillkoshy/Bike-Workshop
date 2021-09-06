@@ -21,25 +21,6 @@ const AnimatedSplashScreen = ({ children, image }) => {
     }
   }, [isAppReady]);
 
-  const onImageLoaded = async () => {
-    try {
-      return setAppReady(true);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // useMemo(() => async () => {
-  //   try {
-  //     await SplashScreen.hideAsync();
-  //     // Load stuff
-  //     await Promise.all([]);
-  //   } catch (e) {
-  //     // handle errors
-  //   } finally {
-  //     setAppReady(true);
-  //   }
-  // });
-  SplashScreen;
   return (
     <View style={{ flex: 1 }}>
       {isAppReady && children}
@@ -66,7 +47,7 @@ const AnimatedSplashScreen = ({ children, image }) => {
               ],
             }}
             source={image}
-            onLoadEnd={setAppReady(true)}
+            onLoadEnd={() => setAppReady(true)}
             fadeDuration={0}
           />
         </Animated.View>

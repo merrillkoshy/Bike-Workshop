@@ -7,6 +7,7 @@ import SiteButton from "../SiteButton";
 import theme from "../../appStyles";
 import firebase from "../../firebase";
 import "firebase/auth";
+import Shimmer from "../Shimmer";
 
 const DisplayService = (props) => {
   const [description, setDescription] = useState(null);
@@ -47,10 +48,11 @@ const DisplayService = (props) => {
           <Text style={styles.badge}>{serviceName}</Text>
         </View>
         <View style={styles.imageWrap}>
-          <Image
-            source={{ uri: image }}
-            style={styles.cardItemImagePlace}
-          ></Image>
+          {image ? (
+            <Image source={{ uri: image }} style={styles.cardItemImagePlace} />
+          ) : (
+            <Shimmer width={"100%"} height={styles.imageWrap.height} />
+          )}
         </View>
         <Text style={styles.descriptionPara}>{description}</Text>
         <View style={styles.infoCard}>

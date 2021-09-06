@@ -40,45 +40,29 @@ export default StyleSheet.create({
   scrollArea: {
     flex: 1,
     alignSelf: "stretch",
+    backgroundColor: theme?.TEXT_DARK,
   },
   scrollArea_contentContainerStyle: {
     alignSelf: "stretch",
   },
   bookingHeroPanel: {
     alignSelf: "center",
-    height: 100,
-    borderRadius: 15,
+    height: 240,
+    borderRadius: 30,
     marginTop: 21,
-    width: Dimensions.get("window").width / 1.1,
-
-    borderColor: "#CCC",
+    width: Dimensions.get("window").width,
     flexWrap: "nowrap",
 
-    shadowColor: theme?.TEXT_INPUT,
-    shadowOffset: {
-      width: -2,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 1.5,
-    elevation: 3,
-    overflow: "hidden",
+    // overflow: "hidden",
   },
   servicesListing: {
     alignSelf: "center",
     paddingLeft: 30,
     paddingRight: 30,
     borderRadius: 15,
-
     marginBottom: 40,
   },
-  history: {
-    fontFamily: "Ubuntu-B",
-    color: theme?.TEXT_LIGHT,
-    fontSize: 24,
-    marginBottom: 30,
-    marginLeft: 30,
-  },
+
   infoCard: {
     height: 97,
     alignSelf: "stretch",

@@ -20,10 +20,6 @@ const MainServices = (props) => {
     };
   }, []);
 
-  const renderItemFooter = (footerProps, service) => (
-    <Text style={styles.titleStyle}>{service?.serviceName}</Text>
-  );
-
   const renderItem = ({ item, index }) => (
     <>
       <Pressable
@@ -53,7 +49,12 @@ const MainServices = (props) => {
                 resizeMode={"cover"}
                 style={styles.cardItemImagePlace}
               />
-            ) : null}
+            ) : (
+              <Shimmer
+                width={"100%"}
+                height={styles.cardItemImagePlace.height}
+              />
+            )}
           </View>
         </View>
         <Text style={styles.titleStyle}>{item?.serviceName}</Text>
@@ -63,6 +64,7 @@ const MainServices = (props) => {
 
   return mainServices ? (
     <>
+      <Text style={styles.history}>Services</Text>
       <List
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
@@ -92,6 +94,7 @@ const MainServices = (props) => {
     </>
   ) : (
     <>
+      <Text style={styles.history}>Services</Text>
       <Shimmer
         width={styles.serviceCards.width}
         marginTop={styles.serviceCards.marginTop}

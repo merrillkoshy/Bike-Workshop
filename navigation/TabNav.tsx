@@ -8,43 +8,57 @@ import ServicesScreen from "./ServicesStack";
 import ProfilePage from "../screens/Profile";
 
 import {
-  BottomNavigation,
-  BottomNavigationTab,
-  Icon,
-  Layout,
-  Text,
+	BottomNavigation,
+	BottomNavigationProps,
+	BottomNavigationTab,
+	Icon,
+	Layout,
+	Text,
 } from "@ui-kitten/components";
+import { Dimensions, Platform } from "react-native";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
-export default function Home(props) {
-  const HomeIcon = (props) => <Icon {...props} name="home-outline" />;
-  const ServiceIcon = (props) => <Icon {...props} name="list-outline" />;
-  const ProfileIcon = (props) => <Icon {...props} name="person-outline" />;
+export default function Home() {
+	const HomeIcon = (props: any) => <Icon {...props} name="home-outline" />;
+	const ServiceIcon = (props: any) => <Icon {...props} name="list-outline" />;
+	const ProfileIcon = (props: any) => <Icon {...props} name="person-outline" />;
 
-  const BottomTabBar = ({ navigation, state }) => (
-    <BottomNavigation
-      selectedIndex={state.index}
-      onSelect={(index) => navigation.navigate(state.routeNames[index])}
-    >
-      <BottomNavigationTab
-        title={(evaProps) => <Text {...evaProps}>Home</Text>}
-        icon={HomeIcon}
-      />
-      <BottomNavigationTab
-        title={(evaProps) => <Text {...evaProps}>Services</Text>}
-        icon={ServiceIcon}
-      />
-      <BottomNavigationTab
-        title={(evaProps) => <Text {...evaProps}>Profile</Text>}
-        icon={ProfileIcon}
-      />
-    </BottomNavigation>
-  );
+	const BottomTabBar = ({
+		navigation,
+		state,
+	}: {
+		navigation: any;
+		state: any;
+	}) => (
+		<BottomNavigation
+			selectedIndex={state.index}
+			onSelect={(index) => navigation.navigate(state.routeNames[index])}
+			style={
+				{
+					height:
+						Platform.OS == "ios" ? Dimensions.get("window").height * 0.1 : null,
+				} as BottomNavigationProps
+			}
+		>
+			<BottomNavigationTab
+				title={(evaProps) => <Text {...evaProps}>Home</Text>}
+				icon={HomeIcon}
+			/>
+			<BottomNavigationTab
+				title={(evaProps) => <Text {...evaProps}>Services</Text>}
+				icon={ServiceIcon}
+			/>
+			<BottomNavigationTab
+				title={(evaProps) => <Text {...evaProps}>Profile</Text>}
+				icon={ProfileIcon}
+			/>
+		</BottomNavigation>
+	);
 
-  return (
-    <Navigator tabBar={(props) => <BottomTabBar {...props} />}>
-      {/* <Tab.Navigator
+	return (
+		<Navigator tabBar={(props) => <BottomTabBar {...props} />}>
+			{/* <Tab.Navigator
       tabBarOptions={{
         activeTintColor: theme?.PRIMARY_COLOR,
         inactiveTintColor: theme?.INACTIVE,
@@ -96,9 +110,9 @@ export default function Home(props) {
         component={ProfilePage}
       />
     </Tab.Navigator> */}
-      <Screen name="Home" component={HomeScreen} />
-      <Screen name="Services" component={ServicesScreen} />
-      <Screen name="Profile" component={ProfilePage} />
-    </Navigator>
-  );
+			<Screen name="Home" component={HomeScreen} />
+			<Screen name="Services" component={ServicesScreen} />
+			<Screen name="Profile" component={ProfilePage} />
+		</Navigator>
+	);
 }

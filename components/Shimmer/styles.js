@@ -6,5 +6,6 @@ export default StyleSheet.create({
     backgroundColor: "#eee",
     borderBottomStartRadius: 30,
     borderBottomEndRadius: 30,
+    alignSelf: "center",
   },
 });
